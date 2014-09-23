@@ -33,9 +33,7 @@ public class Editor {
 		if(getExtension(archivo).equals("xml")){
 			correcto = true;
 		}
-		
-		
-		}
+			}
 		
 		//leer xml con dom parser
 		
@@ -43,23 +41,23 @@ public class Editor {
 			
 			DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
 			DocumentBuilder dBuilder = dbFactory.newDocumentBuilder();
-			
-			
 			Document doc = dBuilder.parse(archivo);
 			
 			System.out.println(doc.getDocumentElement().getNodeName());
 			
-			DiagramaDeClase dc = new DiagramaDeClase();
+			EventQueue.invokeLater(new Runnable() {
+				public void run() {
+					try {
+						DiagClase window = new DiagClase();
+						window.frame.setVisible(true);
+					} catch (Exception e) {
+						e.printStackTrace();
+					}
+				}
+			});
 			
 			
-			dc.FrameDiagClase = new JFrame("Diagrama de Clase");
-		/*	dc.FrameDiagClase.addWindowListener(new WindowAdapter() {
-				 public void windowClosing(WindowEvent e)
-				 {System.exit(0);} });  */   // es para que termine el programa cuando se cierre, puede servir mas adelante
-			dc.FrameDiagClase.getContentPane().add(dc.myPanel);
-			dc.FrameDiagClase.pack(); 
-			dc.FrameDiagClase.setVisible(true);
-			
+						
 			
 		} 
 		
