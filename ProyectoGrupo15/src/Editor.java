@@ -16,8 +16,14 @@ public class Editor {
 		if(getExtension(archivo).equals("xml")){
 			correcto = true;
 		}
+<<<<<<< HEAD
 			}
 =======
+=======
+		
+		
+		}
+>>>>>>> parent of 175c994... EditorV1.2
 		
 >>>>>>> parent of bccf055... EditorV1.1
 		
@@ -27,23 +33,23 @@ public class Editor {
 			
 			DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
 			DocumentBuilder dBuilder = dbFactory.newDocumentBuilder();
+			
+			
 			Document doc = dBuilder.parse(archivo);
 			
 			System.out.println(doc.getDocumentElement().getNodeName());
 			
-			EventQueue.invokeLater(new Runnable() {
-				public void run() {
-					try {
-						DiagClase window = new DiagClase();
-						window.frame.setVisible(true);
-					} catch (Exception e) {
-						e.printStackTrace();
-					}
-				}
-			});
+			DiagramaDeClase dc = new DiagramaDeClase();
 			
 			
-						
+			dc.FrameDiagClase = new JFrame("Diagrama de Clase");
+		/*	dc.FrameDiagClase.addWindowListener(new WindowAdapter() {
+				 public void windowClosing(WindowEvent e)
+				 {System.exit(0);} });  */   // es para que termine el programa cuando se cierre, puede servir mas adelante
+			dc.FrameDiagClase.getContentPane().add(dc.myPanel);
+			dc.FrameDiagClase.pack(); 
+			dc.FrameDiagClase.setVisible(true);
+			
 			
 		} 
 		
