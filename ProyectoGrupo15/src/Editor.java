@@ -17,8 +17,14 @@ public class Editor {
 			correcto = true;
 		}
 <<<<<<< HEAD
+<<<<<<< HEAD
 			}
 =======
+=======
+		
+		
+		}
+>>>>>>> parent of 175c994... EditorV1.2
 =======
 		
 		
@@ -40,7 +46,10 @@ public class Editor {
 			System.out.println(doc.getDocumentElement().getNodeName());
 			
 			DiagramaDeClase dc = new DiagramaDeClase();
+<<<<<<< HEAD
+=======
 			
+>>>>>>> parent of 175c994... EditorV1.2
 			
 			dc.FrameDiagClase = new JFrame("Diagrama de Clase");
 		/*	dc.FrameDiagClase.addWindowListener(new WindowAdapter() {
@@ -50,6 +59,17 @@ public class Editor {
 			dc.FrameDiagClase.pack(); 
 			dc.FrameDiagClase.setVisible(true);
 			
+<<<<<<< HEAD
+			dc.FrameDiagClase = new JFrame("Diagrama de Clase");
+		/*	dc.FrameDiagClase.addWindowListener(new WindowAdapter() {
+				 public void windowClosing(WindowEvent e)
+				 {System.exit(0);} });  */   // es para que termine el programa cuando se cierre, puede servir mas adelante
+			dc.FrameDiagClase.getContentPane().add(dc.myPanel);
+			dc.FrameDiagClase.pack(); 
+			dc.FrameDiagClase.setVisible(true);
+			
+=======
+>>>>>>> parent of 175c994... EditorV1.2
 			
 		} 
 		
