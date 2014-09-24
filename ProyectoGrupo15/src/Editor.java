@@ -22,6 +22,7 @@ public class Editor {
 
 	public static void main(String[] args) {
 		
+		
 		boolean correcto = false;
 		File archivo = null;
 		Scanner teclado = null;
@@ -31,6 +32,7 @@ public class Editor {
 		JFileChooser fc = new JFileChooser();
 		int respuesta = fc.showOpenDialog(null);
 		archivo = fc.getSelectedFile();
+		//File archivo = new File("C:/Users/Diego Avila/Desktop/REPOteMP/prueba.xml");
 		if(getExtension(archivo).equals("xml")){
 			correcto = true;
 		}
@@ -60,11 +62,11 @@ public class Editor {
 				indicador = 1;
 			}
 			
-			if (indicador == 0)
+			if (indicador == 0) //UserCaseDiagram
 			{
-				UseCase.XmlManager x = new UseCase.XmlManager(archivo);				
+				UseCase.Manager manager = new UseCase.Manager(archivo);				
 			}
-			else
+			else //ClassDiagram
 			{
 				System.out.println(doc.getDocumentElement().getNodeName());
 				

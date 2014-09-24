@@ -13,6 +13,7 @@ public class Diagram
 		actors = new ArrayList<Actor>();
 		userCases = new ArrayList<UserCase>();
 		connections = new ArrayList<Connection>();
+		
 	}
 	
 	public void addActor(Actor a)
@@ -29,5 +30,21 @@ public class Diagram
 	{
 		connections.add(c);
 	}
+	
+	public List<Actor> getActors()
+	{
+		return actors;
+	}
+	
+	public List<UserCase> getUserCases()
+	{
+		return userCases;
+	}
+	
+	public List<Connection> getConnections()
+	{
+		return connections;
+	}
+	
 
 }
