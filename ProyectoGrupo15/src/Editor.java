@@ -1,9 +1,26 @@
+import java.awt.*;
+import java.awt.image.BufferedImage;
+import java.io.*;
+import java.util.*;
+
+import javax.imageio.ImageIO;
+import javax.swing.JFileChooser;
+import javax.swing.JFrame;
+import javax.xml.parsers.DocumentBuilderFactory;
+import javax.xml.parsers.DocumentBuilder;
+import javax.xml.parsers.ParserConfigurationException;
+
+import org.w3c.dom.Document;
+import org.w3c.dom.NodeList;
+import org.w3c.dom.Node;
+import org.w3c.dom.Element;
+import org.xml.sax.SAXException;
+
 
 public class Editor {
 
 	public static void main(String[] args) {
 		
-<<<<<<< HEAD
 		boolean correcto = false;
 		File archivo = null;
 		Scanner teclado = null;
@@ -16,25 +33,12 @@ public class Editor {
 		if(getExtension(archivo).equals("xml")){
 			correcto = true;
 		}
-<<<<<<< HEAD
-<<<<<<< HEAD
-			}
-=======
-=======
 		
 		
 		}
->>>>>>> parent of 175c994... EditorV1.2
-=======
 		
+		//leer xml con dom parser
 		
-		}
->>>>>>> parent of 175c994... EditorV1.2
-		
->>>>>>> parent of bccf055... EditorV1.1
-		
-		
-<<<<<<< HEAD
 		try {
 			
 			DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
@@ -46,10 +50,7 @@ public class Editor {
 			System.out.println(doc.getDocumentElement().getNodeName());
 			
 			DiagramaDeClase dc = new DiagramaDeClase();
-<<<<<<< HEAD
-=======
 			
->>>>>>> parent of 175c994... EditorV1.2
 			
 			dc.FrameDiagClase = new JFrame("Diagrama de Clase");
 		/*	dc.FrameDiagClase.addWindowListener(new WindowAdapter() {
@@ -59,17 +60,6 @@ public class Editor {
 			dc.FrameDiagClase.pack(); 
 			dc.FrameDiagClase.setVisible(true);
 			
-<<<<<<< HEAD
-			dc.FrameDiagClase = new JFrame("Diagrama de Clase");
-		/*	dc.FrameDiagClase.addWindowListener(new WindowAdapter() {
-				 public void windowClosing(WindowEvent e)
-				 {System.exit(0);} });  */   // es para que termine el programa cuando se cierre, puede servir mas adelante
-			dc.FrameDiagClase.getContentPane().add(dc.myPanel);
-			dc.FrameDiagClase.pack(); 
-			dc.FrameDiagClase.setVisible(true);
-			
-=======
->>>>>>> parent of 175c994... EditorV1.2
 			
 		} 
 		
@@ -79,8 +69,18 @@ public class Editor {
 		}
 		
 		teclado.close();
-=======
->>>>>>> parent of bccf055... EditorV1.1
 	}
 
+	
+	public static String getExtension(File f) // obtener extension del archivo
+	{
+	    String ext = null;
+	    String s = f.getName();
+	    int i = s.lastIndexOf('.');
+
+	    if (i > 0 &&  i < s.length() - 1) {
+	        ext = s.substring(i+1).toLowerCase();
+	    }
+	    return ext;
+	}
 }
