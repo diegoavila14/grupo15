@@ -1,26 +1,9 @@
-import java.awt.*;
-import java.awt.image.BufferedImage;
-import java.io.*;
-import java.util.*;
-
-import javax.imageio.ImageIO;
-import javax.swing.JFileChooser;
-import javax.swing.JFrame;
-import javax.xml.parsers.DocumentBuilderFactory;
-import javax.xml.parsers.DocumentBuilder;
-import javax.xml.parsers.ParserConfigurationException;
-
-import org.w3c.dom.Document;
-import org.w3c.dom.NodeList;
-import org.w3c.dom.Node;
-import org.w3c.dom.Element;
-import org.xml.sax.SAXException;
-
 
 public class Editor {
 
 	public static void main(String[] args) {
 		
+<<<<<<< HEAD
 		boolean correcto = false;
 		File archivo = null;
 		Scanner teclado = null;
@@ -34,9 +17,12 @@ public class Editor {
 			correcto = true;
 		}
 			}
+=======
 		
-		//leer xml con dom parser
+>>>>>>> parent of bccf055... EditorV1.1
 		
+		
+<<<<<<< HEAD
 		try {
 			
 			DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
@@ -67,18 +53,8 @@ public class Editor {
 		}
 		
 		teclado.close();
+=======
+>>>>>>> parent of bccf055... EditorV1.1
 	}
 
-	
-	public static String getExtension(File f) // obtener extension del archivo
-	{
-	    String ext = null;
-	    String s = f.getName();
-	    int i = s.lastIndexOf('.');
-
-	    if (i > 0 &&  i < s.length() - 1) {
-	        ext = s.substring(i+1).toLowerCase();
-	    }
-	    return ext;
-	}
 }
