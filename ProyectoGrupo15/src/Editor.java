@@ -4,6 +4,7 @@ import java.io.*;
 import java.util.*;
 
 import javax.imageio.ImageIO;
+import javax.swing.JButton;
 import javax.swing.JFileChooser;
 import javax.swing.JFrame;
 import javax.xml.parsers.DocumentBuilderFactory;
@@ -43,23 +44,17 @@ public class Editor {
 			
 			DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
 			DocumentBuilder dBuilder = dbFactory.newDocumentBuilder();
-			
-			
 			Document doc = dBuilder.parse(archivo);
+			
+			
 			
 			System.out.println(doc.getDocumentElement().getNodeName());
 			
 			DiagramaDeClase dc = new DiagramaDeClase();
+		
 			
 			
-			dc.FrameDiagClase = new JFrame("Diagrama de Clase");
-		/*	dc.FrameDiagClase.addWindowListener(new WindowAdapter() {
-				 public void windowClosing(WindowEvent e)
-				 {System.exit(0);} });  */   // es para que termine el programa cuando se cierre, puede servir mas adelante
-			dc.FrameDiagClase.getContentPane().add(dc.myPanel);
-			dc.FrameDiagClase.pack(); 
-			dc.FrameDiagClase.setVisible(true);
-			
+		
 			
 		} 
 		

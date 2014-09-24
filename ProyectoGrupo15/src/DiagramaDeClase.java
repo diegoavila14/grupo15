@@ -8,43 +8,51 @@ import java.io.File;
 import java.io.IOException;
 
 
-public class DiagramaDeClase {
+public class DiagramaDeClase extends JFrame {
 
-	public static JFrame FrameDiagClase;
-	public static JPanel myPanel;
-	private JButton button1;
+	JButton PNGButton;
 	
 	public DiagramaDeClase(){
 		
-		myPanel = new JPanel();
-		button1 = new JButton("Button 1");
-		SimpleListener ourListener = new SimpleListener();
-		button1.addActionListener(ourListener);
-		myPanel.add(button1);
+		super("Diagrama De Clase");
+		setSize(800, 800);
+		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		placeComponents();
+		setVisible(true);
 	}
 	
-	private class SimpleListener implements ActionListener
-	 {
-	
-		public void actionPerformed(ActionEvent e)
-		{
+	private void placeComponents() {
 		
-		 if (e.getSource() == button1){
-			
-			 {
-			BufferedImage image = new BufferedImage(myPanel.getWidth(), myPanel.getHeight(), BufferedImage.TYPE_INT_RGB);
+		setLayout(null);
+		
+		PNGButton = new JButton("PNG");
+		PNGButton.setBounds(180, 80, 80, 25);
+		add(PNGButton);
+		
+		ActionListener PNGButtonListener = new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+			if (e.getSource() == PNGButton){
 				
-			myPanel.paint(image.getGraphics());
-			File file = new File("diagclase.png");
-			try {
-				ImageIO.write(image, "png", file);
-			} catch (IOException e1) {
-			
-				e1.printStackTrace();
+				 {
+				BufferedImage image = new BufferedImage(getWidth(), getHeight(), BufferedImage.TYPE_INT_RGB);
+					
+				paint(image.getGraphics());
+				File file = new File("diagclase.png");
+				try {
+					ImageIO.write(image, "png", file);
+				} catch (IOException e1) {
+				
+					e1.printStackTrace();
+				}
+				 }
+				 
+			} 
 			}
-			 }
-			 
-		 }
-	 }
-	 }
+		};
+		
+		PNGButton.addActionListener(PNGButtonListener);
+	}
+	
+	
+	
 }
