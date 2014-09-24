@@ -46,11 +46,36 @@ public class Editor {
 			DocumentBuilder dBuilder = dbFactory.newDocumentBuilder();
 			Document doc = dBuilder.parse(archivo);
 			
+			//Lo siguiente es para detectar si el xml es de UserCase o de Clases
+			String rootN = doc.getFirstChild().getNodeName();
+			int indicador; //0=UserCaseDiagram 1 =ClassDiagram
+			if (rootN.equals("UseCaseDiagram"))
+			{
+				System.out.println("User Case Diagram");
+				indicador = 0;
+			}
+			else
+			{
+				System.out.println("Class Diagram");
+				indicador = 1;
+			}
+			
+			if (indicador == 0)
+			{
+				UseCase.XmlManager x = new UseCase.XmlManager(archivo);				
+			}
+			else
+			{
+				System.out.println(doc.getDocumentElement().getNodeName());
+				
+				DiagramaDeClase dc = new DiagramaDeClase();
+			}
 			
 			
-			System.out.println(doc.getDocumentElement().getNodeName());
 			
-			DiagramaDeClase dc = new DiagramaDeClase();
+			//System.out.println(doc.getDocumentElement().getNodeName());
+			
+			//DiagramaDeClase dc = new DiagramaDeClase();
 		
 			
 			
