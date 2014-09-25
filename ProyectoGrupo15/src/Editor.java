@@ -44,18 +44,25 @@ public class Editor {
 		boolean correcto = false;
 		File archivo = null;
 		Scanner teclado = null;
-		while(correcto == false){ // Para checkear que sea un xml
-		
-		teclado = new Scanner(System.in);
-		JFileChooser fc = new JFileChooser();
-		int respuesta = fc.showOpenDialog(null);
-		archivo = fc.getSelectedFile();
-		//File archivo = new File("C:/Users/Diego Avila/Desktop/REPOteMP/prueba.xml");
-		if(getExtension(archivo).equals("xml")){
-			correcto = true;
-		}
-		
-		
+		int contador = 0;
+		while(correcto == false)
+		{ // Para checkear que sea un xml
+			
+			if (contador > 0)
+			{
+				String mensajeError = "Extensión de archivo incorrecta" + "\nInténtelo denuevo con un archivo XML";
+				JOptionPane.showMessageDialog(null,mensajeError,"Parsing Error",JOptionPane.ERROR_MESSAGE);
+			}	
+			teclado = new Scanner(System.in);
+			JFileChooser fc = new JFileChooser();
+			int respuesta = fc.showOpenDialog(null);
+			archivo = fc.getSelectedFile();
+			//File archivo = new File("C:/Users/Diego Avila/Desktop/REPOteMP/prueba.xml");
+			if(getExtension(archivo).equals("xml"))
+			{
+				correcto = true;
+			}
+			contador++;
 		}
 		
 		//leer xml con dom parser
