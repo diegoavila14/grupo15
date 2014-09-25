@@ -68,16 +68,11 @@ public class Editor {
 			}
 			else //ClassDiagram
 			{
-				System.out.println(doc.getDocumentElement().getNodeName());
-				
-				DiagramaDeClase dc = new DiagramaDeClase();
+				Compilador comp = new Compilador(archivo);
 			}
 			
 			
-			
-			//System.out.println(doc.getDocumentElement().getNodeName());
-			
-			//DiagramaDeClase dc = new DiagramaDeClase();
+		
 		
 			
 			

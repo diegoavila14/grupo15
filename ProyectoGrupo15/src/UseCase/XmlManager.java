@@ -34,7 +34,7 @@ public class XmlManager
 			
 			Node actors = doc.getElementsByTagName("actors").item(0);
 			NodeList actorList = actors.getChildNodes();
-			
+		
 			for (int i = 0; i < getListLength(actorList); i++)
 			{
 				Node currentItem = getChildIndex(actorList,i);

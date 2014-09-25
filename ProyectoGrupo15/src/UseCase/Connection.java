@@ -13,5 +13,17 @@ public class Connection {
 		this.idTo = IdTo;
 		
 	}
-
+	
+	public String getType(){
+		
+		return type;
+	}
+	public String getidFrom(){
+		
+		return idFrom;
+	}
+	public String getidTo(){
+		
+		return idTo;
+	}
 }

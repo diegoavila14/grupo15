@@ -1,21 +1,43 @@
 import java.util.*;
 
 
+
 public class Clase {
 	
 	
 	String id;
 	String nombre;
 	String etiqueta;
-	ArrayList<Atributos> att;
-	ArrayList<Metodos> methods; 
+	List<Atributos> att;
+	List<Metodos> methods; 
 	
-	public Clase(String i, String n, String e ){
+	public Clase(String i, String n){
 		
 		id = i;
-		nombre = i;
-		etiqueta = e;
-		att = new ArrayList<>();
-		methods = new ArrayList<>();
+		nombre = n;
+		etiqueta = "";
+		att = new ArrayList<Atributos>();
+		methods = new ArrayList<Metodos>();
+	}
+	
+	
+	public void addAtt(Atributos a)
+	{
+		att.add(a);		
+	}
+	
+	public void addMethod(Metodos m)
+	{
+		methods.add(m);		
+	}
+	
+	public List<Atributos> getAtt(){
+		
+		return att;
+	}
+	
+	public List<Metodos> getMethods(){
+		
+		return methods;
 	}
 }
