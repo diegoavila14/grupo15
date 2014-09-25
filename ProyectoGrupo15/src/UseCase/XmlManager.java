@@ -1,6 +1,7 @@
 package UseCase;
 import java.io.*;
 
+import javax.swing.JOptionPane;
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.ParserConfigurationException;
@@ -82,8 +83,10 @@ public class XmlManager
 			
 		} 
 		
-		catch (IOException | ParserConfigurationException | SAXException e) {
-
+		catch (IOException | ParserConfigurationException | SAXException e) 
+		{
+			String mensajeError = "Error en el formato del archivo XML" + "\nInténtelo denuevo con otro archivo";
+			JOptionPane.showMessageDialog(null,mensajeError,"Parsing Error",JOptionPane.ERROR_MESSAGE);
 			e.printStackTrace();
 		}
 	}

@@ -7,6 +7,7 @@ import javax.imageio.ImageIO;
 import javax.swing.JButton;
 import javax.swing.JFileChooser;
 import javax.swing.JFrame;
+import javax.swing.JOptionPane;
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.ParserConfigurationException;
@@ -20,9 +21,26 @@ import org.xml.sax.SAXException;
 
 public class Editor {
 
-	public static void main(String[] args) {
-		
-		
+	public static void main(String[] args) 
+	{
+		Import();		
+	}
+
+	
+	public static String getExtension(File f) // obtener extension del archivo
+	{
+	    String ext = null;
+	    String s = f.getName();
+	    int i = s.lastIndexOf('.');
+
+	    if (i > 0 &&  i < s.length() - 1) {
+	        ext = s.substring(i+1).toLowerCase();
+	    }
+	    return ext;
+	}
+	
+	public static void Import()
+	{
 		boolean correcto = false;
 		File archivo = null;
 		Scanner teclado = null;
@@ -80,24 +98,14 @@ public class Editor {
 			
 		} 
 		
-		catch (IOException | ParserConfigurationException | SAXException e) {
-
+		catch (IOException | ParserConfigurationException | SAXException e) 
+		{
+			String mensajeError = "Error en el formato del archivo XML" + "\nInténtelo denuevo con otro archivo";
+			JOptionPane.showMessageDialog(null,mensajeError,"Parsing Error",JOptionPane.ERROR_MESSAGE);
 			e.printStackTrace();
+			Import();
 		}
 		
-		teclado.close();
-	}
-
-	
-	public static String getExtension(File f) // obtener extension del archivo
-	{
-	    String ext = null;
-	    String s = f.getName();
-	    int i = s.lastIndexOf('.');
-
-	    if (i > 0 &&  i < s.length() - 1) {
-	        ext = s.substring(i+1).toLowerCase();
-	    }
-	    return ext;
+		teclado.close();		
 	}
 }
