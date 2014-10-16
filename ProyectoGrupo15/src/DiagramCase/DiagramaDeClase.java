@@ -12,6 +12,7 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JTextArea;
 
+import net.miginfocom.swing.MigLayout;
 import UseCase.Actor;
 import UseCase.Connection;
 
@@ -19,7 +20,7 @@ public class DiagramaDeClase extends JFrame {
 
 	JButton PNGButton;
 	ClassDiagram cd;
-	
+	Cuadro cu ;
 	public DiagramaDeClase(ClassDiagram cdd){
 		
 		super("Diagrama De Clase");
@@ -33,7 +34,7 @@ public class DiagramaDeClase extends JFrame {
 	
 	private void placeComponents() {
 		
-		setLayout(null);
+		setLayout(new MigLayout("", "[grow]", "[][][][][]"));
 		placeClasses();
 		placeConnections();
 		PNGButton = new JButton("PNG");
@@ -66,53 +67,66 @@ public class DiagramaDeClase extends JFrame {
 	
 	private void placeClasses(){
 		
-		JLabel l = new JLabel("Clases");
-		l.setFont(new Font("Courier New", Font.ITALIC, 15));
-		l.setBounds(35,50,250,35);
-		add(l);
 		
-		JTextArea jta = new JTextArea();
-		jta.setBounds(35,80,500,500);
 		
 		java.util.List<Clase> list = cd.getClasses();
 		
 		for (int i = 0; i < list.size(); i++)
 		{
-			jta.append("Clase: \n ");
-			Clase c = list.get(i);
-			String temp = c.id+" "+c.nombre+"\n";
-			jta.append(temp);
+			cu = new Cuadro();
 			
+			Clase c = list.get(i);
+			
+		
+			cu.Nombre.setText(c.nombre);
+			cu.setBounds(300,50,250,500);
+			add(cu);
 			java.util.List<Atributos> list2= c.getAtt();
-			jta.append("Atributos: \n ");
+			
 			for (int j = 0; j < list2.size(); j++)
 			{
 				Atributos a = list2.get(j);
-				String temp2 = a.nombre + " " + a.tipo + " visibilidad: " + a.visibilidad + "\n";
-				jta.append(temp2);
+				
+				cu.Atributos.setText(cu.Atributos.getText()+ a.visibilidad + a.nombre + ":" + a.tipo );				
+				if(j+1 != list2.size()){
+				cu.Atributos.setText(cu.Atributos.getText() + "\n");	
+				}
 			}
 			
 			java.util.List<Metodos> list3= c.getMethods();
-			jta.append("Metodos: \n ");
+			
 			for (int j = 0; j < list3.size(); j++)
 			{
 				Metodos m = list3.get(j);
 				String temp2 = m.nombre + " retorno: " + m.retorno + " visibilidad: " + m.visibilidad + "\n";
-				jta.append(temp2);
+				
+				cu.Metodos.setText(cu.Metodos.getText()+ m.visibilidad + m.nombre + "(");
 				
 				java.util.List<Parametros> list4= m.getParam();
-				jta.append("Parametros: \n ");
+	
 				
 				for (int k = 0; k < list4.size(); k++)
 				{
 					Parametros p = list4.get(j);
-					String temp3 = p.nombre + " " + p.tipo + "\n";
-					jta.append(temp3);
-				}
-			}
+					
+					cu.Metodos.setText(cu.Metodos.getText()+ p.nombre + ":" +  p.tipo );
+					if(k+1 != list4.size()){
+						cu.Atributos.setText(cu.Atributos.getText() + ", ");	
+						}
+					
+				
 			
+				}
+				
+				cu.Metodos.setText(cu.Metodos.getText()+ ")" + ":" + m.retorno);
+				if(j+1 != list3.size()){
+					cu.Atributos.setText(cu.Atributos.getText() + "\n");	
+					}
+			}
+			add(cu);
 		}
-		add(jta);
+	
+	
 	}
 	
 	private void placeConnections()

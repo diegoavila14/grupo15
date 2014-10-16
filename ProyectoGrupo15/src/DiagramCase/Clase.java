@@ -6,6 +6,18 @@ import java.util.*;
 public class Clase {
 	
 	
+	
+
+	public void setAtt(List<Atributos> att) {
+		this.att = att;
+	}
+
+
+	public void setMethods(List<Metodos> methods) {
+		this.methods = methods;
+	}
+
+
 	String id;
 	String nombre;
 	String etiqueta;
@@ -40,5 +52,34 @@ public class Clase {
 	public List<Metodos> getMethods(){
 		
 		return methods;
+	}
+	
+	public String getId() {
+		return id;
+	}
+
+
+	public void setId(String id) {
+		this.id = id;
+	}
+
+
+	public String getNombre() {
+		return nombre;
+	}
+
+
+	public void setNombre(String nombre) {
+		this.nombre = nombre;
+	}
+
+
+	public String getEtiqueta() {
+		return etiqueta;
+	}
+
+
+	public void setEtiqueta(String etiqueta) {
+		this.etiqueta = etiqueta;
 	}
 }
