@@ -20,6 +20,7 @@ import org.w3c.dom.Element;
 import org.xml.sax.SAXException;
 
 import DiagramCase.Compilador;
+import Editor.*;
 
 
 public class Editor {
@@ -47,6 +48,8 @@ public class Editor {
 		boolean correcto = false;
 		File archivo = null;
 		Scanner teclado = null;
+		FileReader fr = null;
+	    BufferedReader br = null;
 		int contador = 0;
 		while(correcto == false)
 		{ // Para checkear que sea un xml
@@ -70,7 +73,7 @@ public class Editor {
 		
 		//leer xml con dom parser
 		
-		try {
+	/*	try {
 			
 			DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
 			DocumentBuilder dBuilder = dbFactory.newDocumentBuilder();
@@ -99,13 +102,6 @@ public class Editor {
 				Compilador comp = new Compilador(archivo);
 			}
 			
-			
-		
-		
-			
-			
-		
-			
 		} 
 		
 		catch (IOException | ParserConfigurationException | SAXException e) 
@@ -115,6 +111,54 @@ public class Editor {
 			e.printStackTrace();
 			Import();
 		}
+		*/
+		
+		try{
+			fr = new FileReader(archivo );
+			br = new BufferedReader (
+				    new InputStreamReader(
+				            new FileInputStream(archivo),
+				            "UTF-8"));
+			InterfazEditorText ie = new InterfazEditorText();
+			
+			
+			String Dato = "";
+			String XML = "";
+			while((Dato = br.readLine())!=null){  // habia un simbolo extraño cuando leia un "-" en la visibilidad, asi que lo elimine con estos if
+			
+				if(Dato.contains("visibility")){
+				
+					String[] Error = Dato.split("visibility");
+				
+					if(Error[1].contains("Â")){
+						String[] Error2 = Error[1].split("Â");
+				
+						XML = XML + Error[0] + "visibility" + Error2[0] + Error2[1] + "\n";
+						
+					}
+					
+					
+					else{
+					
+					XML = XML  + Error[0] + "visibility" + Error[1] + "\n";
+					}
+				}
+				else{
+				XML = XML + Dato + "\n";
+				}
+			}
+			ie.editorPane.setText(XML);
+			
+			fr.close();
+			br.close();
+		}
+		
+		catch(IOException e ){
+			String mensajeError = "Error en el formato del archivo XML" + "\nInténtelo denuevo con otro archivo";
+			JOptionPane.showMessageDialog(null,mensajeError,"Parsing Error",JOptionPane.ERROR_MESSAGE);
+			e.printStackTrace();
+		}
+		
 		
 		teclado.close();		
 	}
