@@ -31,11 +31,11 @@ public class ExportManager extends JFrame
 	private void placeComponents() 
 	{
 		
-		setLayout(null);
+		getContentPane().setLayout(null);
 		
 		PNGButton = new JButton("PNG");
 		PNGButton.setBounds(1100, 630, 90, 35);
-		add(PNGButton);
+		getContentPane().add(PNGButton);
 		
 		placeActors();
 		placeUserCases();
@@ -72,7 +72,7 @@ public class ExportManager extends JFrame
 		JLabel l = new JLabel("Actores primarios");
 		l.setFont(new Font("Courier New", Font.ITALIC, 15));
 		l.setBounds(35,50,250,35);
-		add(l);
+		getContentPane().add(l);
 		
 		JTextArea jta = new JTextArea();
 		jta.setBounds(35,80,250,250);
@@ -80,7 +80,7 @@ public class ExportManager extends JFrame
 		JLabel l2 = new JLabel("Actores secundarios");
 		l2.setFont(new Font("Courier New", Font.ITALIC, 15));
 		l2.setBounds(830,50,250,35);
-		add(l2);
+		getContentPane().add(l2);
 		
 		JTextArea jta2 = new JTextArea();
 		jta2.setBounds(830,80,250,250);
@@ -101,8 +101,8 @@ public class ExportManager extends JFrame
 			}
 			
 		}
-		add(jta);
-		add(jta2);
+		getContentPane().add(jta);
+		getContentPane().add(jta2);
 	}
 	
 	private void placeUserCases()
@@ -110,21 +110,31 @@ public class ExportManager extends JFrame
 		JLabel l = new JLabel("Casos de Uso");
 		l.setFont(new Font("Courier New", Font.ITALIC, 15));
 		l.setBounds(300,50,250,35);
-		add(l);
+		getContentPane().add(l);
 		
 		JTextArea jta = new JTextArea();
 		jta.setBounds(300,80,250,250);
 		
 		//Itero para recoger todos los Casos de Uso
 		java.util.List<UserCase> list = d.getUserCases();
+		int lastAprox = 0; //Para hacer la separación de los bloques de acuerdo a su largo
 		for (int i = 0; i < list.size(); i++)
 		{
 			UserCase uc = list.get(i);
 			String temp = uc.id+" "+uc.name+"\n";
 			jta.append(temp);
 			
+			Entity entity = new Entity();
+			entity.setLabel(uc.name);
+			Double n = (uc.name.length()*6.54) + 20; // Para ver el tamaño de los bloques
+			int aprox = n.intValue();
+			entity.setBounds(lastAprox,411,aprox,70);
+			lastAprox += aprox + 20;
+			getContentPane().add(entity);
+			System.out.println("largo: " + n);
+			
 		}
-		add(jta);
+		getContentPane().add(jta);
 	}
 	
 	private void placeConnections()
@@ -132,7 +142,7 @@ public class ExportManager extends JFrame
 		JLabel l = new JLabel("Conexiones");
 		l.setFont(new Font("Courier New", Font.ITALIC, 15));
 		l.setBounds(565,50,250,35);
-		add(l);
+		getContentPane().add(l);
 		
 		JTextArea jta = new JTextArea();
 		jta.setBounds(565,80,250,250);	
@@ -146,6 +156,6 @@ public class ExportManager extends JFrame
 			jta.append(temp);
 			
 		}
-		add(jta);
+		getContentPane().add(jta);
 	}
 }

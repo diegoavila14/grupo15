@@ -1,43 +1,34 @@
 package UseCase;
 
-import java.awt.EventQueue;
+import javax.swing.JPanel;
+import javax.swing.JLabel;
+import java.awt.GridLayout;
+import java.awt.Font;
+import java.awt.Color;
+import javax.swing.border.BevelBorder;
+import javax.swing.border.CompoundBorder;
+import javax.swing.border.LineBorder;
 
-import javax.swing.JFrame;
-
-public class Entity {
-
-	private JFrame frame;
-
-	/**
-	 * Launch the application.
-	 */
-	public static void main(String[] args) {
-		EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				try {
-					Entity window = new Entity();
-					window.frame.setVisible(true);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-		});
-	}
+public class Entity extends JPanel {
 
 	/**
-	 * Create the application.
+	 * Create the panel.
 	 */
+	private JLabel label;
+	
 	public Entity() {
-		initialize();
+		setBorder(new LineBorder(new Color(0, 0, 0), 3));
+		setBackground(Color.YELLOW);
+		setLayout(null);
+		
+		label = new JLabel("hola como esatas que es de tu vida");
+		label.setFont(new Font("Tahoma", Font.PLAIN, 14));
+		label.setBounds(10, 26, 284, 29);
+		add(label);
 	}
-
-	/**
-	 * Initialize the contents of the frame.
-	 */
-	private void initialize() {
-		frame = new JFrame();
-		frame.setBounds(100, 100, 450, 300);
-		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+	
+	public void setLabel(String text)
+	{
+		label.setText(text);		
 	}
-
 }
