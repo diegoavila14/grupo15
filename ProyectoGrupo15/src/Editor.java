@@ -17,6 +17,7 @@ import org.w3c.dom.Document;
 import org.w3c.dom.NodeList;
 import org.w3c.dom.Node;
 import org.w3c.dom.Element;
+import org.xml.sax.InputSource;
 import org.xml.sax.SAXException;
 
 import DiagramCase.Compilador;
@@ -71,56 +72,11 @@ public class Editor {
 			contador++;
 		}
 		
-		//leer xml con dom parser
-		
-	/*	try {
-			
-			DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
-			DocumentBuilder dBuilder = dbFactory.newDocumentBuilder();
-			Document doc = dBuilder.parse(archivo);
-			
-			//Lo siguiente es para detectar si el xml es de UserCase o de Clases
-			String rootN = doc.getFirstChild().getNodeName();
-			int indicador; //0=UserCaseDiagram 1 =ClassDiagram
-			if (rootN.equals("UseCaseDiagram"))
-			{
-				System.out.println("User Case Diagram");
-				indicador = 0;
-			}
-			else
-			{
-				System.out.println("Class Diagram");
-				indicador = 1;
-			}
-			
-			if (indicador == 0) //UserCaseDiagram
-			{
-				UseCase.Manager manager = new UseCase.Manager(archivo);				
-			}
-			else //ClassDiagram
-			{
-				Compilador comp = new Compilador(archivo);
-			}
-			
-		} 
-		
-		catch (IOException | ParserConfigurationException | SAXException e) 
-		{
-			String mensajeError = "Error en el formato del archivo XML" + "\nInténtelo denuevo con otro archivo";
-			JOptionPane.showMessageDialog(null,mensajeError,"Parsing Error",JOptionPane.ERROR_MESSAGE);
-			e.printStackTrace();
-			Import();
-		}
-		*/
-		
+				
 		try{
-			fr = new FileReader(archivo );
-			br = new BufferedReader (
-				    new InputStreamReader(
-				            new FileInputStream(archivo),
-				            "UTF-8"));
-			InterfazEditorText ie = new InterfazEditorText();
-			
+			fr = new FileReader(archivo);
+			br = new BufferedReader(new InputStreamReader(new FileInputStream(archivo),"UTF-8"));
+			InterfazEditorText ie = new InterfazEditorText(archivo);
 			
 			String Dato = "";
 			String XML = "";
@@ -157,9 +113,12 @@ public class Editor {
 			String mensajeError = "Error en el formato del archivo XML" + "\nInténtelo denuevo con otro archivo";
 			JOptionPane.showMessageDialog(null,mensajeError,"Parsing Error",JOptionPane.ERROR_MESSAGE);
 			e.printStackTrace();
+			Import();
 		}
 		
 		
 		teclado.close();		
 	}
+	
+	
 }

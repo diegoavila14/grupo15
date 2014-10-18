@@ -1,9 +1,9 @@
 ﻿<ClassDiagram name = "Content Management System">
 	<class id = "c1" name = "BlogAccount">
 		<attributes>
-			<att name="name" type="String" visibility="­"/>
-			<att name="publicURL" type="URL" visibility="+"/>
-			<att name="authors" type="Author[1..5]" visibility="­"/>
+			<att name = "name" type = "String" visibility = "­"/>
+			<att name = "publicURL" type = "URL" visibility = "+"/>
+			<att name = "authors" type = "Author[1..5]" visibility = "­"/>
 		</attributes>
 		<methods>
 			<method name = "addEntry" type = "void" visibility = "+">
@@ -13,9 +13,9 @@
 	</class>
 	<class id = "c2" name = "BlogAccount2">
 		<attributes>
-			<att name="name2" type="String" visibility="­"/>
-			<att name="publicURL2" type="URL" visibility="+"/>
-			<att name="authors2" type="Author[1..5]" visibility="­"/>
+			<att name = "name2" type = "String" visibility = "­"/>
+			<att name = "publicURL2" type = "URL" visibility = "+"/>
+			<att name = "authors2" type = "Author[1..5]" visibility = "­"/>
 		</attributes>
 		<methods>
 			<method name = "addEntry2" type = "void" visibility = "+">
@@ -24,6 +24,6 @@
 		</methods>
 	</class>
 	<connections>
-		<connection type = "basic" from = "c1" to = " c2" />
+		<connection type = "basic" from = "c1" to = "c2" />
 	</connections>
 </ClassDiagram>
