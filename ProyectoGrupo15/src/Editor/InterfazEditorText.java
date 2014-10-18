@@ -97,11 +97,16 @@ public class InterfazEditorText extends JFrame {
 		    }
 		 
 		 public static void ObtenerXML(String s){
-			 
+			 Document doc;
 			 try {
-					
-				    Document doc = convertStringToDocument(s.substring(1, s.length()));
-					
+					System.out.print(s);
+					if(s.startsWith("<")){ //Esto es por un error extraño que hace aparecer un ? cuando leo el xml, curiosamente solo pasa en el diagrama de clase.
+						doc = convertStringToDocument(s);
+				   
+					}
+					else{
+						doc = convertStringToDocument(s.substring(1, s.length()));
+					}
 					//Lo siguiente es para detectar si el xml es de UserCase o de Clases
 					String rootN = doc.getFirstChild().getNodeName();
 					int indicador; //0=UserCaseDiagram 1 =ClassDiagram
