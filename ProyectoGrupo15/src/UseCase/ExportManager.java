@@ -131,7 +131,6 @@ public class ExportManager extends JFrame
 			entity.setBounds(lastAprox,411,aprox,70);
 			lastAprox += aprox + 20;
 			getContentPane().add(entity);
-			System.out.println("largo: " + n);
 			
 		}
 		getContentPane().add(jta);
