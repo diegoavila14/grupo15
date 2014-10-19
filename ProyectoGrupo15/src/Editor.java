@@ -26,7 +26,8 @@ public class Editor {
 
 	public static void main(String[] args) 
 	{
-		Import();		
+		//System.setProperty("java.util.Arrays.useLegacyMergeSort", "true");
+		Import();
 	}
 
 	

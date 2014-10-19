@@ -1,31 +1,47 @@
 package UseCase;
-import javax.imageio.ImageIO;
-import javax.swing.*;
-
-import java.awt.*;
-import java.awt.List;
-import java.awt.event.*;
+import java.awt.Font;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
-import java.util.*;
+import java.util.EventObject;
 
+import javax.imageio.ImageIO;
+import javax.swing.JButton;
 import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JTextArea;
 
-public class ExportManager extends JFrame 
+import pEventsUtil.*;
+import javax.swing.JMenu;
+import javax.swing.JMenuBar;
+
+public class ExportManager extends JFrame implements pEventListener
 {
 	JButton PNGButton;
 	Diagram d;
+	JTextArea jtaPr;
+	JTextArea jtaSec;
+	JTextArea jtaCon;
+	JTextArea jtaUC;
+	// Se crea el evento
+	public static pEvent ClickEvent;
 	
 	public ExportManager(Diagram diagram)
 	{
-		super("Diagrama De Casos de Uso");
+		//super("Diagrama De Casos de Uso");
 		setSize(1200, 700);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		this.d = diagram;
 		placeComponents();
 		setVisible(true);
 		this.setResizable(false);
+		
+		//Instanciando evento estático.
+		//El escuchador será esta misma clase.
+		this.ClickEvent = new pEvent();
+		this.ClickEvent.addEventListener(this);
 	}
 	
 	private void placeComponents() 
@@ -36,6 +52,7 @@ public class ExportManager extends JFrame
 		PNGButton = new JButton("PNG");
 		PNGButton.setBounds(1100, 630, 90, 35);
 		getContentPane().add(PNGButton);
+		
 		
 		placeActors();
 		placeUserCases();
@@ -74,16 +91,18 @@ public class ExportManager extends JFrame
 		l.setBounds(35,50,250,35);
 		getContentPane().add(l);
 		
-		JTextArea jta = new JTextArea();
-		jta.setBounds(35,80,250,250);
+		jtaPr = new JTextArea();
+		jtaPr.setEditable(false);
+		jtaPr.setBounds(35,80,250,381);
 		
 		JLabel l2 = new JLabel("Actores secundarios");
 		l2.setFont(new Font("Courier New", Font.ITALIC, 15));
 		l2.setBounds(830,50,250,35);
 		getContentPane().add(l2);
 		
-		JTextArea jta2 = new JTextArea();
-		jta2.setBounds(830,80,250,250);
+		jtaSec = new JTextArea();
+		jtaSec.setEditable(false);
+		jtaSec.setBounds(830,80,250,381);
 		
 		//Itero para recoger todos los actores
 		java.util.List<Actor> list = d.getActors();
@@ -93,16 +112,16 @@ public class ExportManager extends JFrame
 			String temp = a.id+" "+a.name+"\n";
 			if (a.type.equals("primary"))
 			{
-				jta.append(temp);				
+				jtaPr.append(temp);				
 			}
 			else
 			{
-				jta2.append(temp);				
+				jtaSec.append(temp);				
 			}
 			
 		}
-		getContentPane().add(jta);
-		getContentPane().add(jta2);
+		getContentPane().add(jtaPr);
+		getContentPane().add(jtaSec);
 	}
 	
 	private void placeUserCases()
@@ -112,8 +131,9 @@ public class ExportManager extends JFrame
 		l.setBounds(300,50,250,35);
 		getContentPane().add(l);
 		
-		JTextArea jta = new JTextArea();
-		jta.setBounds(300,80,250,250);
+		jtaUC = new JTextArea();
+		jtaUC.setEditable(false);
+		jtaUC.setBounds(300,80,250,381);
 		
 		//Itero para recoger todos los Casos de Uso
 		java.util.List<UserCase> list = d.getUserCases();
@@ -122,18 +142,18 @@ public class ExportManager extends JFrame
 		{
 			UserCase uc = list.get(i);
 			String temp = uc.id+" "+uc.name+"\n";
-			jta.append(temp);
+			jtaUC.append(temp);
 			
 			Entity entity = new Entity();
 			entity.setLabel(uc.name);
 			Double n = (uc.name.length()*6.54) + 20; // Para ver el tamaño de los bloques
 			int aprox = n.intValue();
-			entity.setBounds(lastAprox,411,aprox,70);
+			entity.setBounds(lastAprox,600,aprox,70);
 			lastAprox += aprox + 20;
 			getContentPane().add(entity);
 			
 		}
-		getContentPane().add(jta);
+		getContentPane().add(jtaUC);
 	}
 	
 	private void placeConnections()
@@ -143,8 +163,9 @@ public class ExportManager extends JFrame
 		l.setBounds(565,50,250,35);
 		getContentPane().add(l);
 		
-		JTextArea jta = new JTextArea();
-		jta.setBounds(565,80,250,250);	
+		jtaCon = new JTextArea();
+		jtaCon.setEditable(false);
+		jtaCon.setBounds(565,80,250,381);	
 		
 		//Itero para recoger todas las conexiones
 		java.util.List<Connection> list = d.getConnections();
@@ -152,9 +173,84 @@ public class ExportManager extends JFrame
 		{
 			Connection c = list.get(i);
 			String temp = "("+c.idFrom+","+c.idTo+") "+c.type+"\n";
-			jta.append(temp);
+			jtaCon.append(temp);
 			
 		}
-		getContentPane().add(jta);
+		getContentPane().add(jtaCon);
+		
+		
+		//Constructor del DesignMode
+		
+		JButton bAdd1 = new JButton("Agregar");
+		bAdd1.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) 
+			{
+				ActorBuilder ab = new ActorBuilder();
+				ab.primary = true;
+				ab.setVisible(true);
+			}
+		});
+		bAdd1.setBounds(95, 472, 115, 23);
+		getContentPane().add(bAdd1);
+		
+		JButton bAdd2 = new JButton("Agregar");
+		bAdd2.setBounds(364, 472, 115, 23);
+		getContentPane().add(bAdd2);
+		
+		JButton bAdd3 = new JButton("Agregar");
+		bAdd3.setBounds(616, 472, 115, 23);
+		getContentPane().add(bAdd3);
+		
+		JButton bAdd4 = new JButton("Agregar");
+		bAdd4.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) 
+			{
+				ActorBuilder ab = new ActorBuilder();
+				ab.setTitle("Crear Actor Secundario");
+				ab.primary = false;
+				ab.setVisible(true);
+			}
+		});
+		bAdd4.setBounds(887, 472, 115, 23);
+		getContentPane().add(bAdd4);
+		
+		JMenu mnNewMenu = new JMenu("Archivo");
+		mnNewMenu.setBounds(0, 0, 685, 22);
+		getContentPane().add(mnNewMenu);
+	}
+	
+	//Método que escuchará el evento
+	@Override
+	public void handleEvent(EventObject e, Object... params) 
+	{
+
+		switch((Integer)params[0])
+		{
+		
+		//Caso en que se Crea un Actor primario
+		case 0:
+			Actor a1 = new Actor("primary",(String)params[1],(String)params[2]);
+			addActor(a1,true);
+			break;
+		case 1:
+			String id = (String)params[1];
+			String name = (String)params[2];
+			Actor a2 = new Actor("secondary",id,name);
+			addActor(a2,false);
+			break;
+		}
+	}
+	
+	private void addActor(Actor a, boolean primary)
+	{
+	    d.addActor(a);
+	    if (primary)
+	    {
+	    	jtaPr.append(a.id+" "+a.name+"\n");
+	    }
+	    else
+	    {
+	    	jtaSec.append(a.id+" "+a.name+"\n");
+	    }
 	}
 }
