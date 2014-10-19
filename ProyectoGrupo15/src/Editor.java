@@ -63,6 +63,9 @@ public class Editor {
 			teclado = new Scanner(System.in);
 			JFileChooser fc = new JFileChooser();
 			int respuesta = fc.showOpenDialog(null);
+			if (respuesta == JFileChooser.APPROVE_OPTION) {
+				
+			
 			archivo = fc.getSelectedFile();
 			//File archivo = new File("C:/Users/Diego Avila/Desktop/REPOteMP/prueba.xml");
 			if(getExtension(archivo).equals("xml"))
@@ -70,6 +73,11 @@ public class Editor {
 				correcto = true;
 			}
 			contador++;
+			}
+			else if(respuesta == JFileChooser.APPROVE_OPTION || respuesta == JFileChooser.ERROR_OPTION){
+			
+				
+			}
 		}
 		
 				
