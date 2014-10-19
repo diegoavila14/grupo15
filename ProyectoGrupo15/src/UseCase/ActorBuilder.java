@@ -81,11 +81,11 @@ public class ActorBuilder extends JFrame {
 			{
 				if (primary)
 				{
-					ExportManager.ClickEvent.fireEvent(0,textFieldID.getText(),textFieldName.getText());
+					ModoTextoManager.ClickEvent.fireEvent(0,textFieldID.getText(),textFieldName.getText());
 				}
 				else 
 				{
-					ExportManager.ClickEvent.fireEvent(1,textFieldID.getText(),textFieldName.getText());
+					ModoTextoManager.ClickEvent.fireEvent(1,textFieldID.getText(),textFieldName.getText());
 				}
 				dispose();
 			}

@@ -5,13 +5,17 @@ public class Manager
 {
 	Diagram diagram;
 	XmlManager xM;
-	ExportManager eM;
+	ModoTextoManager MT;
+	ModoGraficoManager MG;
 	
 	public Manager(File f)
 	{
 		xM = new XmlManager(f);
 		diagram = xM.getDiagram();
-		eM = new ExportManager(diagram);
+		MT = new ModoTextoManager(diagram); //Modo editor de texto
+		//MG = new ModoGraficoManager(); //Editor modo gráfico
+		//No se si instanciarlo altiro
+		
 	}
 	
 	public void interact()

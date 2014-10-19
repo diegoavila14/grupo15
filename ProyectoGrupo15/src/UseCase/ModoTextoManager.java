@@ -17,7 +17,7 @@ import pEventsUtil.*;
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 
-public class ExportManager extends JFrame implements pEventListener
+public class ModoTextoManager extends JFrame implements pEventListener
 {
 	JButton PNGButton;
 	Diagram d;
@@ -28,7 +28,7 @@ public class ExportManager extends JFrame implements pEventListener
 	// Se crea el evento
 	public static pEvent ClickEvent;
 	
-	public ExportManager(Diagram diagram)
+	public ModoTextoManager(Diagram diagram)
 	{
 		//super("Diagrama De Casos de Uso");
 		setSize(1200, 700);
@@ -137,20 +137,20 @@ public class ExportManager extends JFrame implements pEventListener
 		
 		//Itero para recoger todos los Casos de Uso
 		java.util.List<UserCase> list = d.getUserCases();
-		int lastAprox = 0; //Para hacer la separación de los bloques de acuerdo a su largo
+		//int lastAprox = 0; //Para hacer la separación de los bloques de acuerdo a su largo
 		for (int i = 0; i < list.size(); i++)
 		{
 			UserCase uc = list.get(i);
 			String temp = uc.id+" "+uc.name+"\n";
 			jtaUC.append(temp);
 			
-			Entity entity = new Entity();
-			entity.setLabel(uc.name);
-			Double n = (uc.name.length()*6.54) + 20; // Para ver el tamaño de los bloques
-			int aprox = n.intValue();
-			entity.setBounds(lastAprox,600,aprox,70);
-			lastAprox += aprox + 20;
-			getContentPane().add(entity);
+			//Entity entity = new Entity();
+			//entity.setLabel(uc.name);
+			//Double n = (uc.name.length()*6.54) + 20; // Para ver el tamaño de los bloques
+			//int aprox = n.intValue();
+			//entity.setBounds(lastAprox,600,aprox,70);
+			//lastAprox += aprox + 20;
+			//getContentPane().add(entity);
 			
 		}
 		getContentPane().add(jtaUC);
@@ -214,9 +214,18 @@ public class ExportManager extends JFrame implements pEventListener
 		bAdd4.setBounds(887, 472, 115, 23);
 		getContentPane().add(bAdd4);
 		
-		JMenu mnNewMenu = new JMenu("Archivo");
-		mnNewMenu.setBounds(0, 0, 685, 22);
-		getContentPane().add(mnNewMenu);
+		JButton btnModoGrfico = new JButton("Modo gr\u00E1fico");
+		btnModoGrfico.addActionListener(new ActionListener() {
+			
+			public void actionPerformed(ActionEvent e) 
+			{
+				ModoGraficoManager mgm = new ModoGraficoManager(d);
+				mgm.setVisible(true);
+			}
+		});
+		btnModoGrfico.setFont(new Font("Tahoma", Font.BOLD, 11));
+		btnModoGrfico.setBounds(1069, 11, 115, 35);
+		getContentPane().add(btnModoGrfico);
 	}
 	
 	//Método que escuchará el evento
