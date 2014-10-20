@@ -7,23 +7,28 @@ public class Diagram
 	List<Actor> actors;
 	List<UserCase> userCases;
 	List<Connection> connections;
+	List<String> ids;
 	
 	public Diagram()
 	{
 		actors = new ArrayList<Actor>();
 		userCases = new ArrayList<UserCase>();
 		connections = new ArrayList<Connection>();
+		ids = new ArrayList<String>();
 		
 	}
 	
 	public void addActor(Actor a)
 	{
-		actors.add(a);		
+		actors.add(a);
+		ids.add(a.id);
+		
 	}
 	
 	public void addUserCase(UserCase uc)
 	{
-		userCases.add(uc);		
+		userCases.add(uc);
+		ids.add(uc.id);
 	}
 	
 	public void addConnection(Connection c)

@@ -9,10 +9,13 @@ import javax.swing.border.EmptyBorder;
 import javax.swing.JLabel;
 import javax.swing.JTextField;
 import javax.swing.JButton;
+
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
-
 import java.awt.*;
+import java.util.ArrayList;
+import java.util.List;
+
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
@@ -21,40 +24,25 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 
-public class ActorBuilder extends JFrame {
+public class EntityBuilderWindow extends JFrame {
 
 	private JPanel contentPane;
 	private JTextField textFieldID;
 	private JTextField textFieldName;
-	public boolean primary;
+	public int id;
+	
+	List<String> ids; //Lista de todos los ids
 
-	/**
-	 * Launch the application.
-	 */
-	public static void main(String[] args) {
-		EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				try {
-					ActorBuilder frame = new ActorBuilder();
-					frame.setVisible(true);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-		});
-	}
-
-	/**
-	 * Create the frame.
-	 */
-	public ActorBuilder() {
-		setTitle("Crear Actor Primario");
+	public EntityBuilderWindow(List<String> list) 
+	{
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 360, 231);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
+		
+		ids = list; //Setear lista de id
 		
 		JLabel lblId = new JLabel("ID:");
 		lblId.setBounds(21, 46, 30, 14);
@@ -79,15 +67,29 @@ public class ActorBuilder extends JFrame {
 			
 			public void actionPerformed(ActionEvent e) 
 			{
-				if (primary)
+				String idAux = textFieldID.getText();
+				if (checkID(idAux))
 				{
-					ModoTextoManager.ClickEvent.fireEvent(0,textFieldID.getText(),textFieldName.getText());
+					if (id == 0)
+					{
+						Manager.ClickEvent.fireEvent(0,textFieldID.getText(),textFieldName.getText());
+					}
+					else if (id == 1)
+					{
+						Manager.ClickEvent.fireEvent(1,textFieldID.getText(),textFieldName.getText());
+					}
+					else 
+					{
+						Manager.ClickEvent.fireEvent(2,textFieldID.getText(),textFieldName.getText());
+					}
+					dispose();
 				}
-				else 
+				else
 				{
-					ModoTextoManager.ClickEvent.fireEvent(1,textFieldID.getText(),textFieldName.getText());
+					String mensajeError = "ID ya utilizado" + "\nInténtelo denuevo con otro ID";
+					JOptionPane.showMessageDialog(null,mensajeError,"Parsing Error",JOptionPane.ERROR_MESSAGE);
+					//e.printStackTrace();
 				}
-				dispose();
 			}
 		});
 		btnNewButton.setBounds(231, 153, 89, 23);
@@ -102,5 +104,17 @@ public class ActorBuilder extends JFrame {
 		});
 		btnCancelar.setBounds(54, 153, 95, 23);
 		contentPane.add(btnCancelar);
+	}
+	
+	public boolean checkID(String s)
+	{
+		if (ids.contains(s))
+		{
+			return false;
+		}
+		else
+		{
+			return true;
+		}
 	}
 }

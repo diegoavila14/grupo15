@@ -17,7 +17,7 @@ import pEventsUtil.*;
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 
-public class ModoTextoManager extends JFrame implements pEventListener
+public class ModoTextoManager extends JFrame
 {
 	JButton PNGButton;
 	Diagram d;
@@ -26,7 +26,7 @@ public class ModoTextoManager extends JFrame implements pEventListener
 	JTextArea jtaCon;
 	JTextArea jtaUC;
 	// Se crea el evento
-	public static pEvent ClickEvent;
+	//public static pEvent ClickEvent;
 	
 	public ModoTextoManager(Diagram diagram)
 	{
@@ -37,11 +37,6 @@ public class ModoTextoManager extends JFrame implements pEventListener
 		placeComponents();
 		setVisible(true);
 		this.setResizable(false);
-		
-		//Instanciando evento estático.
-		//El escuchador será esta misma clase.
-		this.ClickEvent = new pEvent();
-		this.ClickEvent.addEventListener(this);
 	}
 	
 	private void placeComponents() 
@@ -181,19 +176,31 @@ public class ModoTextoManager extends JFrame implements pEventListener
 		
 		//Constructor del DesignMode
 		
+		//Agragar Actor primario
 		JButton bAdd1 = new JButton("Agregar");
 		bAdd1.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) 
 			{
-				ActorBuilder ab = new ActorBuilder();
-				ab.primary = true;
+				EntityBuilderWindow ab = new EntityBuilderWindow(d.ids);
+				ab.id = 0;
 				ab.setVisible(true);
+				ab.setTitle("Crear Actor Primario");
 			}
 		});
 		bAdd1.setBounds(95, 472, 115, 23);
 		getContentPane().add(bAdd1);
 		
+		//Agregar User Case
 		JButton bAdd2 = new JButton("Agregar");
+		bAdd2.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) 
+			{
+				EntityBuilderWindow ab = new EntityBuilderWindow(d.ids);
+				ab.id = 2;
+				ab.setVisible(true);
+				ab.setTitle("Crear Caso de Uso");
+			}
+		});
 		bAdd2.setBounds(364, 472, 115, 23);
 		getContentPane().add(bAdd2);
 		
@@ -205,9 +212,9 @@ public class ModoTextoManager extends JFrame implements pEventListener
 		bAdd4.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) 
 			{
-				ActorBuilder ab = new ActorBuilder();
+				EntityBuilderWindow ab = new EntityBuilderWindow(d.ids);
 				ab.setTitle("Crear Actor Secundario");
-				ab.primary = false;
+				ab.id = 1;
 				ab.setVisible(true);
 			}
 		});
@@ -221,6 +228,7 @@ public class ModoTextoManager extends JFrame implements pEventListener
 			{
 				ModoGraficoManager mgm = new ModoGraficoManager(d);
 				mgm.setVisible(true);
+				setVisible(false);
 			}
 		});
 		btnModoGrfico.setFont(new Font("Tahoma", Font.BOLD, 11));
@@ -228,29 +236,7 @@ public class ModoTextoManager extends JFrame implements pEventListener
 		getContentPane().add(btnModoGrfico);
 	}
 	
-	//Método que escuchará el evento
-	@Override
-	public void handleEvent(EventObject e, Object... params) 
-	{
-
-		switch((Integer)params[0])
-		{
-		
-		//Caso en que se Crea un Actor primario
-		case 0:
-			Actor a1 = new Actor("primary",(String)params[1],(String)params[2]);
-			addActor(a1,true);
-			break;
-		case 1:
-			String id = (String)params[1];
-			String name = (String)params[2];
-			Actor a2 = new Actor("secondary",id,name);
-			addActor(a2,false);
-			break;
-		}
-	}
-	
-	private void addActor(Actor a, boolean primary)
+	public void addActor(Actor a, boolean primary)
 	{
 	    d.addActor(a);
 	    if (primary)
@@ -261,5 +247,11 @@ public class ModoTextoManager extends JFrame implements pEventListener
 	    {
 	    	jtaSec.append(a.id+" "+a.name+"\n");
 	    }
+	}
+	
+	public void addUserCase(UserCase uc)
+	{
+		d.addUserCase(uc);
+		jtaUC.append(uc.id+" "+uc.name);
 	}
 }

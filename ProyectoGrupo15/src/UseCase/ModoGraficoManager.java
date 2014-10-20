@@ -8,11 +8,19 @@ import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 import javax.swing.JButton;
 
+import java.awt.Font;
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
+import java.util.HashMap;
+import java.util.Map;
+
 public class ModoGraficoManager extends JFrame {
 
 	private JPanel contentPane;
 	JButton PNGButton;
 	Diagram d;
+	
+	Map<String, Entity> map; //diccionario para linkear id con entidad
 
 	public ModoGraficoManager(Diagram D) 
 	{
@@ -20,8 +28,22 @@ public class ModoGraficoManager extends JFrame {
 		setSize(1200,700);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
-		contentPane.setLayout(new BorderLayout(0, 0));
 		setContentPane(contentPane);
+		contentPane.setLayout(null);
+		
+		map = new HashMap<String, Entity>();
+		
+		JButton btnNewButton = new JButton("Volver");
+		btnNewButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) 
+			{
+				Manager.ClickEvent.fireEvent(4);
+				dispose();
+			}
+		});
+		btnNewButton.setFont(new Font("Tahoma", Font.BOLD, 14));
+		btnNewButton.setBounds(1058, 11, 116, 45);
+		contentPane.add(btnNewButton);
 		
 		this.d = D;
 		setUserCases();
@@ -32,7 +54,7 @@ public class ModoGraficoManager extends JFrame {
 		int lastAprox = 0; //Para hacer la separación de los bloques de acuerdo a su largo
 		java.util.List<UserCase> list = d.getUserCases();
 		
-		for (int i = 0; i < 5/*list.size()*/; i++)
+		for (int i = 0; i < list.size(); i++)
 		{
 			UserCase uc = list.get(i);
 			Entity entity = new Entity();
@@ -41,9 +63,9 @@ public class ModoGraficoManager extends JFrame {
 			int aprox = n.intValue();
 			entity.setBounds(lastAprox,300,aprox,70);
 			lastAprox += aprox + 20;
-			add(entity);
+			map.put(uc.id, entity);
+			getContentPane().add(entity);
 		}	
 		System.out.println("WTF!");
 	}
-
 }
