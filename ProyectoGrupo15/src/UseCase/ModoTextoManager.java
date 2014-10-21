@@ -205,6 +205,13 @@ public class ModoTextoManager extends JFrame
 		getContentPane().add(bAdd2);
 		
 		JButton bAdd3 = new JButton("Agregar");
+		bAdd3.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) 
+			{
+				ConnectionBuilderWindow cbw = new ConnectionBuilderWindow(d.ids);
+				cbw.setVisible(true);
+			}
+		});
 		bAdd3.setBounds(616, 472, 115, 23);
 		getContentPane().add(bAdd3);
 		
