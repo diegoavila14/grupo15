@@ -131,13 +131,9 @@ public class DiagramaDeClase extends JFrame {
 	
 	private void placeConnections()
 	{
-		JLabel l = new JLabel("Conexiones");
-		l.setFont(new Font("Courier New", Font.ITALIC, 15));
-		l.setBounds(565,50,250,35);
-		add(l);
 		
-		JTextArea jta = new JTextArea();
-		jta.setBounds(565,80,250,250);	
+		
+	
 		
 		//Itero para recoger todas las conexiones
 		java.util.List<Connection> list = cd.getConnections();
@@ -145,10 +141,10 @@ public class DiagramaDeClase extends JFrame {
 		{
 			Connection c = list.get(i);
 			String temp = "("+c.getidFrom()+","+c.getidTo()+") "+c.getType()+"\n";
-			jta.append(temp);
+	
 			
 		}
-		add(jta);
+	
 	}
 	
 }
