@@ -259,6 +259,12 @@ public class ModoTextoManager extends JFrame
 	public void addUserCase(UserCase uc)
 	{
 		d.addUserCase(uc);
-		jtaUC.append(uc.id+" "+uc.name);
+		jtaUC.append(uc.id+" "+uc.name+"\n");
+	}
+	
+	public void addConnection(Connection c)
+	{
+		d.addConnection(c);
+		jtaCon.append("("+c.idFrom+","+c.idTo+") "+c.type+"\n");
 	}
 }

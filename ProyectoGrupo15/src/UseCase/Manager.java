@@ -51,8 +51,13 @@ public class Manager implements pEventListener
 			case 2:
 				UserCase uc = new UserCase((String)params[1],(String)params[2]);
 				MT.addUserCase(uc);
+				break;
+			case 3:
+				MT.addConnection((Connection)params[1]);
+				break;
 			case 4:
 				MT.setVisible(true);
+				break;
 			}
 		}
 }

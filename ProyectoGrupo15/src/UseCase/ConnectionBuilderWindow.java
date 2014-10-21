@@ -11,6 +11,8 @@ import javax.swing.JRadioButton;
 import javax.swing.JLabel;
 
 import java.awt.Font;
+import java.util.Enumeration;
+import javax.swing.AbstractButton;
 
 import javax.swing.ButtonGroup;
 import javax.swing.JCheckBox;
@@ -37,7 +39,7 @@ public class ConnectionBuilderWindow extends JFrame {
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
 		
-		ButtonGroup group = new ButtonGroup();
+		final ButtonGroup group = new ButtonGroup();
 		JRadioButton rBasic = new JRadioButton("basic");
 		rBasic.setSelected(true);
 		rBasic.setBounds(6, 53, 109, 23);
@@ -54,7 +56,7 @@ public class ConnectionBuilderWindow extends JFrame {
 		group.add(rInclude);
 		contentPane.add(rInclude);
 		
-		JRadioButton rIsA = new JRadioButton("is a");
+		JRadioButton rIsA = new JRadioButton("isa");
 		rIsA.setBounds(6, 131, 109, 23);
 		group.add(rIsA);
 		contentPane.add(rIsA);
@@ -78,15 +80,33 @@ public class ConnectionBuilderWindow extends JFrame {
 			aux[i] = ids.get(i);
 		}
 		
-		JComboBox comboBox = new JComboBox(aux);
+		final JComboBox comboBox = new JComboBox(aux);
 		comboBox.setBounds(229, 30, 73, 20);
 		contentPane.add(comboBox);
 		
-		JComboBox comboBox_1 = new JComboBox(aux);
+		final JComboBox comboBox_1 = new JComboBox(aux);
 		comboBox_1.setBounds(229, 80, 73, 20);
 		contentPane.add(comboBox_1);
 		
 		JButton btnAceptar = new JButton("Aceptar");
+		btnAceptar.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) 
+			{
+				for (Enumeration<AbstractButton> buttons = group.getElements(); buttons.hasMoreElements();) 
+				{
+		            AbstractButton button = buttons.nextElement();
+
+		            if (button.isSelected()) 
+		            {
+		                System.out.println(button.getText());
+		                Connection c = new Connection(button.getText(),comboBox.getSelectedItem().toString(),comboBox_1.getSelectedItem().toString());
+		                Manager.ClickEvent.fireEvent(3,c);
+		                dispose();
+		                
+		            }
+				}
+			}
+		});
 		btnAceptar.setBounds(305, 177, 89, 23);
 		contentPane.add(btnAceptar);
 		

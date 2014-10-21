@@ -1,6 +1,7 @@
 package UseCase;
 
 import java.awt.BorderLayout;
+import java.awt.Color;
 import java.awt.EventQueue;
 
 import javax.swing.JFrame;
@@ -13,6 +14,8 @@ import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import java.util.HashMap;
 import java.util.Map;
+
+import javax.swing.JScrollBar;
 
 public class ModoGraficoManager extends JFrame {
 
@@ -47,11 +50,12 @@ public class ModoGraficoManager extends JFrame {
 		
 		this.d = D;
 		setUserCases();
+		setActors();
 	}
 	
 	public void setUserCases()
 	{
-		int lastAprox = 0; //Para hacer la separación de los bloques de acuerdo a su largo
+		int auxY = 10;
 		java.util.List<UserCase> list = d.getUserCases();
 		
 		for (int i = 0; i < list.size(); i++)
@@ -61,11 +65,39 @@ public class ModoGraficoManager extends JFrame {
 			entity.setLabel(uc.name);
 			Double n = (uc.name.length()*6.54) + 20; // Para ver el tamaño de los bloques
 			int aprox = n.intValue();
-			entity.setBounds(lastAprox,300,aprox,70);
-			lastAprox += aprox + 20;
+			entity.setBounds(450,auxY,aprox,70);
+			auxY += 90;
 			map.put(uc.id, entity);
 			getContentPane().add(entity);
-		}	
-		System.out.println("WTF!");
+		}
+	}
+	
+	public void setActors()
+	{
+		int auxP = 10;
+		int auxS = 10;
+		java.util.List<Actor> list = d.getActors();
+		for (int i = 0; i < list.size(); i++)
+		{
+			Actor a = list.get(i);
+			Entity entity = new Entity();
+			entity.setBackground(Color.cyan);
+			entity.setLabel(a.name);
+			Double n = (a.name.length()*6.54) + 20; // Para ver el tamaño de los bloques
+			int aprox = n.intValue();
+			if (a.type.equals("primary"))
+			{
+				entity.setBounds(15,auxP,aprox,70);
+				auxP += 90;
+			}
+			else 
+			{
+				entity.setBounds(850,auxS,aprox,70);
+				auxS += 90;
+			}
+			map.put(a.id, entity);
+			getContentPane().add(entity);
+		}
+		
 	}
 }

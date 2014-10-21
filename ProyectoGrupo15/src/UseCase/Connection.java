@@ -2,7 +2,7 @@ package UseCase;
 
 public class Connection {
 	
-	String type; // basic=0 extend=1 include=2 isa=3
+	String type;
 	String idFrom;
 	String idTo;
 	
