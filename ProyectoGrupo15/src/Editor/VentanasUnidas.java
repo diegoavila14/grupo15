@@ -85,9 +85,9 @@ public class VentanasUnidas extends JFrame {
 			if (e.getSource() == PNGButton){
 				
 				 {
-				BufferedImage image = new BufferedImage(ddc.getWidth(), ddc.getHeight(), BufferedImage.TYPE_INT_RGB);
+				BufferedImage image = new BufferedImage(ddc.getJp().getWidth(), ddc.getJp().getHeight(), BufferedImage.TYPE_INT_RGB);
 					
-				ddc.paint(image.getGraphics());
+				ddc.getJp().paint(image.getGraphics());
 				File file = new File("diagclase.png");
 				try {
 					ImageIO.write(image, "png", file);
@@ -153,10 +153,12 @@ public class VentanasUnidas extends JFrame {
 				}
 				else //ClassDiagram
 				{
-					Compilador comp = new Compilador(archivo);
+		
+					Compilador comp = new Compilador(doc);
 					ClassDiagram classdiagram = comp.getClassdiagram();
 					if(ddc != null)
 					contentPane.remove(ddc);
+					
 					ddc = new InterfazDiagClase(classdiagram);
 						
 					contentPane.add(ddc, "cell 2 0,grow");
