@@ -84,7 +84,7 @@ public class Editor {
 		try{
 			fr = new FileReader(archivo);
 			br = new BufferedReader(new InputStreamReader(new FileInputStream(archivo),"UTF-8"));
-			InterfazEditorText ie = new InterfazEditorText(archivo);
+			VentanasUnidas ie = new VentanasUnidas(archivo);
 			
 			String Dato = "";
 			String XML = "";
@@ -111,7 +111,7 @@ public class Editor {
 				XML = XML + Dato + "\n";
 				}
 			}
-			ie.editorPane.setText(XML);
+			ie.iet.editorPane.setText(XML);
 			
 			fr.close();
 			br.close();

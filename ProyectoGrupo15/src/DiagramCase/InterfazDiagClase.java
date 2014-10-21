@@ -1,4 +1,5 @@
 package DiagramCase;
+
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -8,71 +9,51 @@ import java.io.IOException;
 
 import javax.imageio.ImageIO;
 import javax.swing.JButton;
-import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JPanel;
 import javax.swing.JTextArea;
 
-import UseCase.Actor;
 import UseCase.Connection;
+import net.miginfocom.swing.MigLayout;
+import javax.swing.JScrollPane;
 
-public class DiagramaDeClase extends JFrame {
-
-	JButton PNGButton;
+public class InterfazDiagClase extends JScrollPane {
+	
+	
 	ClassDiagram cd;
+	JPanel jp;
 	
-	public DiagramaDeClase(ClassDiagram cdd){
+	public InterfazDiagClase(ClassDiagram cdd) {
 		
-		super("Diagrama De Clase");
+
 		cd = cdd;
-		setSize(1200, 700);
-		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		placeComponents();
-		setVisible(true);
-		this.setResizable(false);
-	}
 	
+		placeComponents();
+
+
+	}
 	private void placeComponents() {
 		
-		setLayout(null);
+		setVerticalScrollBarPolicy(VERTICAL_SCROLLBAR_ALWAYS);
+		setHorizontalScrollBarPolicy(HORIZONTAL_SCROLLBAR_ALWAYS);
+	
+		jp = new JPanel();
+		jp.setLayout(new MigLayout("", "[1px,grow][500px][250px]", "[1px][330px]"));
+		setViewportView(jp);
 		placeClasses();
 		placeConnections();
-		PNGButton = new JButton("PNG");
-		PNGButton.setBounds(1100, 630, 90, 35);
-		add(PNGButton);
 		
-		ActionListener PNGButtonListener = new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-			if (e.getSource() == PNGButton){
-				
-				 {
-				BufferedImage image = new BufferedImage(getWidth(), getHeight(), BufferedImage.TYPE_INT_RGB);
-					
-				paint(image.getGraphics());
-				File file = new File("diagclase.png");
-				try {
-					ImageIO.write(image, "png", file);
-				} catch (IOException e1) {
-				
-					e1.printStackTrace();
-				}
-				 }
-				 
-			} 
-			}
-		};
 		
-		PNGButton.addActionListener(PNGButtonListener);
+			
+		
 	}
 	
 	private void placeClasses(){
-		
 		JLabel l = new JLabel("Clases");
 		l.setFont(new Font("Courier New", Font.ITALIC, 15));
-		l.setBounds(35,50,250,35);
-		add(l);
+		jp.add(l, "cell 1 1,alignx left,aligny top");
 		
 		JTextArea jta = new JTextArea();
-		jta.setBounds(35,80,500,500);
 		
 		java.util.List<Clase> list = cd.getClasses();
 		
@@ -112,18 +93,16 @@ public class DiagramaDeClase extends JFrame {
 			}
 			
 		}
-		add(jta);
+		jp.add(jta, "cell 1 1,grow");
 	}
 	
 	private void placeConnections()
 	{
 		JLabel l = new JLabel("Conexiones");
 		l.setFont(new Font("Courier New", Font.ITALIC, 15));
-		l.setBounds(565,50,250,35);
-		add(l);
+		jp.add(l, "cell 2 1,growx,aligny top");
 		
 		JTextArea jta = new JTextArea();
-		jta.setBounds(565,80,250,250);	
 		
 		//Itero para recoger todas las conexiones
 		java.util.List<Connection> list = cd.getConnections();
@@ -134,7 +113,7 @@ public class DiagramaDeClase extends JFrame {
 			jta.append(temp);
 			
 		}
-		add(jta);
+		jp.add(jta, "cell 2 1,growx,aligny center");
 	}
 	
 }
