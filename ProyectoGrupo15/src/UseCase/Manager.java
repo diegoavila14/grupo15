@@ -67,7 +67,7 @@ public class Manager implements pEventListener
 				MT.setVisible(true);
 				break;
 			case 5: //Boton exportar XML apretado
-				GuardadorWindow gw = new GuardadorWindow();
+				GuardadorWindow gw = new GuardadorWindow(true);
 				gw.setVisible(true);
 				break;
 			case 6: //Recibir nombre de archivo a guardar en xml
@@ -80,6 +80,10 @@ public class Manager implements pEventListener
 				{
 					e1.printStackTrace();
 				}
+				break;
+			case 7: //Recibir nombre de archivo a guardar en png
+				String nn = (String)params[1];
+				MT.exportPNG(nn);
 				break;
 			}
 		}

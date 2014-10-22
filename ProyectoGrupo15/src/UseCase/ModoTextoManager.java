@@ -83,7 +83,6 @@ public class ModoTextoManager extends JFrame
 		JMenuBar jmb = new JMenuBar();
 		JMenu jmFile = new JMenu("File");
 	    JMenuItem jmiImport = new JMenuItem("Import");
-	    JMenuItem jmiClose = new JMenuItem("Close");
 	    JMenu jmiSave = new JMenu("Export");
 	    JMenuItem jmiPNG = new JMenuItem("as PNG");
 	    JMenuItem jmiXML = new JMenuItem("as XML");
@@ -98,7 +97,6 @@ public class ModoTextoManager extends JFrame
 	    jmiSave.add(jmiXML);
 	    JMenuItem jmiExit = new JMenuItem("Exit");
 	    jmFile.add(jmiImport);
-	    jmFile.add(jmiClose);
 	    jmFile.add(jmiSave);
 	    jmFile.addSeparator();
 	    jmFile.add(jmiExit);
@@ -125,14 +123,17 @@ public class ModoTextoManager extends JFrame
 			    }
 			    else if (e.getActionCommand().equals("as PNG"))
 			    {
-			    	System.out.println(e.getActionCommand());
-			    	Manager.ClickEvent.fireEvent(5);			    	
+			    	GuardadorWindow gw = new GuardadorWindow(false);
+			    	gw.setVisible(true);
+			    }
+			    else if (e.getActionCommand().equals("Exit"))
+			    {
+			    	System.exit(0);
 			    }
 			}
 		};
 		
 		jmiImport.addActionListener(MenuListener);
-	    jmiClose.addActionListener(MenuListener);
 	    jmiSave.addActionListener(MenuListener);
 	    jmiExit.addActionListener(MenuListener);
 	    jmiXML.addActionListener(MenuListener);
@@ -461,5 +462,12 @@ public class ModoTextoManager extends JFrame
 	      }    catch (IOException ioException) {
 	        ioException.printStackTrace();
 	      }
+	}
+	
+	public void exportPNG(String nFile)
+	{
+		ModoGraficoManager mg = new ModoGraficoManager(d);
+		mg.setVisible(true);
+		mg.getPNG(nFile);
 	}
 }

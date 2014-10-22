@@ -30,7 +30,8 @@ import java.io.IOException;
 public class ModoGraficoManager extends JFrame {
 
 	private JPanel contentPane;
-	JButton PNGButton;
+	final JButton btnPng;
+	final JButton btnVolver;
 	Diagram d;
 	
 	Map<String, Entity> map; //diccionario para linkear id con entidad
@@ -44,7 +45,7 @@ public class ModoGraficoManager extends JFrame {
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
 		
-		final JButton btnVolver = new JButton("Volver");
+		btnVolver = new JButton("Volver");
 		btnVolver.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) 
 			{
@@ -56,26 +57,12 @@ public class ModoGraficoManager extends JFrame {
 		btnVolver.setBounds(1084, 11, 90, 42);
 		contentPane.add(btnVolver);
 		
-		final JButton btnPng = new JButton("PNG");
+		btnPng = new JButton("PNG");
 		btnPng.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) 
 			{
-				btnPng.setVisible(false);
-				btnVolver.setVisible(false);
-				BufferedImage image = new BufferedImage(getWidth(), getHeight(), BufferedImage.TYPE_INT_RGB);
-				
-				paint(image.getGraphics());
-				File file = new File("diagUC.png");
-				try 
-				{
-					ImageIO.write(image, "png", file);
-				} 
-				catch (IOException e1) 
-				{				
-					e1.printStackTrace();
-				}
-				btnPng.setVisible(true);
-				btnVolver.setVisible(true);
+				GuardadorWindow gw = new GuardadorWindow(false);
+				gw.setVisible(true);
 			}
 		});
 		btnPng.setFont(new Font("Tahoma", Font.BOLD, 14));
@@ -88,6 +75,26 @@ public class ModoGraficoManager extends JFrame {
 		this.d = D;
 		setUserCases();
 		setActors();
+	}
+	
+	public void getPNG(String nFile)
+	{
+		btnPng.setVisible(false);
+		btnVolver.setVisible(false);
+		BufferedImage image = new BufferedImage(getWidth(), getHeight(), BufferedImage.TYPE_INT_RGB);
+		
+		paint(image.getGraphics());
+		File file = new File(nFile+".png");
+		try 
+		{
+			ImageIO.write(image, "png", file);
+		} 
+		catch (IOException e1) 
+		{				
+			e1.printStackTrace();
+		}
+		btnPng.setVisible(true);
+		btnVolver.setVisible(true);
 	}
 	
 	public void setUserCases()

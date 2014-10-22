@@ -16,8 +16,9 @@ public class GuardadorWindow extends JFrame {
 
 	private JPanel contentPane;
 	private JTextField textField;
+	private boolean isXML;
 
-	public GuardadorWindow() {
+	public GuardadorWindow(boolean isxml) {
 		setTitle("Guardar Archivo");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 451, 156);
@@ -25,6 +26,8 @@ public class GuardadorWindow extends JFrame {
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
+		
+		isXML = isxml;
 		
 		JLabel lblSeleccioneElNombre = new JLabel("Seleccione el nombre del archivo:");
 		lblSeleccioneElNombre.setBounds(10, 11, 257, 14);
@@ -39,8 +42,16 @@ public class GuardadorWindow extends JFrame {
 		btnAceptar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) 
 			{
-				Manager.ClickEvent.fireEvent(6,textField.getText()); //Manda el nombre del archivo a guardar
-				dispose();
+				if (isXML)
+				{
+					Manager.ClickEvent.fireEvent(6,textField.getText()); //Manda el nombre del archivo a guardar
+					dispose();
+				}
+				else
+				{
+					Manager.ClickEvent.fireEvent(7,textField.getText());
+					dispose();
+				}
 			}
 		});
 		btnAceptar.setBounds(315, 83, 89, 23);
