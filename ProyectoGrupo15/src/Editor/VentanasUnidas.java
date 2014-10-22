@@ -3,6 +3,8 @@ package Editor;
 import java.awt.BorderLayout;
 import java.awt.EventQueue;
 
+import java.util.regex.*;
+
 import javax.imageio.ImageIO;
 import javax.swing.JButton;
 import javax.swing.JFrame;
@@ -43,6 +45,7 @@ public class VentanasUnidas extends JFrame {
 	public JButton Compilar;
 	public static InterfazDiagClase ddc;
 	public JButton PNGButton;
+	public JButton btnVerErrores;
 	
 	public VentanasUnidas(File f) {
 		archivo = f;
@@ -74,7 +77,7 @@ public class VentanasUnidas extends JFrame {
 				validate();
 			}
 		});
-		contentPane.add(Compilar, "cell 0 1,alignx center");
+		contentPane.add(Compilar, "flowx,cell 0 1,alignx center");
 		
 		iet = new InterfazEditorText();
 		contentPane.add(iet, "cell 0 0,grow");
@@ -105,17 +108,34 @@ public class VentanasUnidas extends JFrame {
 		PNGButton.setVisible(false);
 		contentPane.add(PNGButton,"cell 2 1,alignx center");
 		
+		btnVerErrores = new JButton("Ver Errores");
+		btnVerErrores.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent arg0) {
+				
+				VerErrores(iet.editorPane.getText());
+				
+				
+			}
+		});
+		contentPane.add(btnVerErrores, "cell 0 1");
+		
 		setVisible(true);
 	}
 	
 	 public static Document convertStringToDocument(String xmlStr) { // metodo que pasa un string a un Document
-	        DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();  
+	        
+		 	DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();  
 	        DocumentBuilder builder;  
+	   
 	        try 
 	        {  
 	            builder = factory.newDocumentBuilder();  
-	            Document doc = builder.parse( new InputSource( new StringReader( xmlStr ) ) ); 
+	            InputSource is = new InputSource();
+	            is.setCharacterStream(new StringReader(xmlStr));
+	            Document doc = builder.parse(is);
 	            return doc;
+	            
 	        } catch (Exception e) {  
 	            e.printStackTrace();  
 	        } 
@@ -126,13 +146,8 @@ public class VentanasUnidas extends JFrame {
 		 Document doc;
 		 try {
 		
-				if(s.startsWith("<")){ //Esto es por un error extraño que hace aparecer un ? cuando leo el xml, curiosamente solo pasa en el diagrama de clase.
-					doc = convertStringToDocument(s);
-			   
-				}
-				else{
-					doc = convertStringToDocument(s.substring(1, s.length()));
-				}
+				doc = convertStringToDocument(s);
+				
 				//Lo siguiente es para detectar si el xml es de UserCase o de Clases
 				String rootN = doc.getFirstChild().getNodeName();
 				int indicador; //0=UserCaseDiagram 1 =ClassDiagram
@@ -175,5 +190,52 @@ public class VentanasUnidas extends JFrame {
 				
 			}
 		 
+	 }
+	 
+	 public static void VerErrores(String s){
+		 
+		 Boolean inicio = VerInicio(s);
+		 if(inicio == true){ // ver si el nodo raiz esta correcto o su terminacion
+			 Boolean Clases = VerClases(s);
+			 
+			 if(Clases==true){
+				 
+			 }
+			 
+			 else{
+				 JOptionPane.showMessageDialog(null,"Existe un error en la creacion de clases"); 
+			 }
+		 }
+		 else{
+			 JOptionPane.showMessageDialog(null,"Existe un error en el nodo raiz o en su terminacion"); 
+		 }
+	 }
+	 
+	 public static Boolean VerInicio(String s){
+		 
+		 s = s.replace("\t", "");
+		 s = s.replace("\n", "");
+
+		 Pattern p = Pattern.compile("^<ClassDiagram name\\s*=\\s*\"[a-zA-Z0-9 ]+\">.*</ClassDiagram>$");
+		 Matcher mat = p.matcher(s);
+		 if (mat.matches()) {
+	         return true;
+	     } else {
+	         return false;
+	     }
+	 }
+	 
+	 public static Boolean VerClases(String s){
+		 
+		 s = s.replace("\t", "");
+		 s = s.replace("\n", "");
+		 System.out.print(s);
+		 Pattern p = Pattern.compile("^<ClassDiagram name\\s*=\\s*\"[a-zA-Z0-9 ]+\">(<class id\\s*=\\s*\"[a-zA-Z0-9]+\"\\s*name\\s*=\\s*\"[a-zA-Z0-9]+\">(.*)</class>)+.*</ClassDiagram>$");
+		 Matcher mat = p.matcher(s);
+		 if (mat.matches()) {
+	         return true;
+	     } else {
+	         return false;
+	     }
 	 }
 }

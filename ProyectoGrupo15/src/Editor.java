@@ -26,8 +26,13 @@ import Editor.*;
 
 public class Editor {
 
+	
+	
+	public static final String UTF8_BOM = "\uFEFF";
+	
 	public static void main(String[] args) 
 	{
+		
 		Import();		
 	}
 
@@ -83,13 +88,13 @@ public class Editor {
 				
 		try{
 			fr = new FileReader(archivo);
-			br = new BufferedReader(new InputStreamReader(new FileInputStream(archivo),"UTF-8"));
+			br = new BufferedReader(new InputStreamReader(new FileInputStream(archivo),"utf-8"));
 			VentanasUnidas ie = new VentanasUnidas(archivo);
 			
 			String Dato = "";
 			String XML = "";
 			while((Dato = br.readLine())!=null){  // habia un simbolo extraño cuando leia un "-" en la visibilidad, asi que lo elimine con estos if
-			
+				
 				if(Dato.contains("visibility")){
 				
 					String[] Error = Dato.split("visibility");
@@ -111,6 +116,9 @@ public class Editor {
 				XML = XML + Dato + "\n";
 				}
 			}
+			if (XML.startsWith(UTF8_BOM)) { // Arregla problemas con la compilacion del xml
+	            XML = XML.substring(1);
+	        }
 			ie.iet.editorPane.setText(XML);
 			
 			fr.close();
