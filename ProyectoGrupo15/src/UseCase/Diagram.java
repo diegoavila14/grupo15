@@ -8,9 +8,11 @@ public class Diagram
 	List<UserCase> userCases;
 	List<Connection> connections;
 	List<String> ids;
+	String name;
 	
-	public Diagram()
+	public Diagram(String n)
 	{
+		name = n;
 		actors = new ArrayList<Actor>();
 		userCases = new ArrayList<UserCase>();
 		connections = new ArrayList<Connection>();

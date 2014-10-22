@@ -19,8 +19,7 @@ public class XmlManager
 	
 	public XmlManager(File f)
 	{
-		this.file = f;
-		diagram = new Diagram();		
+		this.file = f;		
 		readFile();
 	}
 	
@@ -32,6 +31,11 @@ public class XmlManager
 			DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
 			DocumentBuilder dBuilder = dbFactory.newDocumentBuilder();
 			Document doc = dBuilder.parse(file);
+			
+			Node root = doc.getElementsByTagName("UseCaseDiagram").item(0);
+			String nameD = root.getAttributes().getNamedItem("name").getNodeValue();
+			System.out.println("Diagrama: "+nameD);
+			diagram = new Diagram(nameD);
 			
 			Node actors = doc.getElementsByTagName("actors").item(0);
 			NodeList actorList = actors.getChildNodes();

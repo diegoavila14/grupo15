@@ -4,8 +4,31 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.image.BufferedImage;
 import java.io.File;
+import java.io.FileOutputStream;
 import java.io.IOException;
 import java.util.EventObject;
+import java.util.ArrayList;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
+import javax.xml.parsers.DocumentBuilder;
+import javax.xml.parsers.DocumentBuilderFactory;
+import javax.xml.parsers.ParserConfigurationException;
+import javax.xml.transform.Result;
+import javax.xml.transform.Source;
+import javax.xml.transform.Transformer;
+import javax.xml.transform.TransformerConfigurationException;
+import javax.xml.transform.TransformerException;
+import javax.xml.transform.TransformerFactory;
+import javax.xml.transform.TransformerFactoryConfigurationError;
+import javax.xml.transform.dom.DOMSource;
+import javax.xml.transform.stream.StreamResult;
+
+import org.w3c.dom.Attr;
+import org.w3c.dom.DOMImplementation;
+import org.w3c.dom.Document;
+import org.w3c.dom.Element;
+import org.w3c.dom.Text;
 
 import javax.imageio.ImageIO;
 import javax.swing.JButton;
@@ -14,6 +37,7 @@ import javax.swing.JLabel;
 import javax.swing.JTextArea;
 
 import pEventsUtil.*;
+
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 
@@ -83,21 +107,23 @@ public class ModoTextoManager extends JFrame
 	{
 		JLabel l = new JLabel("Actores primarios");
 		l.setFont(new Font("Courier New", Font.ITALIC, 15));
-		l.setBounds(35,50,250,35);
+		l.setBounds(45,34,250,35);
 		getContentPane().add(l);
 		
 		jtaPr = new JTextArea();
+		jtaPr.setFont(new Font("Monospaced", Font.PLAIN, 14));
+		jtaPr.setColumns(1);
 		jtaPr.setEditable(false);
-		jtaPr.setBounds(35,80,250,381);
+		jtaPr.setBounds(45,80,250,381);
 		
 		JLabel l2 = new JLabel("Actores secundarios");
 		l2.setFont(new Font("Courier New", Font.ITALIC, 15));
-		l2.setBounds(830,50,250,35);
+		l2.setBounds(840,34,250,35);
 		getContentPane().add(l2);
 		
 		jtaSec = new JTextArea();
 		jtaSec.setEditable(false);
-		jtaSec.setBounds(830,80,250,381);
+		jtaSec.setBounds(840,80,250,381);
 		
 		//Itero para recoger todos los actores
 		java.util.List<Actor> list = d.getActors();
@@ -123,12 +149,12 @@ public class ModoTextoManager extends JFrame
 	{
 		JLabel l = new JLabel("Casos de Uso");
 		l.setFont(new Font("Courier New", Font.ITALIC, 15));
-		l.setBounds(300,50,250,35);
+		l.setBounds(310,34,250,35);
 		getContentPane().add(l);
 		
 		jtaUC = new JTextArea();
 		jtaUC.setEditable(false);
-		jtaUC.setBounds(300,80,250,381);
+		jtaUC.setBounds(310,80,250,381);
 		
 		//Itero para recoger todos los Casos de Uso
 		java.util.List<UserCase> list = d.getUserCases();
@@ -155,12 +181,12 @@ public class ModoTextoManager extends JFrame
 	{
 		JLabel l = new JLabel("Conexiones");
 		l.setFont(new Font("Courier New", Font.ITALIC, 15));
-		l.setBounds(565,50,250,35);
+		l.setBounds(575,34,250,35);
 		getContentPane().add(l);
 		
 		jtaCon = new JTextArea();
 		jtaCon.setEditable(false);
-		jtaCon.setBounds(565,80,250,381);	
+		jtaCon.setBounds(575,80,250,381);	
 		
 		//Itero para recoger todas las conexiones
 		java.util.List<Connection> list = d.getConnections();
@@ -187,7 +213,7 @@ public class ModoTextoManager extends JFrame
 				ab.setTitle("Crear Actor Primario");
 			}
 		});
-		bAdd1.setBounds(95, 472, 115, 23);
+		bAdd1.setBounds(105, 472, 115, 23);
 		getContentPane().add(bAdd1);
 		
 		//Agregar User Case
@@ -201,7 +227,7 @@ public class ModoTextoManager extends JFrame
 				ab.setTitle("Crear Caso de Uso");
 			}
 		});
-		bAdd2.setBounds(364, 472, 115, 23);
+		bAdd2.setBounds(374, 472, 115, 23);
 		getContentPane().add(bAdd2);
 		
 		JButton bAdd3 = new JButton("Agregar");
@@ -212,7 +238,7 @@ public class ModoTextoManager extends JFrame
 				cbw.setVisible(true);
 			}
 		});
-		bAdd3.setBounds(616, 472, 115, 23);
+		bAdd3.setBounds(626, 472, 115, 23);
 		getContentPane().add(bAdd3);
 		
 		JButton bAdd4 = new JButton("Agregar");
@@ -225,7 +251,7 @@ public class ModoTextoManager extends JFrame
 				ab.setVisible(true);
 			}
 		});
-		bAdd4.setBounds(887, 472, 115, 23);
+		bAdd4.setBounds(897, 472, 115, 23);
 		getContentPane().add(bAdd4);
 		
 		JButton btnModoGrfico = new JButton("Modo gr\u00E1fico");
@@ -241,6 +267,36 @@ public class ModoTextoManager extends JFrame
 		btnModoGrfico.setFont(new Font("Tahoma", Font.BOLD, 11));
 		btnModoGrfico.setBounds(1069, 11, 115, 35);
 		getContentPane().add(btnModoGrfico);
+		
+		JLabel lblIdName = new JLabel("id   nombre");
+		lblIdName.setFont(new Font("Tahoma", Font.BOLD, 12));
+		lblIdName.setBounds(45, 66, 216, 14);
+		getContentPane().add(lblIdName);
+		
+		JLabel lblIdName_2 = new JLabel(" id   nombre");
+		lblIdName_2.setFont(new Font("Tahoma", Font.BOLD, 12));
+		lblIdName_2.setBounds(305, 66, 216, 14);
+		getContentPane().add(lblIdName_2);
+		
+		JLabel lbldesdehaciaTypeName = new JLabel("(desde,hacia)   tipo");
+		lbldesdehaciaTypeName.setFont(new Font("Tahoma", Font.BOLD, 12));
+		lbldesdehaciaTypeName.setBounds(570, 66, 216, 14);
+		getContentPane().add(lbldesdehaciaTypeName);
+		
+		JLabel lblIdName_1 = new JLabel("id   nombre");
+		lblIdName_1.setFont(new Font("Tahoma", Font.BOLD, 12));
+		lblIdName_1.setBounds(840, 66, 216, 14);
+		getContentPane().add(lblIdName_1);
+		
+		JButton buttonXML = new JButton("XML");
+		buttonXML.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) 
+			{
+				Manager.ClickEvent.fireEvent(5);
+			}
+		});
+		buttonXML.setBounds(1000, 630, 90, 35);
+		getContentPane().add(buttonXML);
 	}
 	
 	public void addActor(Actor a, boolean primary)
@@ -266,5 +322,114 @@ public class ModoTextoManager extends JFrame
 	{
 		d.addConnection(c);
 		jtaCon.append("("+c.idFrom+","+c.idTo+") "+c.type+"\n");
+	}
+	
+	public void exportXML(String nFile) throws Exception
+	{
+		
+		DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
+		Document document;
+		DocumentBuilder builder = factory.newDocumentBuilder();
+		document = builder.newDocument();
+		
+		//Main Node
+		Element root = document.createElement("UseCaseDiagram");
+		document.appendChild(root);
+		Attr genderAttribute = document.createAttribute("name");
+	    genderAttribute.setValue(d.name);
+	    root.setAttributeNode(genderAttribute);
+	    
+	    Element ac = document.createElement("actors");
+	    Element uc = document.createElement("usecases");
+	    Element con = document.createElement("connection");
+	    root.appendChild(ac);
+	    root.appendChild(uc);
+	    root.appendChild(con);
+	    
+	    for (int i = 0; i< d.actors.size(); i++)
+	    {
+	    	Actor a = d.actors.get(i);
+	    	Element e = document.createElement("actor");
+	    	//att type
+	    	Attr att = document.createAttribute("type");
+	    	att.setValue(a.type);
+	    	e.setAttributeNode(att);
+	    	//att id
+	    	Attr att2 = document.createAttribute("id");
+	    	att2.setValue(a.id);
+	    	e.setAttributeNode(att2);
+	    	//name
+	    	Attr att3 = document.createAttribute("name");
+	    	att3.setValue(a.name);
+	    	e.setAttributeNode(att3);
+	    	ac.appendChild(e);
+	    }
+	    
+	    for (int i = 0; i< d.userCases.size(); i++)
+	    {
+	    	UserCase u = d.userCases.get(i);
+	    	Element e = document.createElement("usecase");
+	    	//att id
+	    	Attr att = document.createAttribute("id");
+	    	att.setValue(u.id);
+	    	e.setAttributeNode(att);
+	    	//att name
+	    	Attr att2 = document.createAttribute("name");
+	    	att2.setValue(u.name);
+	    	e.setAttributeNode(att2);
+	    	uc.appendChild(e);
+	    }
+	    for (int i = 0; i< d.connections.size(); i++)
+	    {
+	    	Connection c = d.connections.get(i);
+	    	Element e = document.createElement("connection");
+	    	//att id
+	    	Attr att = document.createAttribute("type");
+	    	att.setValue(c.type);
+	    	e.setAttributeNode(att);
+	    	//att name
+	    	Attr att2 = document.createAttribute("from");
+	    	att2.setValue(c.idFrom);
+	    	e.setAttributeNode(att2);
+	    	
+	    	Attr att3 = document.createAttribute("to");
+	    	att3.setValue(c.idTo);
+	    	e.setAttributeNode(att3);
+	    	    	
+	    	con.appendChild(e);
+	    }
+	    
+	    
+	    // write the XML document to disk
+	    try {
+
+            // create DOMSource for source XML document
+	        Source xmlSource = new DOMSource(document);
+
+	        // create StreamResult for transformation result
+	        Result result = new StreamResult(new FileOutputStream(nFile+".xml"));
+
+	        // create TransformerFactory
+	        TransformerFactory transformerFactory = TransformerFactory.newInstance();
+
+	        // create Transformer for transformation
+	        Transformer transformer = transformerFactory.newTransformer();
+	        transformer.setOutputProperty("indent", "yes");
+
+	        // transform and deliver content to client
+	        transformer.transform(xmlSource, result);
+	        
+	      }
+
+	      // handle exception creating TransformerFactory
+	      catch (TransformerFactoryConfigurationError factoryError) {
+	        System.err.println("Error creating " + "TransformerFactory");
+	        factoryError.printStackTrace();
+	      }catch (TransformerException transformerError) {
+	        System.err.println("Error transforming document");
+	        transformerError.printStackTrace();
+	      }    catch (IOException ioException) {
+	        ioException.printStackTrace();
+	      }
 	}
 }

@@ -6,6 +6,7 @@ import java.awt.EventQueue;
 
 import javax.swing.JFrame;
 import javax.swing.JPanel;
+import javax.swing.JScrollPane;
 import javax.swing.border.EmptyBorder;
 import javax.swing.JButton;
 
@@ -16,6 +17,10 @@ import java.util.HashMap;
 import java.util.Map;
 
 import javax.swing.JScrollBar;
+import javax.swing.ScrollPaneConstants;
+import javax.swing.JLabel;
+import javax.swing.JTextField;
+import java.awt.GridLayout;
 
 public class ModoGraficoManager extends JFrame {
 
@@ -34,19 +39,20 @@ public class ModoGraficoManager extends JFrame {
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
 		
-		map = new HashMap<String, Entity>();
-		
-		JButton btnNewButton = new JButton("Volver");
-		btnNewButton.addActionListener(new ActionListener() {
+		JButton btnVolver = new JButton("Volver");
+		btnVolver.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) 
 			{
 				Manager.ClickEvent.fireEvent(4);
 				dispose();
 			}
 		});
-		btnNewButton.setFont(new Font("Tahoma", Font.BOLD, 14));
-		btnNewButton.setBounds(1058, 11, 116, 45);
-		contentPane.add(btnNewButton);
+		btnVolver.setFont(new Font("Tahoma", Font.BOLD, 14));
+		btnVolver.setBounds(1035, 11, 122, 42);
+		contentPane.add(btnVolver);
+		
+		map = new HashMap<String, Entity>();
+				
 		
 		this.d = D;
 		setUserCases();
