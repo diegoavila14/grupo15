@@ -8,6 +8,7 @@ import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
 
 import Editor.VentanasUnidas;
+import Inicial.Editor;
 import UseCase.Manager;
 
 import java.awt.event.MouseAdapter;
@@ -77,17 +78,6 @@ public class Principal2 {
 	    jmFile.add(jmiExit);
 	    jmb.add(jmFile);
 	    
-	    JMenu jmOptions = new JMenu("Options");
-	    JMenu a = new JMenu("A");
-	    JMenuItem b = new JMenuItem("B");
-	    JMenuItem c = new JMenuItem("C");
-	    JMenuItem d = new JMenuItem("D");
-	    a.add(b);
-	    a.add(c);
-	    a.add(d);
-	    jmOptions.add(a);
-	    jmb.add(jmOptions);
-	    
 	    frmEditorDeDiagramas.setJMenuBar(jmb);
 	    frmEditorDeDiagramas.setVisible(true);
 	    
@@ -113,6 +103,7 @@ public class Principal2 {
 			    {
 			    	System.exit(0);
 			    }
+			    frmEditorDeDiagramas.dispose();
 			}
 		};
 		
@@ -121,9 +112,6 @@ public class Principal2 {
 	    jmiExit.addActionListener(MenuListener);
 	    jmiUC.addActionListener(MenuListener);
 	    jmiD.addActionListener(MenuListener);
-	    b.addActionListener(MenuListener);
-	    c.addActionListener(MenuListener);
-	    d.addActionListener(MenuListener);  
 	    
 	}
 

@@ -6,6 +6,9 @@ import java.awt.EventQueue;
 import javax.imageio.ImageIO;
 import javax.swing.JButton;
 import javax.swing.JFrame;
+import javax.swing.JMenu;
+import javax.swing.JMenuBar;
+import javax.swing.JMenuItem;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
@@ -104,7 +107,7 @@ public class VentanasUnidas extends JFrame {
 		PNGButton.addActionListener(PNGButtonListener);
 		PNGButton.setVisible(false);
 		contentPane.add(PNGButton,"cell 2 1,alignx center");
-		
+		placeMenu();
 		setVisible(true);
 	}
 	
@@ -133,19 +136,7 @@ public class VentanasUnidas extends JFrame {
 				else{
 					doc = convertStringToDocument(s.substring(1, s.length()));
 				}
-				//Lo siguiente es para detectar si el xml es de UserCase o de Clases
-				String rootN = doc.getFirstChild().getNodeName();
-				int indicador; //0=UserCaseDiagram 1 =ClassDiagram
-				if (rootN.equals("UseCaseDiagram"))
-				{
-					System.out.println("User Case Diagram");
-					indicador = 0;
-				}
-				else
-				{
-					System.out.println("Class Diagram");
-					indicador = 1;
-				}
+				
 		
 				Compilador comp = new Compilador(doc);
 				ClassDiagram classdiagram = comp.getClassdiagram();
@@ -168,4 +159,55 @@ public class VentanasUnidas extends JFrame {
 			}
 		 
 	 }
+	 private void placeMenu() //Sin funcionalidad, En prueba.
+		{
+			JMenuBar jmb = new JMenuBar();
+			JMenu jmFile = new JMenu("File");
+		    JMenuItem jmiImport = new JMenuItem("Import");
+		    JMenuItem jmiClose = new JMenuItem("Close");
+		    JMenu jmiSave = new JMenu("Export");
+		    JMenuItem jmiPNG = new JMenuItem("as PNG");
+		    JMenuItem jmiXML = new JMenuItem("as XML");
+		    jmiSave.add(jmiPNG);
+		    jmiSave.add(jmiXML);
+		    JMenuItem jmiExit = new JMenuItem("Exit");
+		    jmFile.add(jmiImport);
+		    jmFile.add(jmiClose);
+		    jmFile.add(jmiSave);
+		    jmFile.addSeparator();
+		    jmFile.add(jmiExit);
+		    jmb.add(jmFile);
+		    
+		    setJMenuBar(jmb);
+		    setVisible(true);
+		    
+		    ActionListener MenuListener = new ActionListener() 
+			{
+				public void actionPerformed(ActionEvent e) 
+				{
+					String comStr = e.getActionCommand();
+				    if (e.getActionCommand().equals("Import"))
+				    {
+			    		Inicial.Editor ed = new Inicial.Editor();
+			    		ed.Import();
+			    		dispose();
+			    		//Lanzar evento de eliminacion
+				    }
+				    else if (e.getActionCommand().equals("as XML"))
+				    {
+				    	//Exportar a xml		    	
+				    }
+				}
+			};
+			
+			jmiImport.addActionListener(MenuListener);
+		    jmiClose.addActionListener(MenuListener);
+		    jmiSave.addActionListener(MenuListener);
+		    jmiExit.addActionListener(MenuListener);
+			
+		    
+		    
+		}
+	 
+	 
 }

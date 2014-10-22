@@ -27,7 +27,7 @@ public class GuardadorWindow extends JFrame {
 		contentPane.setLayout(null);
 		
 		JLabel lblSeleccioneElNombre = new JLabel("Seleccione el nombre del archivo:");
-		lblSeleccioneElNombre.setBounds(10, 11, 169, 14);
+		lblSeleccioneElNombre.setBounds(10, 11, 257, 14);
 		contentPane.add(lblSeleccioneElNombre);
 		
 		textField = new JTextField();

@@ -41,10 +41,11 @@ import pEventsUtil.*;
 
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 
 public class ModoTextoManager extends JFrame
 {
-	JButton PNGButton;
 	Diagram d;
 	JTextArea jtaPr;
 	JTextArea jtaSec;
@@ -69,40 +70,12 @@ public class ModoTextoManager extends JFrame
 		
 		getContentPane().setLayout(null);
 		
-		PNGButton = new JButton("PNG");
-		PNGButton.setBounds(1094, 588, 90, 35);
-		getContentPane().add(PNGButton);
-		
 		
 		placeActors();
 		placeUserCases();
 		placeConnections();
 		placeMenu();
 		
-		ActionListener PNGButtonListener = new ActionListener() 
-		{
-			public void actionPerformed(ActionEvent e) 
-			{
-				if (e.getSource() == PNGButton)
-				{
-					BufferedImage image = new BufferedImage(getWidth(), getHeight(), BufferedImage.TYPE_INT_RGB);
-						
-					paint(image.getGraphics());
-					File file = new File("diagUC.png");
-					try 
-					{
-						ImageIO.write(image, "png", file);
-					} 
-					catch (IOException e1) 
-					{				
-						e1.printStackTrace();
-					}			 
-				
-				} 
-			}
-		};
-		
-		PNGButton.addActionListener(PNGButtonListener);
 	}
 	
 	private void placeMenu() //Sin funcionalidad, En prueba.
@@ -114,6 +87,13 @@ public class ModoTextoManager extends JFrame
 	    JMenu jmiSave = new JMenu("Export");
 	    JMenuItem jmiPNG = new JMenuItem("as PNG");
 	    JMenuItem jmiXML = new JMenuItem("as XML");
+	    jmiXML.addMouseListener(new MouseAdapter() {
+	    	@Override
+	    	public void mouseClicked(MouseEvent e) 
+	    	{
+	    		Manager.ClickEvent.fireEvent(5);
+	    	}
+	    });
 	    jmiSave.add(jmiPNG);
 	    jmiSave.add(jmiXML);
 	    JMenuItem jmiExit = new JMenuItem("Exit");
@@ -123,17 +103,6 @@ public class ModoTextoManager extends JFrame
 	    jmFile.addSeparator();
 	    jmFile.add(jmiExit);
 	    jmb.add(jmFile);
-	    
-	    JMenu jmOptions = new JMenu("Options");
-	    JMenu a = new JMenu("A");
-	    JMenuItem b = new JMenuItem("B");
-	    JMenuItem c = new JMenuItem("C");
-	    JMenuItem d = new JMenuItem("D");
-	    a.add(b);
-	    a.add(c);
-	    a.add(d);
-	    jmOptions.add(a);
-	    jmb.add(jmOptions);
 	    
 	    setJMenuBar(jmb);
 	    setVisible(true);
@@ -145,15 +114,18 @@ public class ModoTextoManager extends JFrame
 				String comStr = e.getActionCommand();
 			    if (e.getActionCommand().equals("Import"))
 			    {
-			    	System.out.println("Import funciona");
-			    	boolean b = false;
-			    	while (!b)
-			    	{
-			    		//b = Import();
-			    	}
+		    		Inicial.Editor ed = new Inicial.Editor();
+		    		ed.Import();
+		    		dispose();
+		    		//Lanzar evento de eliminacion
 			    }
 			    else if (e.getActionCommand().equals("as XML"))
 			    {
+			    	Manager.ClickEvent.fireEvent(5);			    	
+			    }
+			    else if (e.getActionCommand().equals("as PNG"))
+			    {
+			    	System.out.println(e.getActionCommand());
 			    	Manager.ClickEvent.fireEvent(5);			    	
 			    }
 			}
@@ -163,9 +135,9 @@ public class ModoTextoManager extends JFrame
 	    jmiClose.addActionListener(MenuListener);
 	    jmiSave.addActionListener(MenuListener);
 	    jmiExit.addActionListener(MenuListener);
-	    b.addActionListener(MenuListener);
-	    c.addActionListener(MenuListener);
-	    d.addActionListener(MenuListener);
+	    jmiXML.addActionListener(MenuListener);
+	    jmiPNG.addActionListener(MenuListener);
+	    
 		
 	    
 	    
@@ -355,16 +327,6 @@ public class ModoTextoManager extends JFrame
 		lblIdName_1.setFont(new Font("Tahoma", Font.BOLD, 12));
 		lblIdName_1.setBounds(840, 66, 216, 14);
 		getContentPane().add(lblIdName_1);
-		
-		JButton buttonXML = new JButton("XML");
-		buttonXML.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) 
-			{
-				Manager.ClickEvent.fireEvent(5);
-			}
-		});
-		buttonXML.setBounds(998, 588, 90, 35);
-		getContentPane().add(buttonXML);
 	}
 	
 	public void addActor(Actor a, boolean primary)

@@ -4,6 +4,7 @@ import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.EventQueue;
 
+import javax.imageio.ImageIO;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
@@ -13,6 +14,7 @@ import javax.swing.JButton;
 import java.awt.Font;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
+import java.awt.image.BufferedImage;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -20,7 +22,10 @@ import javax.swing.JScrollBar;
 import javax.swing.ScrollPaneConstants;
 import javax.swing.JLabel;
 import javax.swing.JTextField;
+
 import java.awt.GridLayout;
+import java.io.File;
+import java.io.IOException;
 
 public class ModoGraficoManager extends JFrame {
 
@@ -39,7 +44,7 @@ public class ModoGraficoManager extends JFrame {
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
 		
-		JButton btnVolver = new JButton("Volver");
+		final JButton btnVolver = new JButton("Volver");
 		btnVolver.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) 
 			{
@@ -48,8 +53,34 @@ public class ModoGraficoManager extends JFrame {
 			}
 		});
 		btnVolver.setFont(new Font("Tahoma", Font.BOLD, 14));
-		btnVolver.setBounds(1035, 11, 122, 42);
+		btnVolver.setBounds(1084, 11, 90, 42);
 		contentPane.add(btnVolver);
+		
+		final JButton btnPng = new JButton("PNG");
+		btnPng.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) 
+			{
+				btnPng.setVisible(false);
+				btnVolver.setVisible(false);
+				BufferedImage image = new BufferedImage(getWidth(), getHeight(), BufferedImage.TYPE_INT_RGB);
+				
+				paint(image.getGraphics());
+				File file = new File("diagUC.png");
+				try 
+				{
+					ImageIO.write(image, "png", file);
+				} 
+				catch (IOException e1) 
+				{				
+					e1.printStackTrace();
+				}
+				btnPng.setVisible(true);
+				btnVolver.setVisible(true);
+			}
+		});
+		btnPng.setFont(new Font("Tahoma", Font.BOLD, 14));
+		btnPng.setBounds(1097, 608, 77, 42);
+		contentPane.add(btnPng);
 		
 		map = new HashMap<String, Entity>();
 				
