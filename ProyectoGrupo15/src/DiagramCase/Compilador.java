@@ -1,6 +1,9 @@
 package DiagramCase;
 import java.io.*;
 
+import org.w3c.dom.Document;
+
+
 
 
 
@@ -8,13 +11,21 @@ public class Compilador {
 
 	
 	ClassDiagram classdiagram;
+	public ClassDiagram getClassdiagram() {
+		return classdiagram;
+	}
+
+	public void setClassdiagram(ClassDiagram classdiagram) {
+		this.classdiagram = classdiagram;
+	}
+
 	XMLClassDiagram xcd;
-	DiagramaDeClase ddc;
 	
-	public Compilador(File f)
+
+	public Compilador(Document d)
 	{
-		xcd = new XMLClassDiagram(f);
+		xcd = new XMLClassDiagram(d);
 		classdiagram = xcd.getDiagram();
-		ddc = new DiagramaDeClase(classdiagram);
+		
 	}
 }

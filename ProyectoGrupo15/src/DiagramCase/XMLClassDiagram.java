@@ -16,13 +16,14 @@ import org.xml.sax.SAXException;
 
 public class XMLClassDiagram {
 
+	Document d;
 	
-	File file;
 	ClassDiagram cd;
 
-	public XMLClassDiagram(File f)
+	public XMLClassDiagram(Document d2)
 	{
-		this.file = f;
+		
+		d= d2;
 		cd = new ClassDiagram();
 		Leer();
 	}
@@ -33,9 +34,8 @@ public class XMLClassDiagram {
 	
 		try {
 			
-			DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
-			DocumentBuilder dBuilder = dbFactory.newDocumentBuilder();
-			Document doc = dBuilder.parse(file);
+			
+			Document doc = d;
 			
 			Element rootElement = doc.getDocumentElement();	
 			
@@ -121,7 +121,7 @@ public class XMLClassDiagram {
 			}
 			
 			
-		} catch (ParserConfigurationException | SAXException | IOException e) {
+		} catch (Exception e) {
 		
 			e.printStackTrace();
 		}
