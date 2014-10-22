@@ -14,10 +14,18 @@ public class Manager implements pEventListener
 	// Se crea el evento
 	public static pEvent ClickEvent;
 		
-	public Manager(File f)
+	public Manager(boolean nuevo, File f)
 	{
-		xM = new XmlManager(f);
-		Diagram diagram = xM.getDiagram();
+		Diagram diagram;
+		if (!nuevo)
+		{
+			xM = new XmlManager(f);
+			diagram = xM.getDiagram();
+		}
+		else
+		{
+			diagram = new Diagram("Hola");
+		}
 		MT = new ModoTextoManager(diagram); //Modo editor de texto
 		//MG = new ModoGraficoManager(); //Editor modo gráfico
 		//No se si instanciarlo altiro

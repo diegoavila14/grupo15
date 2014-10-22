@@ -20,17 +20,15 @@ import org.w3c.dom.Element;
 import org.xml.sax.InputSource;
 import org.xml.sax.SAXException;
 
+import UseCase.Manager;
 import DiagramCase.Compilador;
 import Editor.*;
 
 
 public class Editor {
 
-	public static void main(String[] args) 
-	{
-		//System.setProperty("java.util.Arrays.useLegacyMergeSort", "true");
-		Import();
-	}
+	public Editor()
+	{	}
 
 	
 	public static String getExtension(File f) // obtener extension del archivo
@@ -75,54 +73,77 @@ public class Editor {
 			}
 			contador++;
 			}
-			else if(respuesta == JFileChooser.APPROVE_OPTION || respuesta == JFileChooser.ERROR_OPTION){
-			
+			else if(respuesta == JFileChooser.APPROVE_OPTION || respuesta == JFileChooser.ERROR_OPTION)
+			{}
+			try 
+			{
 				
-			}
-		}
-		
+				DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
+				DocumentBuilder dBuilder = dbFactory.newDocumentBuilder();
+				Document doc = dBuilder.parse(archivo);
 				
-		try{
-			fr = new FileReader(archivo);
-			br = new BufferedReader(new InputStreamReader(new FileInputStream(archivo),"UTF-8"));
-			VentanasUnidas ie = new VentanasUnidas(archivo);
-			
-			String Dato = "";
-			String XML = "";
-			while((Dato = br.readLine())!=null){  // habia un simbolo extraño cuando leia un "-" en la visibilidad, asi que lo elimine con estos if
-			
-				if(Dato.contains("visibility")){
-				
-					String[] Error = Dato.split("visibility");
-				
-					if(Error[1].contains("Â")){
-						String[] Error2 = Error[1].split("Â");
-				
-						XML = XML + Error[0] + "visibility" + Error2[0] + Error2[1] + "\n";
+				//Lo siguiente es para detectar si el xml es de UserCase o de Clases
+				String rootN = doc.getFirstChild().getNodeName();
+				int indicador; //0=UserCaseDiagram 1 =ClassDiagram
+				if (rootN.equals("UseCaseDiagram"))
+				{
+					System.out.println("User Case Diagram");
+					Manager m = new Manager(false,archivo);
+				}
+				else //ClassDiagram
+				{					
+					try{
+						fr = new FileReader(archivo);
+						br = new BufferedReader(new InputStreamReader(new FileInputStream(archivo),"UTF-8"));
+						VentanasUnidas ie = new VentanasUnidas(archivo);
 						
+						String Dato = "";
+						String XML = "";
+						while((Dato = br.readLine())!=null){  // habia un simbolo extraño cuando leia un "-" en la visibilidad, asi que lo elimine con estos if
+						
+							if(Dato.contains("visibility")){
+							
+								String[] Error = Dato.split("visibility");
+							
+								if(Error[1].contains("Â")){
+									String[] Error2 = Error[1].split("Â");
+							
+									XML = XML + Error[0] + "visibility" + Error2[0] + Error2[1] + "\n";
+									
+								}
+								
+								
+								else{
+								
+								XML = XML  + Error[0] + "visibility" + Error[1] + "\n";
+								}
+							}
+							else{
+							XML = XML + Dato + "\n";
+							}
+						}
+						ie.iet.editorPane.setText(XML);
+						
+						fr.close();
+						br.close();
 					}
 					
-					
-					else{
-					
-					XML = XML  + Error[0] + "visibility" + Error[1] + "\n";
+					catch(IOException e )
+					{
+						String mensajeError = "Error en el formato del archivo XML" + "\nInténtelo denuevo con otro archivo";
+						JOptionPane.showMessageDialog(null,mensajeError,"Parsing Error",JOptionPane.ERROR_MESSAGE);
+						e.printStackTrace();
+						Import();
 					}
-				}
-				else{
-				XML = XML + Dato + "\n";
 				}
 			}
-			ie.iet.editorPane.setText(XML);
-			
-			fr.close();
-			br.close();
-		}
-		
-		catch(IOException e ){
-			String mensajeError = "Error en el formato del archivo XML" + "\nInténtelo denuevo con otro archivo";
-			JOptionPane.showMessageDialog(null,mensajeError,"Parsing Error",JOptionPane.ERROR_MESSAGE);
-			e.printStackTrace();
-			Import();
+			catch (IOException | ParserConfigurationException | SAXException e) 
+			{
+				String mensajeError = "Error en el formato del archivo XML" + "\nInténtelo denuevo con otro archivo";
+				JOptionPane.showMessageDialog(null,mensajeError,"Parsing Error",JOptionPane.ERROR_MESSAGE);
+				e.printStackTrace();
+				return;
+			}
 		}
 		
 		

@@ -146,24 +146,16 @@ public class VentanasUnidas extends JFrame {
 					System.out.println("Class Diagram");
 					indicador = 1;
 				}
-				
-				if (indicador == 0) //UserCaseDiagram
-				{
-					UseCase.Manager manager = new UseCase.Manager(archivo);				
-				}
-				else //ClassDiagram
-				{
 		
-					Compilador comp = new Compilador(doc);
-					ClassDiagram classdiagram = comp.getClassdiagram();
-					if(ddc != null)
-					contentPane.remove(ddc);
+				Compilador comp = new Compilador(doc);
+				ClassDiagram classdiagram = comp.getClassdiagram();
+				if(ddc != null)
+				contentPane.remove(ddc);
+				
+				ddc = new InterfazDiagClase(classdiagram);
 					
-					ddc = new InterfazDiagClase(classdiagram);
-						
-					contentPane.add(ddc, "cell 2 0,grow");
-					
-				}
+				contentPane.add(ddc, "cell 2 0,grow");
+			
 				
 			} 
 			
