@@ -34,6 +34,7 @@ import javax.imageio.ImageIO;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JMenuItem;
 import javax.swing.JTextArea;
 
 import pEventsUtil.*;
@@ -69,13 +70,14 @@ public class ModoTextoManager extends JFrame
 		getContentPane().setLayout(null);
 		
 		PNGButton = new JButton("PNG");
-		PNGButton.setBounds(1100, 630, 90, 35);
+		PNGButton.setBounds(1094, 588, 90, 35);
 		getContentPane().add(PNGButton);
 		
 		
 		placeActors();
 		placeUserCases();
 		placeConnections();
+		placeMenu();
 		
 		ActionListener PNGButtonListener = new ActionListener() 
 		{
@@ -101,6 +103,72 @@ public class ModoTextoManager extends JFrame
 		};
 		
 		PNGButton.addActionListener(PNGButtonListener);
+	}
+	
+	private void placeMenu() //Sin funcionalidad, En prueba.
+	{
+		JMenuBar jmb = new JMenuBar();
+		JMenu jmFile = new JMenu("File");
+	    JMenuItem jmiImport = new JMenuItem("Import");
+	    JMenuItem jmiClose = new JMenuItem("Close");
+	    JMenu jmiSave = new JMenu("Export");
+	    JMenuItem jmiPNG = new JMenuItem("as PNG");
+	    JMenuItem jmiXML = new JMenuItem("as XML");
+	    jmiSave.add(jmiPNG);
+	    jmiSave.add(jmiXML);
+	    JMenuItem jmiExit = new JMenuItem("Exit");
+	    jmFile.add(jmiImport);
+	    jmFile.add(jmiClose);
+	    jmFile.add(jmiSave);
+	    jmFile.addSeparator();
+	    jmFile.add(jmiExit);
+	    jmb.add(jmFile);
+	    
+	    JMenu jmOptions = new JMenu("Options");
+	    JMenu a = new JMenu("A");
+	    JMenuItem b = new JMenuItem("B");
+	    JMenuItem c = new JMenuItem("C");
+	    JMenuItem d = new JMenuItem("D");
+	    a.add(b);
+	    a.add(c);
+	    a.add(d);
+	    jmOptions.add(a);
+	    jmb.add(jmOptions);
+	    
+	    setJMenuBar(jmb);
+	    setVisible(true);
+	    
+	    ActionListener MenuListener = new ActionListener() 
+		{
+			public void actionPerformed(ActionEvent e) 
+			{
+				String comStr = e.getActionCommand();
+			    if (e.getActionCommand().equals("Import"))
+			    {
+			    	System.out.println("Import funciona");
+			    	boolean b = false;
+			    	while (!b)
+			    	{
+			    		//b = Import();
+			    	}
+			    }
+			    else if (e.getActionCommand().equals("as XML"))
+			    {
+			    	Manager.ClickEvent.fireEvent(5);			    	
+			    }
+			}
+		};
+		
+		jmiImport.addActionListener(MenuListener);
+	    jmiClose.addActionListener(MenuListener);
+	    jmiSave.addActionListener(MenuListener);
+	    jmiExit.addActionListener(MenuListener);
+	    b.addActionListener(MenuListener);
+	    c.addActionListener(MenuListener);
+	    d.addActionListener(MenuListener);
+		
+	    
+	    
 	}
 	
 	private void placeActors()
@@ -295,7 +363,7 @@ public class ModoTextoManager extends JFrame
 				Manager.ClickEvent.fireEvent(5);
 			}
 		});
-		buttonXML.setBounds(1000, 630, 90, 35);
+		buttonXML.setBounds(998, 588, 90, 35);
 		getContentPane().add(buttonXML);
 	}
 	
@@ -341,7 +409,7 @@ public class ModoTextoManager extends JFrame
 	    
 	    Element ac = document.createElement("actors");
 	    Element uc = document.createElement("usecases");
-	    Element con = document.createElement("connection");
+	    Element con = document.createElement("connections");
 	    root.appendChild(ac);
 	    root.appendChild(uc);
 	    root.appendChild(con);
