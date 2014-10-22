@@ -468,6 +468,7 @@ public class ModoTextoManager extends JFrame
 	{
 		ModoGraficoManager mg = new ModoGraficoManager(d);
 		mg.setVisible(true);
+		setVisible(false);
 		mg.getPNG(nFile);
 	}
 }

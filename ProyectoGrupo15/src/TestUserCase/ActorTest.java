@@ -1,4 +1,4 @@
-package TestUC;
+package TestUserCase;
 
 import static org.junit.Assert.*;
 
