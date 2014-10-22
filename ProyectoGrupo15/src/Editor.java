@@ -17,9 +17,11 @@ import org.w3c.dom.Document;
 import org.w3c.dom.NodeList;
 import org.w3c.dom.Node;
 import org.w3c.dom.Element;
+import org.xml.sax.InputSource;
 import org.xml.sax.SAXException;
 
 import DiagramCase.Compilador;
+import Editor.*;
 
 
 public class Editor {
@@ -47,6 +49,8 @@ public class Editor {
 		boolean correcto = false;
 		File archivo = null;
 		Scanner teclado = null;
+		FileReader fr = null;
+	    BufferedReader br = null;
 		int contador = 0;
 		while(correcto == false)
 		{ // Para checkear que sea un xml
@@ -59,6 +63,9 @@ public class Editor {
 			teclado = new Scanner(System.in);
 			JFileChooser fc = new JFileChooser();
 			int respuesta = fc.showOpenDialog(null);
+			if (respuesta == JFileChooser.APPROVE_OPTION) {
+				
+			
 			archivo = fc.getSelectedFile();
 			//File archivo = new File("C:/Users/Diego Avila/Desktop/REPOteMP/prueba.xml");
 			if(getExtension(archivo).equals("xml"))
@@ -66,56 +73,60 @@ public class Editor {
 				correcto = true;
 			}
 			contador++;
+			}
+			else if(respuesta == JFileChooser.APPROVE_OPTION || respuesta == JFileChooser.ERROR_OPTION){
+			
+				
+			}
 		}
 		
-		//leer xml con dom parser
-		
-		try {
+				
+		try{
+			fr = new FileReader(archivo);
+			br = new BufferedReader(new InputStreamReader(new FileInputStream(archivo),"UTF-8"));
+			VentanasUnidas ie = new VentanasUnidas(archivo);
 			
-			DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
-			DocumentBuilder dBuilder = dbFactory.newDocumentBuilder();
-			Document doc = dBuilder.parse(archivo);
+			String Dato = "";
+			String XML = "";
+			while((Dato = br.readLine())!=null){  // habia un simbolo extraño cuando leia un "-" en la visibilidad, asi que lo elimine con estos if
 			
-			//Lo siguiente es para detectar si el xml es de UserCase o de Clases
-			String rootN = doc.getFirstChild().getNodeName();
-			int indicador; //0=UserCaseDiagram 1 =ClassDiagram
-			if (rootN.equals("UseCaseDiagram"))
-			{
-				System.out.println("User Case Diagram");
-				indicador = 0;
+				if(Dato.contains("visibility")){
+				
+					String[] Error = Dato.split("visibility");
+				
+					if(Error[1].contains("Â")){
+						String[] Error2 = Error[1].split("Â");
+				
+						XML = XML + Error[0] + "visibility" + Error2[0] + Error2[1] + "\n";
+						
+					}
+					
+					
+					else{
+					
+					XML = XML  + Error[0] + "visibility" + Error[1] + "\n";
+					}
+				}
+				else{
+				XML = XML + Dato + "\n";
+				}
 			}
-			else
-			{
-				System.out.println("Class Diagram");
-				indicador = 1;
-			}
+			ie.iet.editorPane.setText(XML);
 			
-			if (indicador == 0) //UserCaseDiagram
-			{
-				UseCase.Manager manager = new UseCase.Manager(archivo);				
-			}
-			else //ClassDiagram
-			{
-				Compilador comp = new Compilador(archivo);
-			}
-			
-			
+			fr.close();
+			br.close();
+		}
 		
-		
-			
-			
-		
-			
-		} 
-		
-		catch (IOException | ParserConfigurationException | SAXException e) 
-		{
+		catch(IOException e ){
 			String mensajeError = "Error en el formato del archivo XML" + "\nInténtelo denuevo con otro archivo";
 			JOptionPane.showMessageDialog(null,mensajeError,"Parsing Error",JOptionPane.ERROR_MESSAGE);
 			e.printStackTrace();
 			Import();
 		}
 		
+		
 		teclado.close();		
 	}
+	
+	
 }
