@@ -15,7 +15,7 @@ import org.xml.sax.SAXException;
 public class XmlManager 
 {
 	File file;
-	Diagram diagram;
+	public Diagram diagram;
 	
 	public XmlManager(File f)
 	{

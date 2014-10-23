@@ -9,7 +9,6 @@ public class Manager implements pEventListener
 {
 	XmlManager xM;
 	ModoTextoManager MT;
-	ModoGraficoManager MG; //Dudosa posesión
 	
 	// Se crea el evento
 	public static pEvent ClickEvent;
@@ -24,7 +23,7 @@ public class Manager implements pEventListener
 		}
 		else
 		{
-			diagram = new Diagram("Hola");
+			diagram = new Diagram("");
 		}
 		MT = new ModoTextoManager(diagram); //Modo editor de texto
 		//MG = new ModoGraficoManager(); //Editor modo gráfico
@@ -32,11 +31,6 @@ public class Manager implements pEventListener
 		this.ClickEvent = new pEvent();
 		this.ClickEvent.addEventListener(this);
 		
-	}
-	
-	public void interact()
-	{
-		System.out.println("Desea exportar como PNG? (Si)/(No)");		
 	}
 	
 	//Método que escuchará el evento
@@ -83,6 +77,7 @@ public class Manager implements pEventListener
 				break;
 			case 7: //Recibir nombre de archivo a guardar en png
 				String nn = (String)params[1];
+				MT.d.name = "nn";
 				MT.exportPNG(nn);
 				break;
 			}
