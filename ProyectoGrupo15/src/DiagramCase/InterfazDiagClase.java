@@ -22,6 +22,7 @@ import javax.swing.JScrollPane;
 	
 	ClassDiagram cd;
 	JPanel jp;
+	
 	public JPanel getJp() {
 		return jp;
 	}
@@ -41,6 +42,7 @@ import javax.swing.JScrollPane;
 
 
 	}
+	
 	private void placeComponents() {
 		
 		setVerticalScrollBarPolicy(VERTICAL_SCROLLBAR_ALWAYS);

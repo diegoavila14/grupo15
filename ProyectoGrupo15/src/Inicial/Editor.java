@@ -23,13 +23,17 @@ import org.xml.sax.SAXException;
 
 import UseCase.Manager;
 import DiagramCase.Compilador;
-import Editor.*;
+import EditorDiagramClass.*;
 
 
 public class Editor {
 
+	public static final String UTF8_BOM = "\uFEFF";
+	
 	public Editor()
-	{	}
+	{	
+	
+	}
 
 	
 	public static String getExtension(File f) // obtener extension del archivo
@@ -53,12 +57,13 @@ public class Editor {
 	    BufferedReader br = null;
 		int contador = 0;
 		while(correcto == false)
-		{ // Para checkear que sea un xml
+		{ // Para chequear que sea un xml
 			
 			if (contador > 0)
 			{
 				String mensajeError = "Extensión de archivo incorrecta" + "\nInténtelo denuevo con un archivo XML";
 				JOptionPane.showMessageDialog(null,mensajeError,"Parsing Error",JOptionPane.ERROR_MESSAGE);
+				Import();
 			}	
 			teclado = new Scanner(System.in);
 			JFileChooser fc = new JFileChooser();
@@ -74,8 +79,11 @@ public class Editor {
 			}
 			contador++;
 			}
-			else if(respuesta == JFileChooser.APPROVE_OPTION || respuesta == JFileChooser.ERROR_OPTION)
-			{}
+			else if (respuesta == JFileChooser.CANCEL_OPTION || respuesta == JFileChooser.ERROR_OPTION) {
+				break;
+		    }
+			
+		}	
 			try 
 			{
 				
@@ -123,6 +131,9 @@ public class Editor {
 							XML = XML + Dato + "\n";
 							}
 						}
+						if (XML.startsWith(UTF8_BOM))  // Arregla problemas con la compilacion del xml
+						XML = XML.substring(1);
+						
 						ie.iet.editorPane.setText(XML);
 						
 						fr.close();
@@ -145,11 +156,12 @@ public class Editor {
 				e.printStackTrace();
 				return;
 			}
+			teclado.close();
 		}
+
 		
-		
-		teclado.close();		
-	}
+			
+	
 	
 	
 }

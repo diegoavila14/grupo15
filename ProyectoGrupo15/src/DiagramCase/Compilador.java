@@ -22,6 +22,14 @@ public class Compilador {
 	XMLClassDiagram xcd;
 	
 
+	public XMLClassDiagram getXcd() {
+		return xcd;
+	}
+
+	public void setXcd(XMLClassDiagram xcd) {
+		this.xcd = xcd;
+	}
+
 	public Compilador(Document d)
 	{
 		xcd = new XMLClassDiagram(d);

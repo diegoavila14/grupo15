@@ -6,8 +6,9 @@ import javax.swing.JFrame;
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
+import javax.swing.JOptionPane;
 
-import Editor.VentanasUnidas;
+import EditorDiagramClass.VentanasUnidas;
 import Inicial.Editor;
 import UseCase.Manager;
 
@@ -21,9 +22,7 @@ public class Principal2 {
 	private JFrame frmEditorDeDiagramas;
 	private Editor editor;
 
-	/**
-	 * Launch the application.
-	 */
+	
 	public static void main(String[] args) 
 	{
 		EventQueue.invokeLater(new Runnable() {
@@ -38,16 +37,12 @@ public class Principal2 {
 		});
 	}
 
-	/**
-	 * Create the application.
-	 */
+	
 	public Principal2() {
 		initialize();
 	}
 
-	/**
-	 * Initialize the contents of the frame.
-	 */
+	
 	private void initialize() {
 		frmEditorDeDiagramas = new JFrame();
 		frmEditorDeDiagramas.setTitle("Editor de Diagramas UML");
@@ -88,8 +83,10 @@ public class Principal2 {
 				String comStr = e.getActionCommand();
 			    if (e.getActionCommand().equals("Import"))
 			    {
-			    	System.out.println("Import funciona");
+			    	
 			    	editor.Import();
+			    	
+			    	
 			    }
 			    else if (e.getActionCommand().equals("Use Case Diagram"))
 			    {

@@ -37,34 +37,34 @@ public class Cuadro extends JPanel {
 		setBorder(new LineBorder(new Color(0, 0, 0), 3));
 		setBackground(Color.LIGHT_GRAY);
 		setLayout(new MigLayout("", "[grow]", "[][][][][]"));
-		setLayout(new MigLayout("", "[1px]", "[1px]"));
+		
 		
 		Nombre = new JLabel("");
 		Nombre.setHorizontalAlignment(SwingConstants.CENTER);
 		Nombre.setForeground(new Color(0, 0, 0));
 		Nombre.setBackground(Color.LIGHT_GRAY);
-		add(Nombre, "cell 0 0,alignx left,aligny top");
+		add(Nombre, "cell 0 0,alignx center,aligny top");
 		
 		SeparadorAtributos = new JSeparator();
 		SeparadorAtributos.setForeground(Color.BLACK);
 		SeparadorAtributos.setBackground(Color.BLACK);
 		
-		add(SeparadorAtributos, "cell 0 0,alignx left,growy");
+		add(SeparadorAtributos, "cell 0 1,grow");
 		
 		Atributos = new JTextArea();
 		Atributos.setBackground(Color.LIGHT_GRAY);
 		Atributos.setBorder(new LineBorder(new Color(0, 0, 0), 1));
-		add(Atributos, "cell 0 0,grow");
+		add(Atributos, "cell 0 2,grow");
 		
 		SeparadorMetodos = new JSeparator();
 		SeparadorMetodos.setForeground(Color.BLACK);
 		SeparadorMetodos.setBackground(Color.BLACK);
-		add(SeparadorMetodos, "cell 0 0,alignx left,growy");
+		add(SeparadorMetodos, "cell 0 3,grow");
 		
 		Metodos = new JTextArea();
 		Metodos.setBackground(Color.LIGHT_GRAY);
 		Metodos.setBorder(new LineBorder(new Color(0, 0, 0), 1));
-		add(Metodos, "cell 0 0,grow");
+		add(Metodos, "cell 0 4,grow");
 
 	}
 }

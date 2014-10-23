@@ -29,6 +29,16 @@ public class XMLClassDiagram {
 	}
 	
 	
+	public Document getD() {
+		return d;
+	}
+
+
+	public void setD(Document d) {
+		this.d = d;
+	}
+
+
 	public void Leer(){
 		
 	
@@ -54,6 +64,8 @@ public class XMLClassDiagram {
 				NodeList att = clase.getChildNodes();
 				
 				Node atri = getChildIndex(att,0);
+				
+				System.out.print(atri.getNodeName());
 				Node meth = getChildIndex(att,1);
 						
 				NodeList listatt = atri.getChildNodes();
