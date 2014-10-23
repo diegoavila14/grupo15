@@ -8,7 +8,7 @@ public class Diagram
 	List<UserCase> userCases;
 	List<Connection> connections;
 	List<String> ids;
-	String name;
+	public String name;
 	
 	public Diagram(String n)
 	{

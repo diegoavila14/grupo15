@@ -12,5 +12,20 @@ public class Actor {
 		this.id = Id;
 		this.name = Name;
 	}
+	
+	public String getType()
+	{
+		return this.type;
+	}
+	
+	public String getID()
+	{
+		return this.id;
+	}
+	
+	public String getName()
+	{
+		return this.name;
+	}
 
 }

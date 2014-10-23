@@ -11,9 +11,6 @@ import javax.swing.border.LineBorder;
 
 public class Entity extends JPanel {
 
-	/**
-	 * Create the panel.
-	 */
 	private JLabel label;
 	
 	public Entity() {
