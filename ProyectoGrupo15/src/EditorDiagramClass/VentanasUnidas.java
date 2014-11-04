@@ -98,9 +98,9 @@ public class VentanasUnidas extends JFrame {
 			if (e.getSource() == PNGButton){
 				
 				 {
-				BufferedImage image = new BufferedImage(ddc.getJp().getWidth(), ddc.getJp().getHeight(), BufferedImage.TYPE_INT_RGB);
+				BufferedImage image = new BufferedImage(ddc.getCon().getWidth(), ddc.getCon().getHeight(), BufferedImage.TYPE_INT_RGB);
 					
-				ddc.getJp().paint(image.getGraphics());
+				ddc.getCon().paint(image.getGraphics());
 				File file = new File("diagclase.png");
 				try {
 					ImageIO.write(image, "png", file);

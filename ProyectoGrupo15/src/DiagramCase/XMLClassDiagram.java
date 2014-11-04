@@ -65,7 +65,7 @@ public class XMLClassDiagram {
 				
 				Node atri = getChildIndex(att,0);
 				
-				System.out.print(atri.getNodeName());
+				
 				Node meth = getChildIndex(att,1);
 						
 				NodeList listatt = atri.getChildNodes();
@@ -129,7 +129,7 @@ public class XMLClassDiagram {
 			    String idTo = currentItem.getAttributes().getNamedItem("to").getNodeValue();
 			    UseCase.Connection c = new UseCase.Connection(type,idFrom,idTo);
 			    cd.addConnections(c);
-			    System.out.println(type + " "+ idFrom + " " + idTo );
+			   
 			}
 			
 			

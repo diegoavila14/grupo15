@@ -23,8 +23,10 @@ import javax.swing.DropMode;
 import net.miginfocom.swing.MigLayout;
 
 
+
 public class Cuadro extends JPanel {
 	
+	String ID;
 	JLabel Nombre;
 	JSeparator SeparadorAtributos;
 	JSeparator SeparadorMetodos;
@@ -52,6 +54,7 @@ public class Cuadro extends JPanel {
 		add(SeparadorAtributos, "cell 0 1,grow");
 		
 		Atributos = new JTextArea();
+		Atributos.setEditable(false);
 		Atributos.setBackground(Color.LIGHT_GRAY);
 		Atributos.setBorder(new LineBorder(new Color(0, 0, 0), 1));
 		add(Atributos, "cell 0 2,grow");
@@ -62,9 +65,18 @@ public class Cuadro extends JPanel {
 		add(SeparadorMetodos, "cell 0 3,grow");
 		
 		Metodos = new JTextArea();
+		Metodos.setEditable(false);
 		Metodos.setBackground(Color.LIGHT_GRAY);
 		Metodos.setBorder(new LineBorder(new Color(0, 0, 0), 1));
 		add(Metodos, "cell 0 4,grow");
 
+	}
+
+	public String getID() {
+		return ID;
+	}
+
+	public void setID(String iD) {
+		ID = iD;
 	}
 }
