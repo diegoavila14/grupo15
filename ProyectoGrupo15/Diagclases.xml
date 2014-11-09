@@ -23,19 +23,7 @@
 			</method>
 		</methods>
 	</class>
-	<class id = "c3" name = "BlogAccount3">
-		<attributes>
-			<att name = "name3" type = "String" visibility = "­"/>
-			<att name = "publicURL3" type = "URL" visibility = "+"/>
-			<att name = "authors3" type = "Author[1..5]" visibility = "­"/>
-		</attributes>
-		<methods>
-			<method name = "addEntry3" type = "void" visibility = "+">
-				<param name = "newEntry3" type = "BlogEntry" />
-			</method>
-		</methods>
-	</class>
 	<connections>
-		<connection type = "dependency" from = "c1" to = "c2" />
+		<connection type = "composition" from = "c1" to = "c2" />
 	</connections>
 </ClassDiagram>

@@ -122,7 +122,7 @@ public class Union extends JPanel {
 	        	
 	            Shape oldClip = g2d.getClip();
 	            g2d.setClip(getLineBounds());
-	            g2d.setColor(Color.red);
+	            g2d.setColor(Color.BLACK);
 	            line.paint(g2d);
 	            g2d.setClip(oldClip);
 	        }

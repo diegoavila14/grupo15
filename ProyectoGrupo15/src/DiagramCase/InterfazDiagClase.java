@@ -64,7 +64,7 @@ import javax.swing.DebugGraphics;
 			con.add(Bloques.get(i));
 		}
 		setViewportView(con);
-		con.setLayout(new MigLayout("", "[]", "[]"));
+		con.setLayout(null);
 		
 	}
 	
@@ -139,6 +139,8 @@ import javax.swing.DebugGraphics;
 	
 	private void placeConnections()
 	{
+		Bloques.get(0).setBounds(10, 100, 200, 150);
+		Bloques.get(1).setBounds(300, 10, 200, 150);
 		
 		Cuadro c1 = null;
 		Cuadro c2 = null;
