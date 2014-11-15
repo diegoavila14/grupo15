@@ -5,6 +5,7 @@ import java.awt.EventQueue;
 
 import javax.imageio.ImageIO;
 import javax.swing.JButton;
+import javax.swing.JFileChooser;
 import javax.swing.JFrame;
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
@@ -12,6 +13,7 @@ import javax.swing.JMenuItem;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
+import javax.swing.filechooser.FileNameExtensionFilter;
 
 import net.miginfocom.swing.MigLayout;
 
@@ -97,21 +99,30 @@ public class VentanasUnidas extends JFrame {
 			public void actionPerformed(ActionEvent e) {
 			if (e.getSource() == PNGButton){
 				
-				 {
+				 
 				BufferedImage image = new BufferedImage(ddc.getCon().getWidth(), ddc.getCon().getHeight(), BufferedImage.TYPE_INT_RGB);
 					
 				ddc.getCon().paint(image.getGraphics());
-				File file = new File("diagclase.png");
+				JFileChooser c = new JFileChooser();
+		
+				int rVal = c.showSaveDialog(null);
+				String name = c.getSelectedFile().getAbsolutePath() + ".png";
+	           
+	            File f = new File(name);
+	            
+			    if (rVal == JFileChooser.APPROVE_OPTION) {
+
+			
 				try {
-					ImageIO.write(image, "png", file);
-				} catch (IOException e1) {
-				
+					ImageIO.write(image, "png",  f);
+				} 
+				catch (IOException e1) {
 					e1.printStackTrace();
 				}
-				 }
-				 
+				
+			    } //end if rVal
 			} 
-			}
+		  }
 		};
 		
 		PNGButton.addActionListener(PNGButtonListener);
@@ -234,9 +245,18 @@ public class VentanasUnidas extends JFrame {
 
 	            // create DOMSource for source XML document
 		        Source xmlSource = new DOMSource(convertStringToDocument(iet.editorPane.getText()));
+		        
+		        JFileChooser c = new JFileChooser();
+				
+				int rVal = c.showSaveDialog(null);
+				String name = c.getSelectedFile().getAbsolutePath() + ".xml";
+	           
+	            File f = new File(name);
+	            
+	            if (rVal == JFileChooser.APPROVE_OPTION) {
 
 		        // create StreamResult for transformation result
-		        Result result = new StreamResult(new FileOutputStream("DiagramClass.xml"));
+		        Result result = new StreamResult(new FileOutputStream(f));
 
 		        // create TransformerFactory
 		        TransformerFactory transformerFactory = TransformerFactory.newInstance();
@@ -248,20 +268,21 @@ public class VentanasUnidas extends JFrame {
 		        // transform and deliver content to client
 		        transformer.transform(xmlSource, result);
 		        
-		        JOptionPane.showMessageDialog(null,"Se ha creado exitosamente el XML con el nombre DiagramClass.xml");
 		      }
-
+		  }
 		      // handle exception creating TransformerFactory
 		      catch (TransformerFactoryConfigurationError factoryError) {
 		        System.err.println("Error creating " + "TransformerFactory");
 		        factoryError.printStackTrace();
-		      }catch (TransformerException transformerError) {
+		      } // end catch 1
+		  	   catch (TransformerException transformerError) {
 		        System.err.println("Error transforming document");
 		        transformerError.printStackTrace();
-		      }    catch (IOException ioException) {
+		      } //end catch 2    
+		  	   catch (IOException ioException) {
 		        ioException.printStackTrace();
-		      }
-		 
-	 }
+		      } // end catch 3
+		  
+	 }// end class
 	 
 }

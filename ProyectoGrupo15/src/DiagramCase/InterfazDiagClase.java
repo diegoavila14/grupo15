@@ -1,14 +1,19 @@
 package DiagramCase;
 
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Scanner;
 
 import javax.imageio.ImageIO;
 import javax.swing.JButton;
 import javax.swing.JLabel;
+import javax.swing.JMenuItem;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextArea;
 
@@ -27,12 +32,11 @@ import javax.swing.DebugGraphics;
 
 	public class InterfazDiagClase extends JScrollPane {
 	
-	
 	ClassDiagram cd;
-
 
 	List<Cuadro> Bloques;
 	List<Union> Uniones;
+	List<Integer> CantConexiones;
 	Cuadro cu;
 	Contenedor con;
 	int lineArrow;
@@ -53,6 +57,7 @@ import javax.swing.DebugGraphics;
 		setHorizontalScrollBarPolicy(HORIZONTAL_SCROLLBAR_ALWAYS);
 		Bloques = new ArrayList<Cuadro>();
 		Uniones = new ArrayList<Union>();
+		CantConexiones = new ArrayList<Integer>();
 	
 		placeClasses();
 		
@@ -68,7 +73,7 @@ import javax.swing.DebugGraphics;
 		
 	}
 	
-		private void placeClasses(){
+	private void placeClasses(){
 						
 		java.util.List<Clase> list = cd.getClasses();
 		
@@ -131,17 +136,39 @@ import javax.swing.DebugGraphics;
 					}
 			}
 			
+						
+			ActionListener MenuListener = new ActionListener() {
+				 public void actionPerformed(ActionEvent e) 
+					{
+					 if (e.getActionCommand().equals("Crear Nota"))
+					    {
+						   Note n = new Note();
+						   String nota =  "";
+						    Scanner entradaEscaner = new Scanner (System.in); //Creación de un objeto Scanner
+					        nota = entradaEscaner.nextLine (); //Invocamos un método sobre un objeto Scanner
+						   
+						 //  n.getTextoNota().setText(nota);
+						   
+						   add(n);
+						   
+					    }
+					}
+				};
+				
+			cu.mntmCrearNota.addActionListener(MenuListener);
+			
+			
 			Bloques.add(cu);
-		   // jp.add(cu);
+			CantConexiones.add(0);
 		}
 		}
-		
 	
 	private void placeConnections()
 	{
 		Bloques.get(0).setBounds(10, 100, 200, 150);
 		Bloques.get(1).setBounds(300, 10, 200, 150);
-		
+		int s = 0;
+		int d = 0;
 		Cuadro c1 = null;
 		Cuadro c2 = null;
 		//Itero para recoger todas las conexiones
@@ -153,12 +180,16 @@ import javax.swing.DebugGraphics;
 			for(int j = 0; j<Bloques.size(); j++){  // primer cuadro
 				if(Bloques.get(j).getID().equals(c.getidFrom())){
 					c1 = Bloques.get(j);
+					s = CantConexiones.get(j);
+					CantConexiones.set(j, s+20);
 					break;
 				}
 			}
 			for(int j = 0; j<Bloques.size(); j++){  // segundo cuadro
 				if(Bloques.get(j).getID().equals(c.getidTo())){
 					c2 = Bloques.get(j);
+					d = CantConexiones.get(j);
+					CantConexiones.set(j, d+20);
 					break;
 				}
 			}
@@ -179,19 +210,21 @@ import javax.swing.DebugGraphics;
 				case "inheritance":
 					lineArrow = Flecha.LINE_ARROW_INHERITANCE;
 					break;
-			}
+			} // end switch
 			
-			Uniones.add(new Union(c1, c2, lineArrow));
+			Uniones.add(new Union(c1, c2, lineArrow,s,d));
 			
 			
-		}
+		} // end for i
 		
 		
 		
 	}
+	
 	public Contenedor getCon() {
 		return con;
 	}
+	
 	public void setCon(Contenedor con) {
 		this.con = con;
 	}

@@ -18,12 +18,14 @@ public class Union extends JPanel {
 	Cuadro destino;
 	Flecha line ;
 	protected int lineArrow;
-
+	int posiciond;
+	int posicions; // para correr la flecha
 	
 	// Se creo algo similar a lo que se encuentra en esta pagina http://java-sl.com/connector.html, para evitar problemas de plagio
-	public Union(Cuadro c1, Cuadro c2, int lineArrow)
+	public Union(Cuadro c1, Cuadro c2, int lineArrow, int ps, int pd)
 	{
-		
+		posiciond = pd;
+		posicions = ps;
 		this.lineArrow = lineArrow;
 		inicio = c1;
 		destino =c2;
@@ -34,7 +36,7 @@ public class Union extends JPanel {
 		 Rectangle rSource = inicio.getBounds();
 	     Rectangle rDest = destino.getBounds();
 	     if (rSource.intersects(rDest)) {
-	    		System.out.print("hola");
+	    	
 	           line = null;
 	            return;
 	        }
@@ -47,8 +49,8 @@ public class Union extends JPanel {
 	        if (xIntersect) {
 	            int y1;
 	            int y2;
-	            int x1 = rSource.x + rSource.width / 2;
-	            int x2 = rDest.x + rDest.width / 2;
+	            int x1 = rSource.x + posicions;
+	            int x2 = rDest.x + posiciond;
 	            if (rSource.y + rSource.height <= rDest.y) {
 	                //source higher
 	                y1 = rSource.y + rSource.height;
@@ -62,9 +64,9 @@ public class Union extends JPanel {
 	           
 	        }
 	        else if (yIntersect) {
-	            int y1 = rSource.y + rSource.height / 2;
+	            int y1 = rSource.y + posicions;
 	            ;
-	            int y2 = rDest.y + rDest.height / 2;
+	            int y2 = rDest.y + posiciond;
 	            ;
 	            int x1;
 	            int x2;
@@ -86,7 +88,7 @@ public class Union extends JPanel {
 	            int x2;
 	            if (rSource.y + rSource.height <= rDest.y) {
 	                //source higher
-	                y1 = rSource.y + rSource.height / 2;
+	                y1 = rSource.y + posicions; //ver
 	                y2 = rDest.y;
 	                if (rSource.x + rSource.width <= rDest.x) {
 	                    x1 = rSource.x + rSource.width;
@@ -94,10 +96,10 @@ public class Union extends JPanel {
 	                else {
 	                    x1 = rSource.x;
 	                }
-	                x2 = rDest.x + rDest.width / 2;
+	                x2 = rDest.x + posiciond; // ver
 	            }
 	            else {
-	                y1 = rSource.y + rSource.height / 2;
+	                y1 = rSource.y+ posicions; // ver
 	                y2 = rDest.y + rDest.height;
 	                if (rSource.x + rSource.width <= rDest.x) {
 	                    x1 = rSource.x + rSource.width;
@@ -105,7 +107,7 @@ public class Union extends JPanel {
 	                else {
 	                    x1 = rSource.x;
 	                }
-	                x2 = rDest.x + rDest.width / 2;
+	                x2 = rDest.x+ posiciond; // ver
 	            }
 	            line = new Flecha(new Point(x1, y1), new Point(x2, y2), Flecha.LINE_TYPE_RECT_1BREAK, Flecha.LINE_START_HORIZONTAL, lineArrow);
 	        

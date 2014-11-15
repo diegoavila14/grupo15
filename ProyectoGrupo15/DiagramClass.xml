@@ -25,6 +25,7 @@
 		</methods>
 	</class>
 	<connections>
-		<connection from="c1" to="c2" type="basic"/>
+		<connection from="c1" to="c2" type="composition"/>
+		<connection from="c2" to="c1" type="dependency"/>
 	</connections>
 </ClassDiagram>
