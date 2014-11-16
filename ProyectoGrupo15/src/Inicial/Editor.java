@@ -29,7 +29,7 @@ import EditorDiagramClass.*;
 public class Editor {
 
 	public static final String UTF8_BOM = "\uFEFF";
-	
+	static String ruta = "";
 	public Editor()
 	{	
 	
@@ -50,6 +50,7 @@ public class Editor {
 	
 	public static void Import()
 	{
+		
 		boolean correcto = false;
 		File archivo = null;
 		Scanner teclado = null;
@@ -66,12 +67,13 @@ public class Editor {
 				Import();
 			}	
 			teclado = new Scanner(System.in);
-			JFileChooser fc = new JFileChooser();
+			JFileChooser fc = new JFileChooser(ruta);
 			int respuesta = fc.showOpenDialog(null);
 			if (respuesta == JFileChooser.APPROVE_OPTION) {
 				
 			
 			archivo = fc.getSelectedFile();
+			ruta = archivo.getPath();
 			//File archivo = new File("C:/Users/Diego Avila/Desktop/REPOteMP/prueba.xml");
 			if(getExtension(archivo).equals("xml"))
 			{

@@ -11,16 +11,13 @@ import java.util.Scanner;
 
 import javax.imageio.ImageIO;
 import javax.swing.JButton;
+import javax.swing.JFileChooser;
 import javax.swing.JLabel;
 import javax.swing.JMenuItem;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextArea;
 
-import Conector.ConnectLine;
-import Conector.ConnectorContainer;
-import Conector.ConnectorPropertiesPanel;
-import Conector.JConnector;
 import EditorDiagramClass.Contenedor;
 import EditorDiagramClass.Flecha;
 import EditorDiagramClass.Union;
@@ -144,9 +141,8 @@ import javax.swing.DebugGraphics;
 					    {
 						   Note n = new Note();
 						   String nota =  "";
-						    Scanner entradaEscaner = new Scanner (System.in); //Creación de un objeto Scanner
-					        nota = entradaEscaner.nextLine (); //Invocamos un método sobre un objeto Scanner
-						   
+						   n.setVisible(true);
+						 
 						 //  n.getTextoNota().setText(nota);
 						   
 						   add(n);
