@@ -140,6 +140,7 @@ public class ModoGraficoManager extends JFrame {
 			map.put(uc.id, entity);
 			entidades.add(entity);
 			getContentPane().add(entity);
+			CantConexiones.add(0);
 		}
 	}
 	
