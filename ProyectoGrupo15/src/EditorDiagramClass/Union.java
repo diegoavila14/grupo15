@@ -14,15 +14,15 @@ import DiagramCase.Cuadro;
 
 public class Union extends JPanel {
 
-	Cuadro inicio;
-	Cuadro destino;
+	JComponent inicio;
+	JComponent destino;
 	Flecha line ;
 	protected int lineArrow;
 	int posiciond;
 	int posicions; // para correr la flecha
 	
 	// Se creo algo similar a lo que se encuentra en esta pagina http://java-sl.com/connector.html, para evitar problemas de plagio
-	public Union(Cuadro c1, Cuadro c2, int lineArrow, int ps, int pd)
+	public Union(JComponent c1, JComponent c2, int lineArrow, int ps, int pd)
 	{
 		posiciond = pd;
 		posicions = ps;

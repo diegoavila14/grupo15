@@ -5,13 +5,17 @@ import java.util.List;
 
 import javax.swing.JPanel;
 
+import DiagramCase.InterfazDiagClase;
+
 
 public class Contenedor extends JPanel{
+	
 	 List<Union> connectors;
-	   
+
 
 	    public Contenedor(List<Union> connectors) {
-	        this.connectors = connectors;
+
+	    	this.connectors = connectors;
 	    }
 
 	    public void setConnectors(List<Union> connectors) {
@@ -31,5 +35,7 @@ public class Contenedor extends JPanel{
 	                }
 	            }
 	        }
+	        
+	
 	    }
 }

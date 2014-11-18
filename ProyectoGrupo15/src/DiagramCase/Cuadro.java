@@ -40,10 +40,9 @@ import java.awt.event.MouseListener;
 import java.awt.event.MouseMotionListener;
 
 import javax.swing.JMenuItem;
+
 import java.awt.Cursor;
-
-
-
+import java.awt.Dimension;
 
 public class Cuadro extends JPanel {
 	
@@ -51,14 +50,15 @@ public class Cuadro extends JPanel {
 	JLabel Nombre;
 	JSeparator SeparadorAtributos;
 	JSeparator SeparadorMetodos;
-	JTextArea Atributos;
-	JTextArea Metodos;
+	JLabel Atributos;
+	JLabel Metodos;
 	public JPopupMenu popupMenu;
 	public JMenuItem mntmCrearNota;
-	
+	InterfazDiagClase idc;
 	Point pressPoint;
     Point releasePoint;
 	DragProcessor dragProcessor = new DragProcessor();
+	String pos;
 	
 	public JMenuItem getMntmCrearNota() {
 		return mntmCrearNota;
@@ -68,16 +68,17 @@ public class Cuadro extends JPanel {
 		this.mntmCrearNota = mntmCrearNota;
 	}
 
-	public Cuadro() {
-		
+	public Cuadro(InterfazDiagClase ii) {
+		pos= "";
 		setForeground(Color.LIGHT_GRAY);
 		setBorder(new LineBorder(new Color(0, 0, 0), 3));
 		setBackground(Color.LIGHT_GRAY);
-		
+		idc= ii;
 		popupMenu = new JPopupMenu();
 		addPopup(this, popupMenu);
 		
 		mntmCrearNota = new JMenuItem("Crear Nota");
+	
 				
 		popupMenu.add(mntmCrearNota);
 		
@@ -95,13 +96,10 @@ public class Cuadro extends JPanel {
 		
 		add(SeparadorAtributos, "cell 0 1,grow");
 		
-		Atributos = new JTextArea();
+		Atributos = new JLabel();
 		Atributos.setFocusable(false);
 		Atributos.setCursor(Cursor.getPredefinedCursor(Cursor.DEFAULT_CURSOR));
 		Atributos.setVerifyInputWhenFocusTarget(false);
-		Atributos.setEditable(false);
-
-	
 		Atributos.setBackground(Color.LIGHT_GRAY);
 		Atributos.setBorder(new LineBorder(new Color(0, 0, 0), 1));
 		add(Atributos, "cell 0 2,grow");
@@ -112,16 +110,24 @@ public class Cuadro extends JPanel {
 		SeparadorMetodos.setBackground(Color.BLACK);
 		add(SeparadorMetodos, "cell 0 3,grow");
 		
-		Metodos = new JTextArea();
+		Metodos = new JLabel();
 		Metodos.setFocusable(false);
 		Metodos.setCursor(Cursor.getPredefinedCursor(Cursor.DEFAULT_CURSOR));
-		Metodos.setEditable(false);
 		Metodos.setBackground(Color.LIGHT_GRAY);
 		Metodos.setBorder(new LineBorder(new Color(0, 0, 0), 1));
 		add(Metodos, "cell 0 4,grow");
 
 		addMouseListener(dragProcessor);
         addMouseMotionListener(dragProcessor);
+       
+	}
+
+	public String getPos() {
+		return pos;
+	}
+
+	public void setPos(String pos) {
+		this.pos = pos;
 	}
 
 	public String getID() {
@@ -196,22 +202,22 @@ public class Cuadro extends JPanel {
 	            SwingUtilities.convertPointToScreen(p, e.getComponent().getParent());
 	            p.x -= xDiff;
 	            p.y -= yDiff;
-
+	            
+	    		
 	            SwingUtilities.convertPointFromScreen(p, Cuadro.this.getParent());
 	            if (p.x <= 0) {
 	                p.x = 1;
 	            }
-	            if (p.x > Cuadro.this.getParent().getWidth() - b.width) {
-	                p.x = Cuadro.this.getParent().getWidth() - b.width;
-	            }
+	          
 	            if (p.y <= 0) {
 	                p.y = 1;
 	            }
-	            if (p.y > Cuadro.this.getParent().getHeight() - b.height) {
-	                p.y = Cuadro.this.getParent().getHeight() - b.height;
-	            }
+	        
+	           
 	            setLocation(p);
-	            getParent().repaint();
+	            pos = "pos " + Cuadro.this.getLocation().x + " " + Cuadro.this.getLocation().y+"";
+	            getParent().repaint(); // paint del contenedor
+	   
 	        }
 	    }
 

@@ -24,8 +24,49 @@
 			</method>
 		</methods>
 	</class>
+	<class id="c3" name="BlogAccount3">
+		<attributes>
+			<att name="name3" type="String" visibility="­"/>
+			<att name="publicURL3" type="URL" visibility="+"/>
+			<att name="authors3" type="Author[1..5]" visibility="­"/>
+		</attributes>
+		<methods>
+			<method name="addEntry3" type="void" visibility="+">
+				<param name="newEntry3" type="BlogEntry"/>
+				<param name="newEntry4" type="BlogEntry"/>
+			</method>
+			<method name="addEntry4" type="void" visibility="+">
+				<param name="newEntry5" type="BlogEntry"/>
+				<param name="newEntry6" type="BlogEntry"/>
+			</method>
+		</methods>
+	</class>
+	<class id="c4" name="BlogAccount2">
+		<attributes>
+			<att name="name2" type="String" visibility="­"/>
+			<att name="publicURL2" type="URL" visibility="+"/>
+			<att name="authors2" type="Author[1..5]" visibility="­"/>
+		</attributes>
+		<methods>
+			<method name="addEntry2" type="void" visibility="+">
+				<param name="newEntry2" type="BlogEntry"/>
+			</method>
+		</methods>
+	</class>
+	<class id="c5" name="BlogAccount2">
+		<attributes>
+			<att name="name2" type="String" visibility="­"/>
+			<att name="publicURL2" type="URL" visibility="+"/>
+			<att name="authors2" type="Author[1..5]" visibility="­"/>
+		</attributes>
+		<methods>
+			<method name="addEntry2" type="void" visibility="+">
+				<param name="newEntry2" type="BlogEntry"/>
+			</method>
+		</methods>
+	</class>	
 	<connections>
 		<connection from="c1" to="c2" type="composition"/>
-		<connection from="c2" to="c1" type="dependency"/>
+		<connection from="c3" to="c2" type="dependency"/>
 	</connections>
 </ClassDiagram>

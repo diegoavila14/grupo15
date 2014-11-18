@@ -2,6 +2,7 @@ package EditorDiagramClass;
 
 import java.awt.BorderLayout;
 import java.awt.EventQueue;
+import java.awt.Frame;
 
 import javax.imageio.ImageIO;
 import javax.swing.JButton;
@@ -43,6 +44,8 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.awt.event.WindowEvent;
+import java.awt.event.WindowStateListener;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.FileOutputStream;
@@ -129,6 +132,39 @@ public class VentanasUnidas extends JFrame {
 		PNGButton.setVisible(false);
 		contentPane.add(PNGButton,"cell 2 1,alignx center");
 		placeMenu();
+
+	    addWindowStateListener(new WindowStateListener() {  //evento para drag and drop al minimizar la ventana
+			   public void windowStateChanged(WindowEvent e) { 
+				   if ((e.getNewState() & Frame.ICONIFIED) == Frame.ICONIFIED){
+					   
+					   
+				   for(int i = 0 ; i< ddc.getBloques().size(); i++){
+					   if(ddc.getBloques().get(i).getPos().equals("")){
+				    		
+				    	}
+				    	else{
+						ddc.getCon().remove(ddc.getBloques().get(i));
+						ddc.getCon().add(ddc.getBloques().get(i), ddc.getBloques().get(i).getPos());
+				    	}
+						
+					} // end for
+				   
+				   for(int i = 0 ; i< ddc.getNotas().size(); i++){
+						
+				    	if(ddc.getNotas().get(i).getPos().equals("")){
+				    		
+				    	}
+				    	else{
+						ddc.getCon().remove(ddc.getNotas().get(i));
+						ddc.getCon().add(ddc.getNotas().get(i), ddc.getNotas().get(i).getPos());
+				    	}
+						
+					}// end for
+				   
+				   } // end if
+			   }
+			});
+		
 		setVisible(true);
 	}
 	
@@ -167,7 +203,7 @@ public class VentanasUnidas extends JFrame {
 					
 				contentPane.add(ddc, "cell 2 0,grow");
 				
-				
+			    
 			} 
 			
 			catch (Exception e) 
