@@ -54,10 +54,8 @@ public class ModoGraficoManager extends JFrame
 	final JButton btnPng;
 	final JButton btnVolver;
 	Diagram d;
-	List<Union> Uniones;
 	List<Integer> CantConexiones;
 	int lineArrow;
-	Contenedor con;
 	List<Entity> entidades;
 	
 	Map<String, JLabel> map; //diccionario para linkear id con entidad
@@ -281,13 +279,5 @@ public class ModoGraficoManager extends JFrame
         }
 		btnPng.setVisible(true);
         btnVolver.setVisible(true);
-	}
-	
-	public Contenedor getCon() {
-		return con;
-	}
-	
-	public void setCon(Contenedor con) {
-		this.con = con;
 	}
 }
