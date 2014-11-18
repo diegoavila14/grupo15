@@ -1,4 +1,3 @@
-Eliminar entidades
 Hacer monito para los actores
 Etiquetas de las flechas
 Ayuda para entender el Editor Modo Texto.
