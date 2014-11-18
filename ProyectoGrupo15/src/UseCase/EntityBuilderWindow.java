@@ -27,7 +27,6 @@ import javax.swing.JTextField;
 public class EntityBuilderWindow extends JFrame {
 
 	private JPanel contentPane;
-	private JTextField textFieldID;
 	private JTextField textFieldName;
 	public int id;
 	
@@ -36,29 +35,20 @@ public class EntityBuilderWindow extends JFrame {
 	public EntityBuilderWindow(List<String> list) 
 	{
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 360, 231);
+		setBounds(100, 100, 360, 156);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
 		
-		ids = list; //Setear lista de id
-		
-		JLabel lblId = new JLabel("ID:");
-		lblId.setBounds(21, 46, 30, 14);
-		contentPane.add(lblId);
-		
-		textFieldID = new JTextField();
-		textFieldID.setBounds(94, 43, 226, 20);
-		contentPane.add(textFieldID);
-		textFieldID.setColumns(10);
+		ids = list;
 		
 		JLabel lblNombre = new JLabel("Nombre");
-		lblNombre.setBounds(21, 85, 46, 14);
+		lblNombre.setBounds(21, 35, 46, 14);
 		contentPane.add(lblNombre);
 		
 		textFieldName = new JTextField();
-		textFieldName.setBounds(94, 82, 226, 20);
+		textFieldName.setBounds(94, 32, 226, 20);
 		contentPane.add(textFieldName);
 		textFieldName.setColumns(10);
 		
@@ -67,32 +57,29 @@ public class EntityBuilderWindow extends JFrame {
 			
 			public void actionPerformed(ActionEvent e) 
 			{
-				String idAux = textFieldID.getText();
-				if (checkID(idAux))
+//				String idAux = textFieldID.getText();
+				if (id == 0)
 				{
-					if (id == 0)
-					{
-						Manager.ClickEvent.fireEvent(0,textFieldID.getText(),textFieldName.getText());
-					}
-					else if (id == 1)
-					{
-						Manager.ClickEvent.fireEvent(1,textFieldID.getText(),textFieldName.getText());
-					}
-					else 
-					{
-						Manager.ClickEvent.fireEvent(2,textFieldID.getText(),textFieldName.getText());
-					}
-					dispose();
+					Manager.ClickEvent.fireEvent(0,textFieldName.getText());
 				}
-				else
+				else if (id == 1)
 				{
-					String mensajeError = "ID ya utilizado" + "\nInténtelo denuevo con otro ID";
-					JOptionPane.showMessageDialog(null,mensajeError,"Parsing Error",JOptionPane.ERROR_MESSAGE);
-					//e.printStackTrace();
+					Manager.ClickEvent.fireEvent(1,textFieldName.getText());
 				}
+				else 
+				{
+					Manager.ClickEvent.fireEvent(2,textFieldName.getText());
+				}
+				dispose();
+//				else
+//				{
+//					String mensajeError = "ID ya utilizado" + "\nInténtelo denuevo con otro ID";
+//					JOptionPane.showMessageDialog(null,mensajeError,"Parsing Error",JOptionPane.ERROR_MESSAGE);
+//					//e.printStackTrace();
+//				}
 			}
 		});
-		btnNewButton.setBounds(231, 153, 89, 23);
+		btnNewButton.setBounds(231, 83, 89, 23);
 		contentPane.add(btnNewButton);
 		
 		JButton btnCancelar = new JButton("Cancelar");
@@ -102,7 +89,7 @@ public class EntityBuilderWindow extends JFrame {
 				dispose();
 			}
 		});
-		btnCancelar.setBounds(54, 153, 95, 23);
+		btnCancelar.setBounds(54, 83, 95, 23);
 		contentPane.add(btnCancelar);
 	}
 	

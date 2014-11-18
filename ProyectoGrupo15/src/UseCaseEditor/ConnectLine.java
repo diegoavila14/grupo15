@@ -110,35 +110,33 @@ public class ConnectLine {
             	g2d.drawLine(p1.x, p1.y, p2.x, p2.y);
                 break;
             case LINE_ARROW_EXTEND:
-            	g2d.drawLine(p1.x, p1.y, p2.x, p2.y);
             	g2d.setStroke( new BasicStroke(1,BasicStroke.CAP_BUTT,BasicStroke.JOIN_MITER,5.0f, dash, 0.0f)); // Linea punteada
+            	g2d.drawLine(p1.x, p1.y, p2.x, p2.y);
                 paintArrow(g2d, p1, p2);
+                g2d.setStroke(s);
                 break;
             case LINE_ARROW_INCLUDE:
-            	g2d.drawLine(p1.x, p1.y, p2.x, p2.y);
             	g2d.setStroke( new BasicStroke(1,BasicStroke.CAP_BUTT,BasicStroke.JOIN_MITER,5.0f, dash, 0.0f)); // Linea punteada
+            	g2d.drawLine(p1.x, p1.y, p2.x, p2.y);
                 paintArrow(g2d, p1, p2);
+                g2d.setStroke(s);
                 break;
             case LINE_ARROW_ISA:
             	if (lineStart == LINE_START_HORIZONTAL)
             	{
-            		g2d.drawLine(p1.x, p1.y, p2.x, p2.y);
-                	g2d.setStroke( new BasicStroke(1,BasicStroke.CAP_ROUND,BasicStroke.JOIN_MITER,5.0f, dash, 0.0f)); // Linea punteada
-//            		g2d.drawLine(p1.x, p1.y, p1.x + (p2.x - p1.x) / 2, p1.y);
-//     	            g2d.drawLine(p1.x + (p2.x - p1.x) / 2, p1.y, p1.x + (p2.x - p1.x) / 2, p2.y);
-//     	            
-//     	            Dif = paintArrowInheritance(g2d, new Point(p1.x + (p2.x - p1.x) / 2, p2.y), p2);  
-//     	            g2d.drawLine(p1.x + (p2.x - p1.x) / 2, p2.y, p2.x-Dif[0], p2.y);
+            		g2d.drawLine(p1.x, p1.y, p1.x + (p2.x - p1.x) / 2, p1.y);
+     	            g2d.drawLine(p1.x + (p2.x - p1.x) / 2, p1.y, p1.x + (p2.x - p1.x) / 2, p2.y);
+     	            
+     	            Dif = paintArrowInheritance(g2d, new Point(p1.x + (p2.x - p1.x) / 2, p2.y), p2);  
+     	            g2d.drawLine(p1.x + (p2.x - p1.x) / 2, p2.y, p2.x-Dif[0], p2.y);
             	}
             	else
             	{
-            		g2d.drawLine(p1.x, p1.y, p2.x, p2.y);
-                	g2d.setStroke( new BasicStroke(1,BasicStroke.CAP_BUTT,BasicStroke.JOIN_MITER,5.0f, dash, 0.0f)); // Linea punteada
-//	            	g2d.drawLine(p1.x, p1.y, p1.x, p1.y + (p2.y - p1.y) / 2);
-//	                g2d.drawLine(p1.x, p1.y + (p2.y - p1.y) / 2, p2.x, p1.y + (p2.y - p1.y) / 2);
-//	             
-//		            Dif = paintArrowInheritance(g2d, new Point(p2.x, p1.y + (p2.y - p1.y) / 2), p2);  
-//		            g2d.drawLine(p2.x, p1.y + (p2.y - p1.y) / 2, p2.x, p2.y-Dif[1]);
+	            	g2d.drawLine(p1.x, p1.y, p1.x, p1.y + (p2.y - p1.y) / 2);
+	                g2d.drawLine(p1.x, p1.y + (p2.y - p1.y) / 2, p2.x, p1.y + (p2.y - p1.y) / 2);
+	             
+		            Dif = paintArrowInheritance(g2d, new Point(p2.x, p1.y + (p2.y - p1.y) / 2), p2);  
+		            g2d.drawLine(p2.x, p1.y + (p2.y - p1.y) / 2, p2.x, p2.y-Dif[1]);
             	}
 	            break;
             	
