@@ -74,10 +74,12 @@ public class ModoGraficoManager extends JFrame
 		map = new HashMap<String, JLabel>();
 		this.d = D;
 		
-		getContentPane().setLayout(new GridBagLayout());
+		GridBagLayout gbl_contentPane = new GridBagLayout();
+		gbl_contentPane.rowHeights = new int[]{27, 0};
+		getContentPane().setLayout(gbl_contentPane);
         init();
         
-        getContentPane().add(new JLabel("Modo Gráfico"),new GridBagConstraints(0, 0, 2, 1, 1, 0, GridBagConstraints.NORTHWEST, GridBagConstraints.HORIZONTAL, new Insets(5, 5, 0, 5), 0, 0));
+        getContentPane().add(new JLabel(D.name),new GridBagConstraints(0, 0, 2, 1, 1, 0, GridBagConstraints.CENTER, GridBagConstraints.HORIZONTAL, new Insets(5, 5, 0, 5), 0, 0));
         getContentPane().add(initConnectors(),new GridBagConstraints(0, 1, 1, 1, 1, 1, GridBagConstraints.NORTHWEST, GridBagConstraints.BOTH, new Insets(5, 5, 5, 5), 0, 0));
         //getContentPane().add(btnVolver, new GridBagConstraints(1, 1, 1, 1, 0, 1, GridBagConstraints.NORTHWEST, GridBagConstraints.VERTICAL, new Insets(5, 0, 5, 5), 0, 0));
         
@@ -108,53 +110,6 @@ public class ModoGraficoManager extends JFrame
         
         setSize(1200, 700);
         setLocationRelativeTo(null);
-        
-        
-/*        
-        //Para el JScrollPane
-//		jsp = new JScrollPane();
-		//jsp.setVerticalScrollBarPolicy(VERTICAL_SCROLLBAR_ALWAYS);
-		//jsp.setHorizontalScrollBarPolicy(HORIZONTAL_SCROLLBAR_ALWAYS);
-		
-		btnPng = new JButton("PNG");
-		btnPng.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) 
-			{
-				GuardadorWindow gw = new GuardadorWindow(false);
-				gw.setVisible(true);
-			}
-		});
-		btnPng.setFont(new Font("Tahoma", Font.BOLD, 14));
-		btnPng.setBounds(1097, 608, 77, 42);
-//		contentPane.add(btnPng);
-		
-		map = new HashMap<String, Entity>();
-				
-		
-		this.d = D;
-		
-/*		entidades = new ArrayList<Entity>();
-		Uniones = new ArrayList<Union>();
-		lineArrow = 10;
-		CantConexiones = new ArrayList<Integer>();
-		
-		setUserCases();
-		setActors();
-		setConnections();
-		
-		con = new Contenedor(Uniones);
-		
-		for(int i = 0 ; i< entidades.size(); i++){
-			con.add(entidades.get(i));
-		}
-		jsp.setViewportView(con);
-		con.setLayout(null);
-		contentPane.remove(jsp);
-		//con.setBounds(0,0,200,200);
-		//contentPane.removeAll();
-		contentPane.add(jsp, "cell 2 0,grow");
-		contentPane.paint(getGraphics());
-*/
 	}
 	
 	protected void init() 
