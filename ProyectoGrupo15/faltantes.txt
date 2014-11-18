@@ -1,0 +1,4 @@
+Hacer monito para los actores
+Etiquetas de las flechas
+Ayuda para entender el Editor Modo Texto.
+Titulo de Modo Grafico (Nombre del sistema)

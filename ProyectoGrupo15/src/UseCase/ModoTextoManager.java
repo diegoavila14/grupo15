@@ -32,6 +32,7 @@ import org.w3c.dom.Text;
 
 import javax.imageio.ImageIO;
 import javax.swing.JButton;
+import javax.swing.JFileChooser;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JMenuItem;
@@ -41,6 +42,7 @@ import pEventsUtil.*;
 
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
+
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 
@@ -51,6 +53,9 @@ public class ModoTextoManager extends JFrame
 	JTextArea jtaSec;
 	JTextArea jtaCon;
 	JTextArea jtaUC;
+	int idA;
+	int idUC;
+	
 	// Se crea el evento
 	//public static pEvent ClickEvent;
 	
@@ -63,6 +68,9 @@ public class ModoTextoManager extends JFrame
 		placeComponents();
 		setVisible(true);
 		this.setResizable(false);
+		
+		idA = 1;
+		idUC = 1;
 	}
 	
 	private void placeComponents() 
@@ -90,7 +98,13 @@ public class ModoTextoManager extends JFrame
 	    	@Override
 	    	public void mouseClicked(MouseEvent e) 
 	    	{
-	    		Manager.ClickEvent.fireEvent(5);
+	    		//Manager.ClickEvent.fireEvent(5);
+	    		try {
+					exportXML();
+				} catch (Exception e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
 	    	}
 	    });
 	    jmiSave.add(jmiPNG);
@@ -119,12 +133,16 @@ public class ModoTextoManager extends JFrame
 			    }
 			    else if (e.getActionCommand().equals("as XML"))
 			    {
-			    	Manager.ClickEvent.fireEvent(5);			    	
+			    	try {
+						exportXML();
+					} catch (Exception e1) {
+						// TODO Auto-generated catch block
+						e1.printStackTrace();
+					}
 			    }
 			    else if (e.getActionCommand().equals("as PNG"))
 			    {
-			    	GuardadorWindow gw = new GuardadorWindow(false);
-			    	gw.setVisible(true);
+			    	exportPNG();
 			    }
 			    else if (e.getActionCommand().equals("Exit"))
 			    {
@@ -166,6 +184,32 @@ public class ModoTextoManager extends JFrame
 		jtaSec.setEditable(false);
 		jtaSec.setBounds(840,80,250,381);
 		
+		placeActors2();
+		
+//		//Itero para recoger todos los actores
+//		java.util.List<Actor> list = d.getActors();
+//		for (int i = 0; i < list.size(); i++)
+//		{
+//			Actor a = list.get(i);
+//			String temp = a.id+" "+a.name+"\n";
+//			if (a.type.equals("primary"))
+//			{
+//				jtaPr.append(temp);				
+//			}
+//			else
+//			{
+//				jtaSec.append(temp);				
+//			}
+//			
+//		}
+		getContentPane().add(jtaPr);
+		getContentPane().add(jtaSec);
+	}
+	
+	public void placeActors2()
+	{
+		jtaPr.setText("");
+		jtaSec.setText("");
 		//Itero para recoger todos los actores
 		java.util.List<Actor> list = d.getActors();
 		for (int i = 0; i < list.size(); i++)
@@ -182,8 +226,6 @@ public class ModoTextoManager extends JFrame
 			}
 			
 		}
-		getContentPane().add(jtaPr);
-		getContentPane().add(jtaSec);
 	}
 	
 	private void placeUserCases()
@@ -197,6 +239,14 @@ public class ModoTextoManager extends JFrame
 		jtaUC.setEditable(false);
 		jtaUC.setBounds(310,80,250,381);
 		
+		placeUserCases2();
+		
+		getContentPane().add(jtaUC);
+	}
+	
+	public void placeUserCases2()
+	{
+		jtaUC.setText("");
 		//Itero para recoger todos los Casos de Uso
 		java.util.List<UserCase> list = d.getUserCases();
 		//int lastAprox = 0; //Para hacer la separación de los bloques de acuerdo a su largo
@@ -206,16 +256,7 @@ public class ModoTextoManager extends JFrame
 			String temp = uc.id+" "+uc.name+"\n";
 			jtaUC.append(temp);
 			
-			//Entity entity = new Entity();
-			//entity.setLabel(uc.name);
-			//Double n = (uc.name.length()*6.54) + 20; // Para ver el tamaño de los bloques
-			//int aprox = n.intValue();
-			//entity.setBounds(lastAprox,600,aprox,70);
-			//lastAprox += aprox + 20;
-			//getContentPane().add(entity);
-			
 		}
-		getContentPane().add(jtaUC);
 	}
 	
 	private void placeConnections()
@@ -229,15 +270,8 @@ public class ModoTextoManager extends JFrame
 		jtaCon.setEditable(false);
 		jtaCon.setBounds(575,80,250,381);	
 		
-		//Itero para recoger todas las conexiones
-		java.util.List<Connection> list = d.getConnections();
-		for (int i = 0; i < list.size(); i++)
-		{
-			Connection c = list.get(i);
-			String temp = "("+c.idFrom+","+c.idTo+") "+c.type+"\n";
-			jtaCon.append(temp);
-			
-		}
+		placeConnections2();
+		
 		getContentPane().add(jtaCon);
 		
 		
@@ -328,6 +362,32 @@ public class ModoTextoManager extends JFrame
 		lblIdName_1.setFont(new Font("Tahoma", Font.BOLD, 12));
 		lblIdName_1.setBounds(840, 66, 216, 14);
 		getContentPane().add(lblIdName_1);
+		
+		JButton btnEliminar = new JButton("Eliminar entidad");
+		btnEliminar.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) 
+			{
+				EliminarEntidadWindow eew = new EliminarEntidadWindow(d.ids);
+				eew.setVisible(true);
+				
+			}
+		});
+		btnEliminar.setBounds(493, 550, 172, 35);
+		getContentPane().add(btnEliminar);
+	}
+	
+	public void placeConnections2()
+	{
+		jtaCon.setText("");
+		//Itero para recoger todas las conexiones
+		java.util.List<Connection> list = d.getConnections();
+		for (int i = 0; i < list.size(); i++)
+		{
+			Connection c = list.get(i);
+			String temp = "("+c.idFrom+","+c.idTo+") "+c.type+"\n";
+			jtaCon.append(temp);
+			
+		}
 	}
 	
 	public void addActor(Actor a, boolean primary)
@@ -355,7 +415,7 @@ public class ModoTextoManager extends JFrame
 		jtaCon.append("("+c.idFrom+","+c.idTo+") "+c.type+"\n");
 	}
 	
-	public void exportXML(String nFile) throws Exception
+	public void exportXML(/*String nFile*/) throws Exception
 	{
 		
 		DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
@@ -438,7 +498,11 @@ public class ModoTextoManager extends JFrame
 	        Source xmlSource = new DOMSource(document);
 
 	        // create StreamResult for transformation result
-	        Result result = new StreamResult(new FileOutputStream(nFile+".xml"));
+	        JFileChooser c = new JFileChooser();
+			int rVal = c.showSaveDialog(null);
+			String name = c.getSelectedFile().getAbsolutePath() + ".xml";
+			
+			Result result = new StreamResult(new FileOutputStream(name));
 
 	        // create TransformerFactory
 	        TransformerFactory transformerFactory = TransformerFactory.newInstance();
@@ -464,11 +528,11 @@ public class ModoTextoManager extends JFrame
 	      }
 	}
 	
-	public void exportPNG(String nFile)
+	public void exportPNG(/*String nFile*/)
 	{
 		ModoGraficoManager mg = new ModoGraficoManager(d);
 		mg.setVisible(true);
 		setVisible(false);
-		mg.getPNG(nFile);
+		mg.getPNG();
 	}
 }
