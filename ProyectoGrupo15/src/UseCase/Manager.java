@@ -68,7 +68,7 @@ public class Manager implements pEventListener
 				String n = (String)params[1];
 				try 
 				{
-					MT.exportXML(n);
+					//MT.exportXML(n);
 				} 
 				catch (Exception e1) 
 				{
@@ -78,7 +78,7 @@ public class Manager implements pEventListener
 			case 7: //Recibir nombre de archivo a guardar en png
 				String nn = (String)params[1];
 				MT.d.name = "nn";
-				MT.exportPNG(nn);
+				MT.exportPNG();
 				break;
 			}
 		}

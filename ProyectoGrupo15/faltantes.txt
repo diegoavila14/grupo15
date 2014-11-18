@@ -1,0 +1,7 @@
+Save as dialog
+Eliminar entidades
+Hacer monito para los actores
+Etiquetas de las flechas
+Corregir flecha ISA
+Ayuda para entender el Editor Modo Texto.
+Titulo de Modo Grafico (Nombre del sistema)

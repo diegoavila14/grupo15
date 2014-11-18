@@ -32,6 +32,7 @@ import org.w3c.dom.Text;
 
 import javax.imageio.ImageIO;
 import javax.swing.JButton;
+import javax.swing.JFileChooser;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JMenuItem;
@@ -41,6 +42,7 @@ import pEventsUtil.*;
 
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
+
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 
@@ -90,7 +92,13 @@ public class ModoTextoManager extends JFrame
 	    	@Override
 	    	public void mouseClicked(MouseEvent e) 
 	    	{
-	    		Manager.ClickEvent.fireEvent(5);
+	    		//Manager.ClickEvent.fireEvent(5);
+	    		try {
+					exportXML();
+				} catch (Exception e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
 	    	}
 	    });
 	    jmiSave.add(jmiPNG);
@@ -119,12 +127,19 @@ public class ModoTextoManager extends JFrame
 			    }
 			    else if (e.getActionCommand().equals("as XML"))
 			    {
-			    	Manager.ClickEvent.fireEvent(5);			    	
+			    	//Manager.ClickEvent.fireEvent(5);
+			    	try {
+						exportXML();
+					} catch (Exception e1) {
+						// TODO Auto-generated catch block
+						e1.printStackTrace();
+					}
 			    }
 			    else if (e.getActionCommand().equals("as PNG"))
 			    {
-			    	GuardadorWindow gw = new GuardadorWindow(false);
-			    	gw.setVisible(true);
+			    	exportPNG();
+//			    	GuardadorWindow gw = new GuardadorWindow(false);
+//			    	gw.setVisible(true);
 			    }
 			    else if (e.getActionCommand().equals("Exit"))
 			    {
@@ -355,7 +370,7 @@ public class ModoTextoManager extends JFrame
 		jtaCon.append("("+c.idFrom+","+c.idTo+") "+c.type+"\n");
 	}
 	
-	public void exportXML(String nFile) throws Exception
+	public void exportXML(/*String nFile*/) throws Exception
 	{
 		
 		DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
@@ -438,7 +453,11 @@ public class ModoTextoManager extends JFrame
 	        Source xmlSource = new DOMSource(document);
 
 	        // create StreamResult for transformation result
-	        Result result = new StreamResult(new FileOutputStream(nFile+".xml"));
+	        JFileChooser c = new JFileChooser();
+			int rVal = c.showSaveDialog(null);
+			String name = c.getSelectedFile().getAbsolutePath() + ".xml";
+			
+			Result result = new StreamResult(new FileOutputStream(name));
 
 	        // create TransformerFactory
 	        TransformerFactory transformerFactory = TransformerFactory.newInstance();
@@ -464,11 +483,11 @@ public class ModoTextoManager extends JFrame
 	      }
 	}
 	
-	public void exportPNG(String nFile)
+	public void exportPNG(/*String nFile*/)
 	{
 		ModoGraficoManager mg = new ModoGraficoManager(d);
 		mg.setVisible(true);
 		setVisible(false);
-		mg.getPNG(nFile);
+		mg.getPNG();
 	}
 }
