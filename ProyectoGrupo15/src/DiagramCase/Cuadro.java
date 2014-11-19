@@ -41,6 +41,9 @@ import java.awt.event.MouseMotionListener;
 
 import javax.swing.JMenuItem;
 
+import EditorDiagramClass.Flecha;
+import EditorDiagramClass.Union;
+
 import java.awt.Cursor;
 import java.awt.Dimension;
 
@@ -78,7 +81,31 @@ public class Cuadro extends JPanel {
 		addPopup(this, popupMenu);
 		
 		mntmCrearNota = new JMenuItem("Crear Nota");
-	
+		mntmCrearNota.addActionListener(new ActionListener() { // agregar notas
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				
+					Note n = new Note(idc);
+				    
+				    n.setVisible(true);
+				 
+				    
+				    idc.Notas.add(n);
+				    
+				    idc.getCon().add(n, "pos 100 0");
+					
+				    idc.dragAndDropFix();
+				    for(int j = 0 ; j < idc.getBloques().size(); j++){
+				    	if(idc.getBloques().get(j).getID().equals(ID)){
+				    		 int d = idc.CantConexiones.get(j);
+				    		 idc.Uniones.add(new Union(n, Cuadro.this, Flecha.LINE_ARROW_DEPENDENCY,0,d));
+				    		 idc.CantConexiones.set(j, d+20);
+				    		 break;
+				    	}
+						}
+				    idc.getCon().validate();
+			}
+		});
 				
 		popupMenu.add(mntmCrearNota);
 		

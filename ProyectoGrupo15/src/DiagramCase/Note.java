@@ -21,8 +21,12 @@ import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.awt.event.MouseMotionListener;
+
 import net.miginfocom.swing.MigLayout;
+
 import javax.swing.JTextArea;
+import javax.swing.event.DocumentEvent;
+import javax.swing.event.DocumentListener;
 
 public class Note extends JPanel {
 	
@@ -32,6 +36,7 @@ public class Note extends JPanel {
 	DragProcessor dragProcessor = new DragProcessor();
 	String pos;
 	Cuadro des;
+	InterfazDiagClase idc;
 
 	public Cuadro getDes() {
 		return des;
@@ -51,8 +56,9 @@ public class Note extends JPanel {
 
 	
 
-	public Note() {
-		setPreferredSize(new Dimension(200, 100));
+	public Note(InterfazDiagClase ii) {
+		idc = ii;
+		setPreferredSize(new Dimension(167, 82));
 		pos = "";
 		setBackground(new Color(255, 255, 224));
 		setLayout(new MigLayout("", "[200px]", "[100px]"));
@@ -64,7 +70,23 @@ public class Note extends JPanel {
 		TextoNota.setEditable(true);
 		TextoNota.setBackground(new Color(255, 255, 224));
 		add(TextoNota, "cell 0 0,growx,aligny top");
-		
+		TextoNota.getDocument().addDocumentListener(new DocumentListener() {
+
+	        @Override
+	        public void removeUpdate(DocumentEvent e) {
+	        	updateLog(e);
+	        }
+
+	        @Override
+	        public void insertUpdate(DocumentEvent e) {
+	        	updateLog(e);
+	        }
+
+	        @Override
+	        public void changedUpdate(DocumentEvent e) {
+	        	
+	        }
+	    });
 		TextoNota.addMouseListener(dragProcessor);
 		TextoNota.addMouseMotionListener(dragProcessor);
 	}
@@ -134,5 +156,8 @@ public class Note extends JPanel {
         }
     }
 
+	private void updateLog(DocumentEvent e){
+	//	idc.dragAndDropFix();
+	}
 
 }

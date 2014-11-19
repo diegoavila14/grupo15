@@ -136,33 +136,7 @@ public class VentanasUnidas extends JFrame {
 
 	    addWindowStateListener(new WindowStateListener() {  //evento para drag and drop al minimizar la ventana
 			   public void windowStateChanged(WindowEvent e) { 
-				   if ((e.getNewState() & Frame.ICONIFIED) == Frame.ICONIFIED){
-					   
-					   
-				   for(int i = 0 ; i< ddc.getBloques().size(); i++){
-					   if(ddc.getBloques().get(i).getPos().equals("")){
-				    		
-				    	}
-				    	else{
-						ddc.getCon().remove(ddc.getBloques().get(i));
-						ddc.getCon().add(ddc.getBloques().get(i), ddc.getBloques().get(i).getPos());
-				    	}
-						
-					} // end for
-				   
-				   for(int i = 0 ; i< ddc.getNotas().size(); i++){
-						
-				    	if(ddc.getNotas().get(i).getPos().equals("")){
-				    		
-				    	}
-				    	else{
-						ddc.getCon().remove(ddc.getNotas().get(i));
-						ddc.getCon().add(ddc.getNotas().get(i), ddc.getNotas().get(i).getPos());
-				    	}
-						
-					}// end for
-				   
-				   } // end if
+				   ddc.dragAndDropFix();
 			   }
 			});
 		

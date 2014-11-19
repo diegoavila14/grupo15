@@ -87,57 +87,14 @@ import java.awt.event.HierarchyEvent;
 		getHorizontalScrollBar().addAdjustmentListener(new AdjustmentListener(){  // evento que soluciona error con drag and drop al mover la barra
 			 public void adjustmentValueChanged(AdjustmentEvent ae) {
 
-				   for(int i = 0 ; i< Bloques.size(); i++){
-						
-				    	if(Bloques.get(i).getPos().equals("")){
-				    		
-				    	}
-				    	else{
-						con.remove(Bloques.get(i));
-						con.add(Bloques.get(i), Bloques.get(i).getPos());
-				    	}
-						
-					}	
-				   for(int i = 0 ; i< Notas.size(); i++){
-						
-				    	if(Notas.get(i).getPos().equals("")){
-				    		
-				    	}
-				    	else{
-						con.remove(Notas.get(i));
-						con.add(Notas.get(i), Notas.get(i).getPos());
-				    	}
-						
-					}
-
+				  dragAndDropFix();
 			 }
 			
 		});
 		getVerticalScrollBar().addAdjustmentListener(new AdjustmentListener(){  // evento que soluciona error con drag and drop al mover la barra
 			 public void adjustmentValueChanged(AdjustmentEvent ae) {
 
-				   for(int i = 0 ; i< Bloques.size(); i++){
-						
-				    	if(Bloques.get(i).getPos().equals("")){
-				    		
-				    	}
-				    	else{
-						con.remove(Bloques.get(i));
-						con.add(Bloques.get(i), Bloques.get(i).getPos());
-				    	}
-						
-					}
-				   for(int i = 0 ; i< Notas.size(); i++){
-						
-				    	if(Notas.get(i).getPos().equals("")){
-				    		
-				    	}
-				    	else{
-						con.remove(Notas.get(i));
-						con.add(Notas.get(i), Notas.get(i).getPos());
-				    	}
-						
-					}
+				  dragAndDropFix();
 
 			 }
 			
@@ -157,28 +114,7 @@ import java.awt.event.HierarchyEvent;
 			@Override
 			public void ancestorResized(HierarchyEvent e) {
 				
-				   for(int i = 0 ; i< Bloques.size(); i++){
-						
-				    	if(Bloques.get(i).getPos().equals("")){
-				    		
-				    	}
-				    	else{
-						con.remove(Bloques.get(i));
-						con.add(Bloques.get(i), Bloques.get(i).getPos());
-				    	}
-						
-					}
-				    for(int i = 0 ; i< Notas.size(); i++){
-						
-				    	if(Notas.get(i).getPos().equals("")){
-				    		
-				    	}
-				    	else{
-						con.remove(Notas.get(i));
-						con.add(Notas.get(i), Notas.get(i).getPos());
-				    	}
-						
-					}
+				   dragAndDropFix();
 
 			}
 		});
@@ -268,44 +204,7 @@ import java.awt.event.HierarchyEvent;
 			}
 			
 						
-			cu.mntmCrearNota.addActionListener(new ActionListener() { // agregar notas
-				@Override
-				public void actionPerformed(ActionEvent e) {
-					
-						Note n = new Note();
-					    
-					    n.setVisible(true);
-					 
-					    n.setDes(cu);
-					    Notas.add(n);
-					    placeNote(n);
-					    con.add(n, "pos 100 0");
-						
-					    for(int i = 0 ; i< Bloques.size(); i++){
-							
-					    	if(Bloques.get(i).getPos().equals("")){
-					    		
-					    	}
-					    	else{
-							con.remove(Bloques.get(i));
-							con.add(Bloques.get(i), Bloques.get(i).getPos());
-					    	}
-							
-						}
-					    for(int i = 0 ; i< Notas.size(); i++){
-							
-					    	if(Notas.get(i).getPos().equals("")){
-					    		
-					    	}
-					    	else{
-							con.remove(Notas.get(i));
-							con.add(Notas.get(i), Notas.get(i).getPos());
-					    	}
-							
-						}
-					    con.validate();
-				}
-			});
+			
 				
 		
 			
@@ -372,16 +271,30 @@ import java.awt.event.HierarchyEvent;
 		
 	}
 	
-	private void placeNote(Note n){
+	public void dragAndDropFix(){
 		
-			for(int j = 0 ; j < Bloques.size(); j++){
-	    	if(Bloques.get(j).getID().equals(n.getDes().getID())){
-	    		 int d = CantConexiones.get(j);
-	    		 Uniones.add(new Union(n, n.getDes(), Flecha.LINE_ARROW_DEPENDENCY,0,d));
-	    		 CantConexiones.set(j, d+20);
-	    		 break;
-	    	}
+		 for(int i = 0 ; i< Bloques.size(); i++){
+				
+		    	if(Bloques.get(i).getPos().equals("")){
+		    		
+		    	}
+		    	else{
+				con.remove(Bloques.get(i));
+				con.add(Bloques.get(i), Bloques.get(i).getPos());
+		    	}
+				
 			}
+		    for(int i = 0 ; i< Notas.size(); i++){
+				
+		    	if(Notas.get(i).getPos().equals("")){
+		    		
+		    	}
+		    	else{
+				con.remove(Notas.get(i));
+				con.add(Notas.get(i), Notas.get(i).getPos());
+		    	}
+				
+			}	
 	}
 	
 	public Contenedor getCon() {
