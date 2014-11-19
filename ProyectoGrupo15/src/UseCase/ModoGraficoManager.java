@@ -36,6 +36,8 @@ import java.io.File;
 import java.io.IOException;
 
 import javax.swing.DebugGraphics;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 
 
 
@@ -77,7 +79,7 @@ public class ModoGraficoManager extends JFrame
 		getContentPane().setLayout(gbl_contentPane);
         init();
         
-        getContentPane().add(new JLabel(D.name),new GridBagConstraints(0, 0, 2, 1, 1, 0, GridBagConstraints.CENTER, GridBagConstraints.HORIZONTAL, new Insets(5, 5, 0, 5), 0, 0));
+        getContentPane().add(new JLabel(D.name),new GridBagConstraints(1, 0, 2, 1, 1, 0, GridBagConstraints.CENTER, GridBagConstraints.HORIZONTAL, new Insets(5, 5, 0, 5), 0, 0));
         getContentPane().add(initConnectors(),new GridBagConstraints(0, 1, 1, 1, 1, 1, GridBagConstraints.NORTHWEST, GridBagConstraints.BOTH, new Insets(5, 5, 5, 5), 0, 0));
         //getContentPane().add(btnVolver, new GridBagConstraints(1, 1, 1, 1, 0, 1, GridBagConstraints.NORTHWEST, GridBagConstraints.VERTICAL, new Insets(5, 0, 5, 5), 0, 0));
         
@@ -125,6 +127,16 @@ public class ModoGraficoManager extends JFrame
 		 		 	 
 	    JConnector[] connectors = new JConnector[50];
 	    ConnectorContainer cc = new ConnectorContainer(connectors);
+	    cc.addMouseListener(new MouseAdapter() {
+	    	@Override
+	    	public void mouseClicked(MouseEvent e) 
+	    	{
+	    		if(SwingUtilities.isRightMouseButton(e))
+	    		{
+	    			
+	    		}
+	    	}
+	    });
         cc.setLayout(null);
         
         //Situando los UserCases

@@ -76,6 +76,8 @@ public class DraggableLabel extends JLabel {
             if (p.y > DraggableLabel.this.getParent().getHeight() - b.height) {
                 p.y = DraggableLabel.this.getParent().getHeight() - b.height;
             }
+            
+            
             setLocation(p);
             getParent().repaint();
         }
