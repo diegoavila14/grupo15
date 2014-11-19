@@ -11,6 +11,7 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 import javax.swing.JButton;
+import DiagramCase.Note;
 
 import java.awt.Font;
 import java.awt.event.ActionListener;
@@ -229,6 +230,7 @@ public class ModoGraficoManager extends JFrame
 			connectors[i] = new JConnector(c1, c2, lineArrow, JConnector.CONNECT_LINE_TYPE_SIMPLE, Color.red);
 		}
         cc.setBorder(new EtchedBorder(EtchedBorder.LOWERED));
+
         return cc;
     }
 	 

@@ -5,7 +5,8 @@ import java.awt.event.*;
 import javax.swing.*;
 import javax.swing.border.*;
 
-public class DraggableLabel extends JLabel {
+public class DraggableLabel extends JLabel 
+{
     Point pressPoint;
     Point releasePoint;
     DragProcessor dragProcessor = new DragProcessor();
